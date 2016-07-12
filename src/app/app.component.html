@@ -8,14 +8,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">NU Code</a>
+      <a class="navbar-brand" [routerLink]="['/']">NU Code</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Problems</a></li>
-        <li><a href="#">Compete</a></li>
+        <li><a [routerLink]="['/problems']">Problems</a></li>
+        <li><a [routerLink]="['/competitions']">Competitions</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -39,6 +39,4 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<h1>
-  {{title}}
-</h1>
+<router-outlet></router-outlet>
