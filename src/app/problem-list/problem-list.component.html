@@ -1,3 +1,5 @@
-<p>
-  problem-list works!
-</p>
+<ul *ngFor="let problem of problems | async">
+  <li class="text">
+    {{problem.name}}
+  </li>
+</ul>
