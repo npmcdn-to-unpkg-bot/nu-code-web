@@ -1,0 +1,15 @@
+.problem-preview {
+  display: flex;
+}
+
+.problem-name {
+  margin-top: 10px;
+}
+
+.problem-difficulty {
+  opacity: 0.8;
+}
+
+.problem-btn {
+  align-self: center;
+}
