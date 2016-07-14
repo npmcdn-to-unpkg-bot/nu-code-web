@@ -1,5 +1,3 @@
-<ul *ngFor="let problem of problems | async">
-  <li class="text">
-    {{problem.name}}
-  </li>
-</ul>
+<div class="list-group">
+  <app-problem-preview *ngFor="let problem of problems | async" [problem]="problem"></app-problem-preview>
+</div>
