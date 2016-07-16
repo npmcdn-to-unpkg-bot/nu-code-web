@@ -1,5 +1,6 @@
 .problem-preview {
   display: flex;
+  padding: 15px;
 }
 
 .problem-name {
