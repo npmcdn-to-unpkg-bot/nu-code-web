@@ -1,3 +1,4 @@
 export * from './difficulty';
-export * from './user';
 export * from './problem';
+export * from './problem.service';
+export * from './user';

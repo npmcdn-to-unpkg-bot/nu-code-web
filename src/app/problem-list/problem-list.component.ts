@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { Problem } from '../shared/problem';
+import { Problem, ProblemService } from '../shared';
 import { ProblemPreviewComponent } from '../problem-preview';
 
 @Component({
@@ -11,13 +10,13 @@ import { ProblemPreviewComponent } from '../problem-preview';
   directives: [ProblemPreviewComponent]
 })
 export class ProblemListComponent implements OnInit {
-  problems: FirebaseListObservable<Problem[]>;
+  problems: Problem[];
 
-  constructor(af: AngularFire) {
-    this.problems = af.database.list('/problems');
-  }
+  constructor(private problemService: ProblemService) {}
 
   ngOnInit() {
+    this.problemService.getTopProblems(10)
+      .subscribe(problems => this.problems = problems);
   }
 
 }
