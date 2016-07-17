@@ -21,7 +21,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
     private problemService: ProblemService) {}
 
   ngOnInit() {
-    this.route
+    this.subscription = this.route
       .params
       .subscribe(params => {
         let id = +params['id'];
