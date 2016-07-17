@@ -27,7 +27,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
         let id = +params['id'];
         this.problemService.getProblem(id)
           .subscribe(problem => {
-            if (problem) {
+            // TODO: could use some more elegant validation that the problem exists
+            if (problem.name) {
               this.problem = problem;
             } else {
               this.goToProblemsList();
