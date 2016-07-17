@@ -1,3 +1,40 @@
 <div *ngIf="problem">
-  <h2>{{problem.name}}</h2>
+  <h2 class="problem-name">{{problem.name}}</h2>
+  <!--<div class="well">-->
+    <ul class="problem-tabs nav nav-tabs">
+      <li [ngClass]="{'active': isCurrentTab('Problem')}">
+        <a (click)="goToProblemTab()">Problem</a>
+      </li>
+      <li [ngClass]="{'active': isCurrentTab('MySubmissions')}">
+        <a (click)="goToMySubmissionsTab()">My Submissions</a>
+      </li>
+      <li [ngClass]="{'active': isCurrentTab('Leaderboard')}">
+        <a (click)="goToLeaderboardTab()">Leaderboard</a>
+      </li>
+    </ul>
+    <!-- Problem Tab -->
+    <div class="problem-tab" *ngIf="isCurrentTab('Problem')">
+      <p class="problem-description">{{problem.description}}</p>
+      <textarea
+        class="form-control"
+        placeholder="Type your solution here..."
+        [(ngModel)]="sourceCode">
+      </textarea>
+      <div class="problem-submission-details clearfix">
+        <p class="problem-timeout pull-left">Execution Time Limit: {{problem.timeout}} seconds</p>
+        <p class="problem-char-limit pull-right">{{numChars()}}/{{CharacterLimit}}</p>
+      </div>
+      <div class="clearfix">
+        <button class="problem-submit btn btn-primary pull-right">Submit</button>
+      </div>
+    </div>
+    <!-- My Submissions Tab -->
+    <div class="problem-tab" *ngIf="isCurrentTab('MySubmissions')">
+      <p class="problem-submissions-absent">You currently have no submissions!</p>
+    </div>
+    <!-- Leaderboard Tab -->
+    <div class="problem-tab" *ngIf="isCurrentTab('Leaderboard')">
+      <p class="problem-leaderboard-absent">There are no submissions yet!</p>
+    </div>
+  <!--</div>-->
 </div>
