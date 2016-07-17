@@ -5,5 +5,6 @@ export class Problem {
   description: string;
   lastUpdated: string;
   creator: User;
-  difficulty: Difficulty
+  difficulty: Difficulty;
+  timeout: number;
 }
