@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { Problem } from '../shared/problem';
+import { Problem } from './';
 
 @Injectable()
 export class ProblemService {
