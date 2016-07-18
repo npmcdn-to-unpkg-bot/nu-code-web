@@ -1,3 +1,5 @@
 <div class="list-group">
-  <app-problem-preview *ngFor="let problem of problems" [problem]="problem"></app-problem-preview>
+  <div class="problem-preview" *ngFor="let problem of problems">
+    <app-problem-preview [problem]="problem"></app-problem-preview>
+  </div>
 </div>
