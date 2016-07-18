@@ -36,9 +36,11 @@ p {
 .problem-submission-details>p {
   margin-top: 0px;
 }
-.problem-submissions-absent {
+.problem-my-submissions-absent {
+  text-align: center;
   font-size: 1.25em;
 }
 .problem-leaderboard-absent {
+  text-align: center;
   font-size: 1.25em;
 }
