@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { ProblemService } from './shared';
+import { ProblemService, UserService } from './shared';
 
 @Component({
   moduleId: module.id,
@@ -8,7 +8,10 @@ import { ProblemService } from './shared';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   directives: [ROUTER_DIRECTIVES],
-  providers: [ProblemService]
+  providers: [
+    ProblemService,
+    UserService
+  ]
 })
 export class AppComponent {
 }
