@@ -45,6 +45,7 @@ const barrels: string[] = [
   'app/home',
   'app/problem-preview',
   'app/problem',
+  'app/language-dropdown',
   /** @cli-barrel */
 ];
 

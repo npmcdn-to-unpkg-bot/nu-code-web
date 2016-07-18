@@ -1,19 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Http } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Problem, ProblemService } from '../shared';
+import { LanguageDropdownComponent } from '../language-dropdown';
+import { Problem, ProblemService, SupportedLanguages } from '../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-problem',
   templateUrl: 'problem.component.html',
-  styleUrls: ['problem.component.css']
+  styleUrls: ['problem.component.css'],
+  directives: [LanguageDropdownComponent]
 })
 export class ProblemComponent implements OnInit, OnDestroy {
   // TODO: can this be const?
   CharacterLimit = 100000;
+  SupportedLanguages = SupportedLanguages;
 
-  problem: Problem;
+  // problem: Problem;
+  problem: any;
   currentTab: Tab;
 
   sourceCode: string;
@@ -22,6 +27,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(
+    private http: Http,
     private router: Router,
     private route: ActivatedRoute,
     private problemService: ProblemService) {}
@@ -77,15 +83,14 @@ export class ProblemComponent implements OnInit, OnDestroy {
     return this.sourceCode ? this.sourceCode.length : 0;
   }
 
-  // // TODO: incorporate the passing along of id into `goToProblemsList`
-  // gotoCrises() {
-  //   let crisisId = this.crisis ? this.crisis.id : null;
-  //   // Pass along the hero id if available
-  //   // so that the CrisisListComponent can select that hero.
-  //   // Add a totally useless `foo` parameter for kicks.
-  //   // Absolute link
-  //   this.router.navigate(['/crisis-center', {id: crisisId, foo: 'foo'}]);
-  // }
+  submit(): void {
+    this.http.post('localhost:8080/api', {
+      lang: 'java',
+      src: this.sourceCode,
+      seconds: this.problem.timeout,
+      tests: this.problem.tests
+    });
+  }
 }
 
 enum Tab {
