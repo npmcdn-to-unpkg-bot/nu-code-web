@@ -38,6 +38,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
             // TODO: could use some more elegant validation that the problem exists
             if (problem.name) {
               this.problem = problem;
+              // TODO: this should be a separate function or something (see ansi-to-html)
+              this.problem.description = this.problem.description.replace(/\\n/g, '<br>');
             } else {
               this.goToProblemsList();
             }
