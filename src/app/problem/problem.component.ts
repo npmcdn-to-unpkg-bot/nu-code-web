@@ -31,13 +31,12 @@ export class ProblemComponent implements OnInit, OnDestroy {
     this.subscription = this.route
       .params
       .subscribe(params => {
-        let id = +params['id'];
+        let id = params['id'];
         // TODO: grab which tab from route data
         this.problemService.getProblem(id)
           .subscribe(problem => {
             // TODO: could use some more elegant validation that the problem exists
             if (problem.name) {
-              console.log('found problem');
               this.problem = problem;
             } else {
               this.goToProblemsList();

@@ -11,7 +11,8 @@ export class ProblemService {
     this.problems = af.database.list('/problems');
   }
 
-  getProblem(id: number): Observable<Problem> {
+  getProblem(id: string): Observable<Problem> {
+    // TODO: the object returned is 'any', not 'Problem'
     // TODO: see what is returned when the id does not exist. hopefully null (see ProblemComponent.ngOnInit).
     return this.af.database.object(`/problems/${id}`);
   }

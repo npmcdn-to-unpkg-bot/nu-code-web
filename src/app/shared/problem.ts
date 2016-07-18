@@ -7,4 +7,12 @@ export class Problem {
   creator: User;
   difficulty: Difficulty;
   timeout: number;
+
+  getId = (): string => {
+    return this.name.replace(/[^\s\w\d]/g, '');
+  };
+
+  toString(): string {
+    return this.name + "";
+  }
 }
