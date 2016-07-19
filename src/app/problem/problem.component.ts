@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LanguageDropdownComponent } from '../language-dropdown';
@@ -21,6 +21,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
   problem: any;
   currentTab: Tab;
 
+  langCode: string;
   sourceCode: string;
 
   // A connection opened in ngOnInit(), closed in ngOnDestroy()
@@ -83,13 +84,32 @@ export class ProblemComponent implements OnInit, OnDestroy {
     return this.sourceCode ? this.sourceCode.length : 0;
   }
 
+  onLangChange(langCode: string) {
+    this.langCode = langCode;
+  }
+
+/*
+#include <stdio.h>
+int main()
+{
+  printf("233168");
+}
+*/
   submit(): void {
-    this.http.post('localhost:8080/api', {
-      lang: 'java',
+    console.log(this.langCode);
+    const submission = {
+      lang: this.langCode,
       src: this.sourceCode,
       seconds: this.problem.timeout,
       tests: this.problem.tests
-    });
+    };
+    const submissionJson = JSON.stringify(submission);
+    console.log(submissionJson);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    this.http.post('http://172.17.0.2:8080/api', submissionJson, {headers: headers})
+        .subscribe(response => console.log(response));
+    // TODO: catch no response
   }
 }
 
