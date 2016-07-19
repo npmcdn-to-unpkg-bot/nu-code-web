@@ -21,8 +21,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
   problem: any;
   currentTab: Tab;
 
-  langCode: string;
-  sourceCode: string;
+  langCode: string = '';
+  sourceCode: string = '';
 
   // A connection opened in ngOnInit(), closed in ngOnDestroy()
   private subscription: Subscription;
@@ -96,7 +96,6 @@ int main()
 }
 */
   submit(): void {
-    console.log(this.langCode);
     const submission = {
       lang: this.langCode,
       src: this.sourceCode,
@@ -104,7 +103,6 @@ int main()
       tests: this.problem.tests
     };
     const submissionJson = JSON.stringify(submission);
-    console.log(submissionJson);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     this.http.post('http://172.17.0.2:8080/api', submissionJson, {headers: headers})

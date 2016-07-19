@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SupportedLanguages } from '../shared';
 
 @Component({
@@ -8,17 +8,21 @@ import { SupportedLanguages } from '../shared';
   styleUrls: ['language-dropdown.component.css']
 })
 export class LanguageDropdownComponent implements OnInit {
-  supportedLanguages = SupportedLanguages;
-  selectedChoice: string = SupportedLanguages[0].name;
+  @Output() langChange = new EventEmitter();
 
-  constructor() {}
+  langChoices: string[];
+  selectedChoice: string;
+
+  constructor() {
+    this.langChoices = Object.keys(SupportedLanguages);
+  }
 
   ngOnInit() {
+    this.selected(this.langChoices[0]);
   }
 
   selected(choice: string) {
     this.selectedChoice = choice;
-    console.log(choice);
+    this.langChange.emit(SupportedLanguages[this.selectedChoice]);
   }
-
 }

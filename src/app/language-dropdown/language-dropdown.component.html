@@ -9,8 +9,8 @@
     {{selectedChoice}} <span class="caret"></span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown">
-    <li *ngFor="let supportedLanguage of supportedLanguages">
-      <a (click)="selected(supportedLanguage.name)">{{supportedLanguage.name}}</a>
+    <li *ngFor="let langChoice of langChoices">
+      <a (click)="selected(langChoice)">{{langChoice}}</a>
     </li>
   </ul>
 </div>
