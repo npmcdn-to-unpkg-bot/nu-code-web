@@ -17,7 +17,9 @@ module.exports = function(defaults) {
       'rxjs/**/*.+(js|js.map)',
       '@angular/**/*.+(js|js.map)',
       'angularfire2/**/*.js',
-      'firebase/*.js'
+      'firebase/*.js',
+      'ng2-bootstrap/**/*.js',
+      'moment/moment.js'
     ]
   });
 };

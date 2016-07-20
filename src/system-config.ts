@@ -5,17 +5,24 @@
 /***********************************************************************************************
  * User Configuration.
  **********************************************************************************************/
+
 /** Map relative paths to URLs. */
 const map: any = {
   'firebase': 'vendor/firebase/firebase.js',
-  'angularfire2': 'vendor/angularfire2'
+  'angularfire2': 'vendor/angularfire2',
+  'moment': 'vendor/moment/moment.js',
+  'ng2-bootstrap': 'vendor/ng2-bootstrap'
 };
 
 /** User packages configuration. */
 const packages: any = {
-  angularfire2: {
+  'angularfire2': {
     defaultExtension: 'js',
     main: 'angularfire2.js'
+  },
+  'ng2-bootstrap': {
+    defaultExtension: 'js',
+    main: 'ng2-bootstrap.js'
   }
 };
 
