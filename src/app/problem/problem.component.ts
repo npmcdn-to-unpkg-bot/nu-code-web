@@ -1,10 +1,9 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { LanguageDropdownComponent } from '../language-dropdown';
-import { Problem, ProblemService, SupportedLanguages } from '../shared';
+import { Problem, ProblemService, SubmissionService, SupportedLanguages } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -18,6 +17,7 @@ import { Problem, ProblemService, SupportedLanguages } from '../shared';
     MODAL_DIRECTIVES,
     LanguageDropdownComponent
   ],
+  providers: [SubmissionService],
   viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class ProblemComponent implements OnInit, OnDestroy {
@@ -40,10 +40,10 @@ export class ProblemComponent implements OnInit, OnDestroy {
   @ViewChild('submissionModal') submissionModal: ModalDirective;
 
   constructor(
-    private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    private problemService: ProblemService) {}
+    private problemService: ProblemService,
+    private submissionService: SubmissionService) {}
 
   ngOnInit() {
     this.currentTab = Tab.Problem;
@@ -117,12 +117,11 @@ int main()
       seconds: this.problem.timeout,
       tests: this.problem.tests
     };
-    const submissionJson = JSON.stringify(submission);
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+
     this.submissionSubscription =
-        this.http.post('http://172.17.0.2:8080/api', submissionJson, {headers: headers})
-            .subscribe(response => console.log(response));
+        this.submissionService.submit(submission)
+            .subscribe(result => console.log(result)); // TODO:
+
     // TODO: catch no response
     this.submissionModal.show();
     // TODO: send submission data
