@@ -44,3 +44,30 @@ p {
   text-align: center;
   font-size: 1.25em;
 }
+.submission-modal-body {
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: center;
+}
+
+/* Center the modal to the middle of the screen */
+.modal-body {
+  position: relative;
+  overflow-y: auto;
+  max-height: 100%;
+  padding: 15px;
+}
+.modal {
+  text-align: center;
+}
+.modal:before {
+  display: inline-block;
+  vertical-align: middle;
+  content: " ";
+  height: 100%;
+}
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}

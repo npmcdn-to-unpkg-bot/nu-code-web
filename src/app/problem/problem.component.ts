@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { LanguageDropdownComponent } from '../language-dropdown';
 import { Problem, ProblemService, SupportedLanguages } from '../shared';
 
@@ -9,8 +10,15 @@ import { Problem, ProblemService, SupportedLanguages } from '../shared';
   moduleId: module.id,
   selector: 'app-problem',
   templateUrl: 'problem.component.html',
-  styleUrls: ['problem.component.css'],
-  directives: [LanguageDropdownComponent]
+  styleUrls: [
+    'problem.component.css',
+    'loading-spinner.css'
+  ],
+  directives: [
+    MODAL_DIRECTIVES,
+    LanguageDropdownComponent
+  ],
+  viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class ProblemComponent implements OnInit, OnDestroy {
   // TODO: can this be const?
@@ -25,7 +33,11 @@ export class ProblemComponent implements OnInit, OnDestroy {
   sourceCode: string = '';
 
   // A connection opened in ngOnInit(), closed in ngOnDestroy()
-  private subscription: Subscription;
+  private problemSubscription: Subscription;
+  // A connection opened in submit(), closed in cancelSubmit() ... TODO: probably closed elsewhere too
+  private submissionSubscription: Subscription;
+
+  @ViewChild('submissionModal') submissionModal: ModalDirective;
 
   constructor(
     private http: Http,
@@ -35,7 +47,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentTab = Tab.Problem;
-    this.subscription = this.route
+    this.problemSubscription = this.route
       .params
       .subscribe(params => {
         let id = params['id'];
@@ -55,8 +67,11 @@ export class ProblemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.problemSubscription) {
+      this.problemSubscription.unsubscribe();
+    }
+    if (this.problemSubscription) {
+      this.problemSubscription.unsubscribe();
     }
   }
 
@@ -105,9 +120,18 @@ int main()
     const submissionJson = JSON.stringify(submission);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.post('http://172.17.0.2:8080/api', submissionJson, {headers: headers})
-        .subscribe(response => console.log(response));
+    this.submissionSubscription =
+        this.http.post('http://172.17.0.2:8080/api', submissionJson, {headers: headers})
+            .subscribe(response => console.log(response));
     // TODO: catch no response
+    this.submissionModal.show();
+    // TODO: send submission data
+  }
+
+  cancelSubmit() {
+    this.submissionModal.hide();
+    // TODO: make sure this does not store the result
+    this.submissionSubscription.unsubscribe();
   }
 }
 
