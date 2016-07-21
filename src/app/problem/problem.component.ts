@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { CatchSignature } from 'rxjs/operator/catch';
 import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { LanguageDropdownComponent } from '../language-dropdown';
 import { Problem, ProblemService, SubmissionService, SupportedLanguages } from '../shared';
@@ -120,11 +121,21 @@ int main()
 
     this.submissionSubscription =
         this.submissionService.submit(submission)
-            .subscribe(result => console.log(result)); // TODO:
+            .subscribe(this.displayResult, this.handleError);
 
-    // TODO: catch no response
     this.submissionModal.show();
-    // TODO: send submission data
+    // TODO: record submission data
+  }
+
+  displayResult(result: any): void {
+    console.log('Result!');
+    console.log(result);
+  }
+
+  handleError(err: any): void {
+    if (err.status === 0) {
+      console.log('The server cannot be reached.');
+    }
   }
 
   cancelSubmit() {
