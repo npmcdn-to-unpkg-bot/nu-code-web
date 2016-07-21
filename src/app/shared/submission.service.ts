@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Submission } from './';
 
@@ -9,12 +9,10 @@ headers.append('Content-Type', 'application/json');
 
 @Injectable()
 export class SubmissionService {
-
   constructor(private http: Http) {}
 
-  submit(submission: Submission): Observable<any> {
+  submit(submission: Submission): Observable<Response> {
     const submissionJson = JSON.stringify(submission);
     return this.http.post(Url, submissionJson, {headers: headers});
   }
-
 }
