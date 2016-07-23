@@ -37,7 +37,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizationService,
     private problemService: ProblemService) {}
 
   ngOnInit() {

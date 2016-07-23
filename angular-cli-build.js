@@ -19,7 +19,12 @@ module.exports = function(defaults) {
       'angularfire2/**/*.js',
       'firebase/*.js',
       'ng2-bootstrap/**/*.js',
-      'moment/moment.js'
+      'moment/moment.js',
+      'angular2-fontawesome/*.+(js|js.map)',
+      'angular2-fontawesome/**/*.+(js|js.map)',
+      'angular2-fontawesome/**/**/*.+(js|js.map)',
+      'font-awesome/css/*.*',
+      'font-awesome/fonts/*.*'
     ]
   });
 };

@@ -1,14 +1,24 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import { FaComponent } from 'angular2-fontawesome/components';
+import { FaDirective } from 'angular2-fontawesome/directives';
 import { Submission, SubmissionService } from '../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-submission-modal',
   templateUrl: 'submission-modal.component.html',
-  styleUrls: ['submission-modal.component.css'],
-  directives: [MODAL_DIRECTIVES],
+  styleUrls: [
+    'submission-modal.component.css',
+    // TODO:
+    // '/vendor/font-awesome/css/font-awesome.css'
+  ],
+  directives: [
+    MODAL_DIRECTIVES,
+    FaComponent,
+    FaDirective
+  ],
   providers: [SubmissionService],
   viewProviders: [BS_VIEW_PROVIDERS]
 })

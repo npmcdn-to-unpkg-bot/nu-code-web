@@ -11,7 +11,8 @@ const map: any = {
   'firebase': 'vendor/firebase/firebase.js',
   'angularfire2': 'vendor/angularfire2',
   'moment': 'vendor/moment/moment.js',
-  'ng2-bootstrap': 'vendor/ng2-bootstrap'
+  'ng2-bootstrap': 'vendor/ng2-bootstrap',
+  'angular2-fontawesome': 'vendor/angular2-fontawesome'
 };
 
 /** User packages configuration. */
@@ -23,6 +24,9 @@ const packages: any = {
   'ng2-bootstrap': {
     defaultExtension: 'js',
     main: 'ng2-bootstrap.js'
+  },
+  'angular2-fontawesome':{
+    defaultExtension: 'js'
   }
 };
 
