@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { fromTextArea } from 'codemirror';
 
 @Component({
@@ -6,10 +6,11 @@ import { fromTextArea } from 'codemirror';
   selector: 'app-code-mirror',
   templateUrl: 'code-mirror.component.html',
   styleUrls: [
-    // TODO: find out how this can be restricted here only
+    // TODO: find out how this can be restricted here only (also change encapsulation)
     // '/vendor/codemirror/lib/codemirror.css',
     'code-mirror.component.css'
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class CodeMirrorComponent implements OnInit { //, OnChanges {
   @ViewChild('textarea') textarea: ElementRef;
