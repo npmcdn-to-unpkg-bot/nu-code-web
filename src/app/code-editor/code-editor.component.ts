@@ -3,16 +3,16 @@ import { fromTextArea } from 'codemirror';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-code-mirror',
-  templateUrl: 'code-mirror.component.html',
+  selector: 'app-code-editor',
+  templateUrl: 'code-editor.component.html',
   styleUrls: [
     // TODO: find out how this can be restricted here only (also change encapsulation)
     // '/vendor/codemirror/lib/codemirror.css',
-    'code-mirror.component.css'
+    'code-editor.component.css'
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class CodeMirrorComponent implements OnInit { //, OnChanges {
+export class CodeEditorComponent implements OnInit { //, OnChanges {
   @ViewChild('textarea') textarea: ElementRef;
 
   @Input() sourceCode: string = '';

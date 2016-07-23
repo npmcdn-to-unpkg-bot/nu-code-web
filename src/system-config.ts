@@ -60,8 +60,7 @@ const barrels: string[] = [
   'app/problem',
   'app/language-dropdown',
   'app/submission-modal',
-  'app/codemirror',
-  'app/code-mirror',
+  'app/code-editor',
   /** @cli-barrel */
 ];
 

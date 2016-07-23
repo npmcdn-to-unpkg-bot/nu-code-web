@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
-import { CodeMirrorComponent } from '../code-mirror';
+import { CodeEditorComponent } from '../code-editor';
 import { LanguageDropdownComponent } from '../language-dropdown';
 import { SubmissionModalComponent } from '../submission-modal';
 import { MarkdownPipe, Problem, ProblemService, SupportedLanguages } from '../shared';
@@ -13,7 +13,7 @@ import { MarkdownPipe, Problem, ProblemService, SupportedLanguages } from '../sh
   templateUrl: 'problem.component.html',
   styleUrls: ['problem.component.css'],
   directives: [
-    CodeMirrorComponent,
+    CodeEditorComponent,
     LanguageDropdownComponent,
     SubmissionModalComponent
   ],
