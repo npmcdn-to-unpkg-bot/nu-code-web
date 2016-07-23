@@ -26,16 +26,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <app-language-dropdown (langChange)="onLangChange($event)" class="pull-right"></app-language-dropdown>
-    </div>
-    <div class="row">
-      <app-code-editor></app-code-editor>
-      <!--<app-code-editor [(ngModel)]="sourceCode"></app-code-editor>-->
-    </div>
-    <div class="row problem-submission-details clearfix">
-      <p class="problem-char-limit pull-right">{{numChars()}}/{{CharacterLimit}}</p>
-    </div>
+    <app-code-editor #editor></app-code-editor>
     <div class="row clearfix">
       <button (click)="submit()" class="problem-submit btn btn-primary pull-right">Submit</button>
     </div>

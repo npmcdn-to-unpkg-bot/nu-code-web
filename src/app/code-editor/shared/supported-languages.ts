@@ -9,6 +9,34 @@ export const SupportedLanguages = {
   'Python 3': 'python3'
 }
 
+// export const SupportedLanguages = {
+//   'C': {
+//     apiCode: 'c',
+//     editorMode: 'text/x-csrc'
+//   },
+//   'C++': {
+//     apiCode: 'cpp',
+//     editorMode: 'text/x-c++src'
+//   },
+//   'C#': {
+//     apiCode: 'csharp',
+//     editorMode: 'text/x-csharp'
+//   },,
+//   'Java 8': {
+//     apiCode: 'java',
+//     editorMode: 'text/x-java'
+//   },,
+//   'JavaScript': {
+//     apiCode: 'js',
+//     editorMode: 'text/javascript'
+//   },
+//   'Python 2': {
+//     apiCode: 'python',
+//     editorMode: 'python'
+//   } 'python',
+//   'Python 3': 'python3'
+// }
+
 // [ {
 //     name: 'C',
 //     code: 'c'

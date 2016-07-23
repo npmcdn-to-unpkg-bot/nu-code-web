@@ -1,11 +1,10 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewChecked, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
 import { CodeEditorComponent } from '../code-editor';
-import { LanguageDropdownComponent } from '../language-dropdown';
 import { SubmissionModalComponent } from '../submission-modal';
-import { MarkdownPipe, Problem, ProblemService, SupportedLanguages } from '../shared';
+import { MarkdownPipe, Problem, ProblemService } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -14,26 +13,19 @@ import { MarkdownPipe, Problem, ProblemService, SupportedLanguages } from '../sh
   styleUrls: ['problem.component.css'],
   directives: [
     CodeEditorComponent,
-    LanguageDropdownComponent,
     SubmissionModalComponent
   ],
   pipes: [MarkdownPipe]
 })
-export class ProblemComponent implements OnInit, OnDestroy {
-  // TODO: can this be const?
-  CharacterLimit = 100000;
-  SupportedLanguages = SupportedLanguages;
-
+export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
   // problem: Problem;
   problem: any;
   currentTab: Tab;
 
-  langCode: string = '';
-  sourceCode: string = '';
-
   // A connection opened in ngOnInit(), closed in ngOnDestroy()
   private problemSubscription: Subscription;
 
+  @ViewChild('editor') editor: CodeEditorComponent;
   @ViewChild('submissionModal') submissionModal: SubmissionModalComponent;
 
   constructor(
@@ -62,6 +54,12 @@ export class ProblemComponent implements OnInit, OnDestroy {
         });
   }
 
+  ngAfterViewChecked() {
+    // if (this.editor) {
+      // this.editor.sourceCode = '#include <stdio.h>\nint main()\n{\n  printf("233168");\n}\n';
+    // }
+  }
+
   ngOnDestroy() {
     if (this.problemSubscription) {
       this.problemSubscription.unsubscribe();
@@ -88,25 +86,10 @@ export class ProblemComponent implements OnInit, OnDestroy {
     this.router.navigate(['/problems']);
   }
 
-  numChars() {
-    return this.sourceCode ? this.sourceCode.length : 0;
-  }
-
-  onLangChange(langCode: string) {
-    this.langCode = langCode;
-  }
-
-/*
-#include <stdio.h>
-int main()
-{
-  printf("233168");
-}
-*/
   submit(): void {
     const submission = {
-      lang: this.langCode,
-      src: this.sourceCode,
+      lang: this.editor.langId,
+      src: this.editor.sourceCode,
       seconds: this.problem.timeout,
       tests: this.problem.tests
     };
