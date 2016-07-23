@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
+import { CodeMirrorComponent } from '../code-mirror';
 import { LanguageDropdownComponent } from '../language-dropdown';
 import { SubmissionModalComponent } from '../submission-modal';
 import { MarkdownPipe, Problem, ProblemService, SupportedLanguages } from '../shared';
@@ -12,6 +13,7 @@ import { MarkdownPipe, Problem, ProblemService, SupportedLanguages } from '../sh
   templateUrl: 'problem.component.html',
   styleUrls: ['problem.component.css'],
   directives: [
+    CodeMirrorComponent,
     LanguageDropdownComponent,
     SubmissionModalComponent
   ],
@@ -51,9 +53,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
               // TODO: could use some more elegant validation that the problem exists
               if (problem.name) {
                 this.problem = problem;
-                console.log(this.problem.description);
+                // TODO: see if you can query from firebase to not escape \n
                 this.problem.description = this.problem.description.replace(/\\n/g, '\n');
-                console.log(this.problem.description);
               } else {
                 this.goToProblemsList();
               }

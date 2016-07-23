@@ -30,11 +30,8 @@
       <app-language-dropdown (langChange)="onLangChange($event)" class="pull-right"></app-language-dropdown>
     </div>
     <div class="row">
-      <textarea
-          class="form-control"
-          placeholder="Type your solution here..."
-          [(ngModel)]="sourceCode">
-      </textarea>
+      <app-code-mirror></app-code-mirror>
+      <!--<app-code-mirror [(ngModel)]="sourceCode"></app-code-mirror>-->
     </div>
     <div class="row problem-submission-details clearfix">
       <p class="problem-char-limit pull-right">{{numChars()}}/{{CharacterLimit}}</p>

@@ -30,7 +30,9 @@ module.exports = function(defaults) {
       'font-awesome/css/*.*',
       'font-awesome/fonts/*.*',
       // Showdown
-      'showdown/dist/*.js'
+      'showdown/dist/*.js',
+      // CodeMirror
+      'codemirror/lib/*'
     ]
   });
 };

@@ -13,7 +13,8 @@ const map: any = {
   'moment': 'vendor/moment/moment.js',
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
   'angular2-fontawesome': 'vendor/angular2-fontawesome',
-  'showdown': 'vendor/showdown/dist/showdown.js'
+  'showdown': 'vendor/showdown/dist/showdown.js',
+  'codemirror': 'vendor/codemirror/lib/codemirror.js'
 };
 
 /** User packages configuration. */
@@ -59,6 +60,8 @@ const barrels: string[] = [
   'app/problem',
   'app/language-dropdown',
   'app/submission-modal',
+  'app/codemirror',
+  'app/code-mirror',
   /** @cli-barrel */
 ];
 
