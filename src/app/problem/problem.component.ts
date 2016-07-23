@@ -51,6 +51,9 @@ export class ProblemComponent implements OnInit, OnDestroy {
               // TODO: could use some more elegant validation that the problem exists
               if (problem.name) {
                 this.problem = problem;
+                console.log(this.problem.description);
+                this.problem.description = this.problem.description.replace(/\\n/g, '\n');
+                console.log(this.problem.description);
               } else {
                 this.goToProblemsList();
               }
