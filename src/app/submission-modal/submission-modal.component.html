@@ -17,7 +17,7 @@
           <!-- Correct Solution -->
           <div *ngIf="result.passed">
             <div class="row">
-              <i fa [name]="'check'"></i>
+              <i fa class="green" [name]="'check'" [size]=3></i>
             </div>
             <div class="row">
               <h4 class="green">Correct</h4>
@@ -27,7 +27,7 @@
           <!-- Note: cannot simply do !result.passed because that checks falsiness -->
           <div *ngIf="result.passed === false">
             <div class="row">
-              <i fa [name]="'times'"></i>
+              <i fa class="red" [name]="'times'" [size]=3></i>
             </div>
             <div class="row">
               <h4 class="red">Incorrect</h4>
@@ -49,7 +49,7 @@
           <!-- Code Error -->
           <div *ngIf="result.error">
             <div class="row">
-              <i fa [name]="'times'"></i>
+              <i fa class="red" [name]="'times'" [size]=3></i>
             </div>
             <div class="row">
               <h4 class="red">Compilation Error</h4>
@@ -64,7 +64,7 @@
         <!-- Server Error -->
         <div *ngIf="state == 2">
           <div class="row">
-            <i fa [name]="'exclamation-circle'"></i>
+            <i fa class="red" [name]="'exclamation-circle'" [size]=3></i>
           </div>
           <div class="row">
             <h4>The server is unreachable!</h4>
