@@ -1,8 +1,8 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DomSanitizationService, SafeHtml } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
+import * as ansi_up from 'ansi_up';
 import { LanguageDropdownComponent } from '../language-dropdown';
 import { SubmissionModalComponent } from '../submission-modal';
 import { Problem, ProblemService, SupportedLanguages } from '../shared';
@@ -112,8 +112,12 @@ int main()
     // TODO: record submission data
   }
 
-  ansiToHtml(str: string): SafeHtml {
-    let html = str.replace(/\\n/g, '<br>');
+  ansiToHtml(str: string): string {
+    let html = ansi_up.escape_for_html(str);
+    console.log(str);
+    console.log(html);
+    console.log(ansi_up.escape_for_html('\\n\\n'));
+    console.log(str.replace(/\\n/g, '<br>'));
     return html;
   }
 }

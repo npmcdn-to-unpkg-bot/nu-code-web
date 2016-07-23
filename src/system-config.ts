@@ -12,7 +12,8 @@ const map: any = {
   'angularfire2': 'vendor/angularfire2',
   'moment': 'vendor/moment/moment.js',
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
-  'angular2-fontawesome': 'vendor/angular2-fontawesome'
+  'angular2-fontawesome': 'vendor/angular2-fontawesome',
+  'ansi_up': 'vendor/ansi_up/ansi_up.js'
 };
 
 /** User packages configuration. */
