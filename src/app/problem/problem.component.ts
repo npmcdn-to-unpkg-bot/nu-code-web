@@ -2,7 +2,6 @@ import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
-import * as ansi_up from 'ansi_up';
 import { LanguageDropdownComponent } from '../language-dropdown';
 import { SubmissionModalComponent } from '../submission-modal';
 import { Problem, ProblemService, SupportedLanguages } from '../shared';
@@ -51,8 +50,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
               // TODO: could use some more elegant validation that the problem exists
               if (problem.name) {
                 this.problem = problem;
-                // TODO: this should be a separate function or something (see ansi-to-html)
-                this.problem.description = this.ansiToHtml(this.problem.description);
               } else {
                 this.goToProblemsList();
               }
@@ -112,14 +109,6 @@ int main()
     // TODO: record submission data
   }
 
-  ansiToHtml(str: string): string {
-    let html = ansi_up.escape_for_html(str);
-    console.log(str);
-    console.log(html);
-    console.log(ansi_up.escape_for_html('\\n\\n'));
-    console.log(str.replace(/\\n/g, '<br>'));
-    return html;
-  }
 }
 
 enum Tab {

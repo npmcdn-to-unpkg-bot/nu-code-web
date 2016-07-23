@@ -4,8 +4,3 @@
 
 /// <reference path="../typings/index.d.ts" />
 declare var module: { id: string };
-
-declare module 'ansi_up' {
-    var ansi_up: any;
-    export = ansi_up;
-}
