@@ -16,7 +16,7 @@
   <!-- Problem Tab -->
   <div class="problem-tab" *ngIf="isCurrentTab('Problem')">
     <div class="row">
-      <p class="col-xs-12 col-md-9 problem-description" [innerHTML]="problem.description"></p>
+      <p class="col-xs-12 col-md-9 problem-description" [innerHTML]="problem.description | markdown"></p>
       <div class="col-xs-12 col-md-3 pull-right problem-details">
         <div class="clearfix problem-detail">
           <span class="pull-left problem-detail-label">Difficulty:</span> <span class="pull-right problem-detail-value">{{problem.difficulty}}</span>

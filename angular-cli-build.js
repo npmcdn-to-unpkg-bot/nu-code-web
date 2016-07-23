@@ -28,7 +28,9 @@ module.exports = function(defaults) {
       'angular2-fontawesome/**/*.+(js|js.map)',
       'angular2-fontawesome/**/**/*.+(js|js.map)',
       'font-awesome/css/*.*',
-      'font-awesome/fonts/*.*'
+      'font-awesome/fonts/*.*',
+      // Showdown
+      'showdown/dist/*.js'
     ]
   });
 };

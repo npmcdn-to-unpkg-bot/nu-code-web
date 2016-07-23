@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
 import { LanguageDropdownComponent } from '../language-dropdown';
 import { SubmissionModalComponent } from '../submission-modal';
-import { Problem, ProblemService, SupportedLanguages } from '../shared';
+import { MarkdownPipe, Problem, ProblemService, SupportedLanguages } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -14,7 +14,8 @@ import { Problem, ProblemService, SupportedLanguages } from '../shared';
   directives: [
     LanguageDropdownComponent,
     SubmissionModalComponent
-  ]
+  ],
+  pipes: [MarkdownPipe]
 })
 export class ProblemComponent implements OnInit, OnDestroy {
   // TODO: can this be const?

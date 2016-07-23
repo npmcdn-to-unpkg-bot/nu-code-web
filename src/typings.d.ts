@@ -4,3 +4,8 @@
 
 /// <reference path="../typings/index.d.ts" />
 declare var module: { id: string };
+
+declare module 'showdown' {
+  var showdown: any;
+  export = showdown;
+}
