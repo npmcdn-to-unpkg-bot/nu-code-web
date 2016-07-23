@@ -14,17 +14,65 @@
         </div>
         <!-- Results Received -->
         <div *ngIf="state == 1">
-          <div class="row">
-            <h3>Results Received</h3>
+          <!-- Correct Solution -->
+          <div *ngIf="result.passed">
+            <div class="row">
+              <i class="fa fa-check green" aria-hidden="true"></i>
+            </div>
+            <div class="row">
+              <h4 class="green">Correct</h4>
+            </div>
           </div>
-          <input (click)="close()" class="btn btn-lg btn-default" type="button" value="Close">
+          <!-- Incorrect Solution -->
+          <!-- Note: cannot simply do !result.passed because that checks falsiness -->
+          <div *ngIf="result.passed === false">
+            <div class="row">
+              <i class="fa fa-times red" aria-hidden="true"></i>
+            </div>
+            <div class="row">
+              <h4 class="red">Incorrect</h4>
+            </div>
+            <div class="row">
+              <div *ngFor="let testResult of result.results; let i = index">
+                Test {{i + 1}}:
+                <div *ngIf="testResult.error">
+                  {{testResult.error}}
+                </div>
+                <div *ngIf="testResult.differences">
+                  <div *ngFor="let difference of testResult.differences">
+                    Expected: {{difference.expected}}, Actual: {{difference.actual}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Code Error -->
+          <div *ngIf="result.error">
+            <div class="row">
+              <i class="fa fa-times red" aria-hidden="true"></i>
+            </div>
+            <div class="row">
+              <h4 class="red">Compilation Error</h4>
+            </div>
+            <div class="row">
+              <p>{{result.error}}</p>
+            </div>
+          </div>
+
+          <input (click)="close()" class="btn btn-default" type="button" value="Close">
         </div>
         <!-- Server Error -->
         <div *ngIf="state == 2">
           <div class="row">
-            <h3>The server is unreachable!</h3>
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
           </div>
-          <input (click)="close()" class="btn btn-lg btn-default" type="button" value="Close">
+          <div class="row">
+            <h4>The server is unreachable!</h4>
+          </div>
+          <div class="clearfix">
+            <input (click)="retry()" class="btn btn-primary pull-right" type="button" value="Retry">
+            <input (click)="close()" class="btn btn-default pull-left" type="button" value="Close">
+          </div>
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
   submissionSubscription: Subscription;
 
   state: State;
+  lastSubmission: Submission;
   result: any;
 
   constructor(private submissionService: SubmissionService) {}
@@ -29,11 +30,13 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
   }
 
   handleSubmission(submission: Submission) {
+    this.lastSubmission = submission;
     this.state = State.Submitting;
     this.submissionSubscription = this.submissionService.submit(submission).subscribe(
         result => {
           this.state = State.ResultReceived;
           this.result = result;
+          console.log(result);
         },
         err => {
           this.state = State.ServerError;
@@ -43,6 +46,10 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
           this.killSubscription();
         });
     this.modal.show();
+  }
+
+  retry() {
+    this.handleSubmission(this.lastSubmission);
   }
 
   killSubscription() {

@@ -8,6 +8,9 @@
   padding-right: 25px;
   text-align: center;
 }
+.modal-body .btn {
+  margin-top: 10px;
+}
 .modal {
   text-align: center;
 }
