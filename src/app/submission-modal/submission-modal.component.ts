@@ -16,7 +16,8 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
   @ViewChild('modal') modal: ModalDirective;
   submissionSubscription: Subscription;
 
-  display: string = '';
+  state: State;
+  result: any;
 
   constructor(private submissionService: SubmissionService) {}
 
@@ -24,31 +25,46 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.submissionSubscription) {
-      this.submissionSubscription.unsubscribe();
-    }
+    this.killSubscription();
   }
 
   handleSubmission(submission: Submission) {
-    this.display = 'Submitting...';
-    this.modal.show();
-
+    this.state = State.Submitting;
     this.submissionSubscription = this.submissionService.submit(submission).subscribe(
         result => {
-          this.display = 'Results received';
+          this.state = State.ResultReceived;
+          this.result = result;
         },
         err => {
-          this.display = 'Server error';
+          this.state = State.ServerError;
+        },
+        () => {
+          // You cannot use this directly as the callback because the `this` context will be wrong.
+          this.killSubscription();
         });
+    this.modal.show();
   }
 
-  handleResult(self, result: any) {
-    this.display = 'Results received';
+  killSubscription() {
+    if (this.submissionSubscription) {
+      this.submissionSubscription.unsubscribe();
+      this.submissionSubscription = null;
+    }
+  }
+
+  cancel() {
+    this.killSubscription();
+    this.close();
+  }
+
+  close() {
     this.modal.hide();
   }
 
-  handleServerError(self, err: any) {
-    this.display = 'Server Error';
-  }
+}
 
+enum State {
+  Submitting,
+  ResultReceived,
+  ServerError
 }

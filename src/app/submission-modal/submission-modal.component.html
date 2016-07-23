@@ -4,12 +4,28 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="row">
-          <h3>Submitting your code...</h3>
+        <!-- Submission Sending -->
+        <div *ngIf="state == 0">
+          <div class="row">
+            <h3>Submitting your code...</h3>
+          </div>
+          <div class="loading-spinner center-block"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+          <input (click)="cancel()" class="btn btn-lg btn-default" type="button" value="Cancel">
         </div>
-        <div class="loading-spinner center-block"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
-        <input (click)="cancelSubmit()" class="btn btn-lg btn-default" type="button" value="Cancel">
-        {{display}}
+        <!-- Results Received -->
+        <div *ngIf="state == 1">
+          <div class="row">
+            <h3>Results Received</h3>
+          </div>
+          <input (click)="close()" class="btn btn-lg btn-default" type="button" value="Close">
+        </div>
+        <!-- Server Error -->
+        <div *ngIf="state == 2">
+          <div class="row">
+            <h3>The server is unreachable!</h3>
+          </div>
+          <input (click)="close()" class="btn btn-lg btn-default" type="button" value="Close">
+        </div>
       </div>
     </div>
   </div>
