@@ -11,8 +11,10 @@ headers.append('Content-Type', 'application/json');
 export class SubmissionService {
   constructor(private http: Http) {}
 
-  submit(submission: Submission): Observable<Response> {
+  submit(submission: Submission): Observable<any> {
     const submissionJson = JSON.stringify(submission);
-    return this.http.post(Url, submissionJson, {headers: headers});
+    return this.http
+        .post(Url, submissionJson, {headers: headers})
+        .map(res => res.json());
   }
 }

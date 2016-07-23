@@ -1,25 +1,21 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizationService, SafeHtml } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
-import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { LanguageDropdownComponent } from '../language-dropdown';
-import { Problem, ProblemService, SubmissionService, SupportedLanguages } from '../shared';
+import { SubmissionModalComponent } from '../submission-modal';
+import { Problem, ProblemService, SupportedLanguages } from '../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-problem',
   templateUrl: 'problem.component.html',
-  styleUrls: [
-    'problem.component.css',
-    'loading-spinner.css'
-  ],
+  styleUrls: ['problem.component.css'],
   directives: [
-    MODAL_DIRECTIVES,
-    LanguageDropdownComponent
-  ],
-  providers: [SubmissionService],
-  viewProviders: [BS_VIEW_PROVIDERS]
+    LanguageDropdownComponent,
+    SubmissionModalComponent
+  ]
 })
 export class ProblemComponent implements OnInit, OnDestroy {
   // TODO: can this be const?
@@ -35,42 +31,37 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   // A connection opened in ngOnInit(), closed in ngOnDestroy()
   private problemSubscription: Subscription;
-  // A connection opened in submit(), closed in cancelSubmit() ... TODO: probably closed elsewhere too
-  private submissionSubscription: Subscription;
 
-  @ViewChild('submissionModal') submissionModal: ModalDirective;
+  @ViewChild('submissionModal') submissionModal: SubmissionModalComponent;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private problemService: ProblemService,
-    private submissionService: SubmissionService) {}
+    private sanitizer: DomSanitizationService,
+    private problemService: ProblemService) {}
 
   ngOnInit() {
     this.currentTab = Tab.Problem;
     this.problemSubscription = this.route
-      .params
-      .subscribe(params => {
-        let id = params['id'];
-        // TODO: grab which tab from route data
-        this.problemService.getProblem(id)
-          .subscribe(problem => {
-            // TODO: could use some more elegant validation that the problem exists
-            if (problem.name) {
-              this.problem = problem;
-              // TODO: this should be a separate function or something (see ansi-to-html)
-              this.problem.description = this.problem.description.replace(/\\n/g, '<br>');
-            } else {
-              this.goToProblemsList();
-            }
-          })
-      });
+        .params
+        .subscribe(params => {
+          let id = params['id'];
+          // TODO: grab which tab from route data
+          this.problemService.getProblem(id)
+            .subscribe(problem => {
+              // TODO: could use some more elegant validation that the problem exists
+              if (problem.name) {
+                this.problem = problem;
+                // TODO: this should be a separate function or something (see ansi-to-html)
+                this.problem.description = this.ansiToHtml(this.problem.description);
+              } else {
+                this.goToProblemsList();
+              }
+            })
+        });
   }
 
   ngOnDestroy() {
-    if (this.problemSubscription) {
-      this.problemSubscription.unsubscribe();
-    }
     if (this.problemSubscription) {
       this.problemSubscription.unsubscribe();
     }
@@ -118,30 +109,13 @@ int main()
       seconds: this.problem.timeout,
       tests: this.problem.tests
     };
-
-    this.submissionSubscription =
-        this.submissionService.submit(submission)
-            .subscribe(this.displayResult, this.handleError);
-
-    this.submissionModal.show();
+    this.submissionModal.handleSubmission(submission);
     // TODO: record submission data
   }
 
-  displayResult(result: any): void {
-    console.log('Result!');
-    console.log(result);
-  }
-
-  handleError(err: any): void {
-    if (err.status === 0) {
-      console.log('The server cannot be reached.');
-    }
-  }
-
-  cancelSubmit() {
-    this.submissionModal.hide();
-    // TODO: make sure this does not store the result
-    this.submissionSubscription.unsubscribe();
+  ansiToHtml(str: string): SafeHtml {
+    let html = str.replace(/\\n/g, '<br>');
+    return html;
   }
 }
 

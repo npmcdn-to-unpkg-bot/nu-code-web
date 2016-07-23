@@ -1,0 +1,16 @@
+<div bsModal #modal="bs-modal" class="modal fade"
+    [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="modal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <h3>Submitting your code...</h3>
+        </div>
+        <div class="loading-spinner center-block"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+        <input (click)="cancelSubmit()" class="btn btn-lg btn-default" type="button" value="Cancel">
+        {{display}}
+      </div>
+    </div>
+  </div>
+</div>
