@@ -6,7 +6,12 @@ import { Converter } from 'showdown';
 })
 export class MarkdownPipe implements PipeTransform {
 
-  private converter = new Converter();
+  private converter = new Converter({
+      omitExtraWLInCodeBlocks: true,
+      ghCodeBlocks: true,
+      headerLevelStart: 3,
+      literalMidWordUnderscores: true,
+      tables: true });
 
   /**
    * Converts Markdown to HTML using Showdown.js
