@@ -1,18 +1,31 @@
-import { Difficulty, User } from './';
+import { User } from './';
 
 export class Problem {
-  name: string;
+  $key: string;
+  creatorUid: string;
   description: string;
-  lastUpdated: string;
-  creator: User;
   difficulty: Difficulty;
+  feedback: Feedback;
+  lastUpdated: Date;
+  name: string;
   timeout: number;
 
-  getId = (): string => {
-    return this.name.replace(/[^\s\w\d]/g, '');
-  };
-
-  toString(): string {
-    return this.name + "";
+  static fromJson(json: any): Problem {
+    let problem: Problem = {
+      $key: json.$key,
+      // TODO: can I get the User object?
+      creatorUid: json.creatorUid,
+      description: json.description,
+      difficulty: json.difficulty,
+      feedback: json.feedback,
+      lastUpdated: new Date(json.lastUpdated),
+      name: json.name,
+      timeout: json.timeout
+    };
+    return problem;
   }
 }
+
+type Difficulty = 'Beginner' | 'Easy' | 'Medium' | 'Hard';
+
+type Feedback = 'Simple' | 'Revealing';

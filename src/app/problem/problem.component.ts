@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
 import { CodeEditorComponent } from '../code-editor';
 import { SubmissionModalComponent } from '../submission-modal';
-import { MarkdownPipe, Problem, ProblemService } from '../shared';
+import { MarkdownPipe, Problem, ProblemService, Submission } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -19,8 +19,8 @@ import { MarkdownPipe, Problem, ProblemService } from '../shared';
 })
 // TODO: Solution disappears when switching tabs
 export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
-  // problem: Problem;
-  problem: any;
+  problem: Problem;
+  workingSubmission: Submission;
   currentTab: Tab;
 
   // A connection opened in ngOnInit(), closed in ngOnDestroy()
@@ -46,8 +46,6 @@ export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
               // TODO: could use some more elegant validation that the problem exists
               if (problem.name) {
                 this.problem = problem;
-                // TODO: see if you can query from firebase to not escape \n
-                this.problem.description = this.problem.description.replace(/\\n/g, '\n');
               } else {
                 this.goToProblemsList();
               }
@@ -91,8 +89,7 @@ export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
     const submission = {
       lang: this.editor.langId,
       src: this.editor.sourceCode,
-      seconds: this.problem.timeout,
-      tests: this.problem.tests
+      problem: this.problem.$key
     };
     this.submissionModal.handleSubmission(submission);
     // TODO: record submission data
