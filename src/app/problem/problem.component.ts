@@ -17,6 +17,7 @@ import { MarkdownPipe, Problem, ProblemService } from '../shared';
   ],
   pipes: [MarkdownPipe]
 })
+// TODO: Solution disappears when switching tabs
 export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
   // problem: Problem;
   problem: any;
