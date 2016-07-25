@@ -1,3 +1,4 @@
+export * from './ansi-to-html.pipe';
 export * from './markdown.pipe';
 export * from './problem';
 export * from './problem.service';

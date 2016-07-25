@@ -68,7 +68,7 @@
                 <h4 class="red">Compilation Error</h4>
               </div>
               <div class="row well">
-                <p class="result-error-message">{{result.message}}</p>
+                <p class="result-error-message" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
             </div>
             <!-- Runtime Error -->
@@ -80,7 +80,7 @@
                 <h4 class="red">Runtime Error</h4>
               </div>
               <div class="row well">
-                <p class="result-error-message">{{result.message}}</p>
+                <p class="result-error-message" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
             </div>
             <input (click)="close()" class="btn btn-default" type="button" value="Close">

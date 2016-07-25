@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { FaDirective } from 'angular2-fontawesome/directives';
-import { Result, Submission, SubmissionService } from '../shared';
+import { AnsiToHtmlPipe, Result, Submission, SubmissionService } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -17,6 +17,7 @@ import { Result, Submission, SubmissionService } from '../shared';
     MODAL_DIRECTIVES,
     FaDirective
   ],
+  pipes: [AnsiToHtmlPipe],
   providers: [SubmissionService],
   viewProviders: [BS_VIEW_PROVIDERS]
 })
@@ -60,7 +61,6 @@ public class Solution {
           console.log(result);
         },
         err => {
-          console.log(err);
           this.state = State.ServerError;
         },
         () => {
