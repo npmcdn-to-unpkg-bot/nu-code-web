@@ -8,4 +8,4 @@ export interface Result {
   message?: string;
 }
 
-type Status = 'Pass' | 'Fail' | 'Timeout' | 'Error';
+type Status = 'Pass' | 'Fail' | 'Timeout' | 'CompilationError' | 'RuntimeError';

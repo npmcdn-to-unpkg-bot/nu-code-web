@@ -26,6 +26,7 @@ export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
   // A connection opened in ngOnInit(), closed in ngOnDestroy()
   private problemSubscription: Subscription;
 
+  // TODO: try using viewchild to keep the editor in memory
   @ViewChild('editor') editor: CodeEditorComponent;
   @ViewChild('submissionModal') submissionModal: SubmissionModalComponent;
 

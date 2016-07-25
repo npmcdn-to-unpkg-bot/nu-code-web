@@ -1,77 +1,102 @@
 <div bsModal #modal="bs-modal" class="modal fade"
     [config]="{backdrop: 'static'}" tabindex="-1"
     role="dialog" aria-labelledby="modal" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-body">
-        <!-- Submission Sending -->
-        <div *ngIf="state == 0">
-          <div class="row">
-            <h3>Submitting your code...</h3>
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog vertical-align-center">
+      <div class="modal-content">
+        <div class="modal-body">
+          <!-- Submission Sending -->
+          <div *ngIf="state == 0">
+            <div class="row">
+              <h3>Submitting your code...</h3>
+            </div>
+            <div class="loading-spinner center-block"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+            <input (click)="cancel()" class="btn btn-lg btn-default" type="button" value="Cancel">
           </div>
-          <div class="loading-spinner center-block"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
-          <input (click)="cancel()" class="btn btn-lg btn-default" type="button" value="Cancel">
-        </div>
-        <!-- Results Received -->
-        <div *ngIf="state == 1">
-          <!-- Correct Solution -->
-          <div *ngIf="result.passed">
-            <div class="row">
-              <i fa class="green" [name]="'check'" [size]=3></i>
+          <!-- Results Received -->
+          <div *ngIf="state == 1">
+            <!-- Correct Solution -->
+            <div *ngIf="result.status === 'Pass'">
+              <div class="row">
+                <i fa class="green" [name]="'check'" [size]=3></i>
+              </div>
+              <div class="row">
+                <h4 class="green">Correct</h4>
+              </div>
+              <div class="row">
+                <p>All tests passed!</p>
+              </div>
             </div>
-            <div class="row">
-              <h4 class="green">Correct</h4>
-            </div>
-          </div>
-          <!-- Incorrect Solution -->
-          <!-- Note: cannot simply do !result.passed because that checks falsiness -->
-          <div *ngIf="result.passed === false">
-            <div class="row">
-              <i fa class="red" [name]="'times'" [size]=3></i>
-            </div>
-            <div class="row">
-              <h4 class="red">Incorrect</h4>
-            </div>
-            <div class="row">
-              <div *ngFor="let testResult of result.results; let i = index">
-                Test {{i + 1}}:
-                <div *ngIf="testResult.error">
-                  {{testResult.error}}
-                </div>
-                <div *ngIf="testResult.differences">
-                  <div *ngFor="let difference of testResult.differences">
-                    Expected: {{difference.expected}}, Actual: {{difference.actual}}
+            <!-- Incorrect Solution -->
+            <div *ngIf="result.status === 'Fail'">
+              <div class="row">
+                <i fa class="red" [name]="'times'" [size]=3></i>
+              </div>
+              <div class="row">
+                <h4 class="red">Incorrect Submission</h4>
+              </div>
+              <!-- TODO: address the revealing output -->
+              <div *ngIf="result.results" class="row">
+                <div *ngFor="let testResult of result.results; let i = index">
+                  Test {{i + 1}}:
+                  <div *ngIf="testResult.status">
+                    {{testResult.status}}
+                  </div>
+                  <div *ngIf="testResult.differences">
+                    <div *ngFor="let difference of testResult.differences">
+                      Expected: {{difference.expected}}, Actual: {{difference.actual}}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!-- Timeout -->
+            <div *ngIf="result.status === 'Timeout'">
+              <div class="row">
+                <i fa class="red" [name]="'clock-o'" [size]=3></i>
+              </div>
+              <div class="row">
+                <h4 class="red">Time Limit Exceeded</h4>
+              </div>
+            </div>
+            <!-- Compilation Error -->
+            <div *ngIf="result.status === 'CompilationError'">
+              <div class="row">
+                <i fa class="red" [name]="'exclamation-circle'" [size]=3></i>
+              </div>
+              <div class="row">
+                <h4 class="red">Compilation Error</h4>
+              </div>
+              <div class="row well">
+                <p class="result-error-message">{{result.message}}</p>
+              </div>
+            </div>
+            <!-- Runtime Error -->
+            <div *ngIf="result.status === 'RuntimeError'">
+              <div class="row">
+                <i fa class="red" [name]="'exclamation-circle'" [size]=3></i>
+              </div>
+              <div class="row">
+                <h4 class="red">Runtime Error</h4>
+              </div>
+              <div class="row well">
+                <p class="result-error-message">{{result.message}}</p>
+              </div>
+            </div>
+            <input (click)="close()" class="btn btn-default" type="button" value="Close">
           </div>
-          <!-- Code Error -->
-          <div *ngIf="result.error">
+          <!-- Server Error -->
+          <div *ngIf="state == 2">
             <div class="row">
-              <i fa class="red" [name]="'times'" [size]=3></i>
+              <i fa class="red" [name]="'exclamation-triangle'" [size]=3></i>
             </div>
             <div class="row">
-              <h4 class="red">Compilation Error</h4>
+              <h4>The server is unreachable!</h4>
             </div>
-            <div class="row">
-              <p>{{result.error}}</p>
+            <div class="clearfix">
+              <input (click)="retry()" class="btn btn-primary pull-right" type="button" value="Retry">
+              <input (click)="close()" class="btn btn-default pull-left" type="button" value="Close">
             </div>
-          </div>
-
-          <input (click)="close()" class="btn btn-default" type="button" value="Close">
-        </div>
-        <!-- Server Error -->
-        <div *ngIf="state == 2">
-          <div class="row">
-            <i fa class="red" [name]="'exclamation-circle'" [size]=3></i>
-          </div>
-          <div class="row">
-            <h4>The server is unreachable!</h4>
-          </div>
-          <div class="clearfix">
-            <input (click)="retry()" class="btn btn-primary pull-right" type="button" value="Retry">
-            <input (click)="close()" class="btn btn-default pull-left" type="button" value="Close">
           </div>
         </div>
       </div>

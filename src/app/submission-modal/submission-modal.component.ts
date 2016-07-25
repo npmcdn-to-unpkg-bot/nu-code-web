@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { FaDirective } from 'angular2-fontawesome/directives';
-import { Submission, SubmissionService } from '../shared';
+import { Result, Submission, SubmissionService } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -26,7 +26,20 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
 
   state: State;
   lastSubmission: Submission;
-  result: any;
+  result: Result;
+
+/*
+import java.util.Scanner;
+
+public class Solution {
+  public static void main(String[] args) {
+  	Scanner scanner = new Scanner(System.in);
+    int x = scanner.nextInt();
+    int y = x + 2;
+    System.out.println(y);
+  }
+}
+*/
 
   constructor(private submissionService: SubmissionService) {}
 
@@ -47,6 +60,7 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
           console.log(result);
         },
         err => {
+          console.log(err);
           this.state = State.ServerError;
         },
         () => {
