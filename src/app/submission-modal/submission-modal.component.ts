@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective, ModalOptions } from 'ng2-bootstrap/ng2-bootstrap';
 import { FaDirective } from 'angular2-fontawesome/directives';
 import { AnsiToHtmlPipe, Result, Submission, SubmissionService } from '../shared';
+
+const ConfigPreventCloseOnClickOutside: ModalOptions = { backdrop: 'static' };
 
 @Component({
   moduleId: module.id,
@@ -52,6 +54,7 @@ public class Solution {
   }
 
   handleSubmission(submission: Submission) {
+    this.modal.config = ConfigPreventCloseOnClickOutside;
     this.lastSubmission = submission;
     this.state = State.Submitting;
     this.submissionSubscription = this.submissionService.submit(submission).subscribe(
@@ -64,7 +67,8 @@ public class Solution {
           this.state = State.ServerError;
         },
         () => {
-          // You cannot use this directly as the callback because the `this` context will be wrong.
+          // Allow click outside
+          this.modal.config = {};
           this.killSubscription();
         });
     this.modal.show();
