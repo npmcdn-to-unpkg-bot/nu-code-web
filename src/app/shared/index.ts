@@ -1,5 +1,6 @@
 export * from './ansi-to-html.pipe';
 export * from './markdown.pipe';
+export * from './precision.pipe';
 export * from './problem';
 export * from './problem.service';
 export * from './result';
