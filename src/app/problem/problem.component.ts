@@ -23,12 +23,15 @@ const DefaultSubmission: Submission = {
   ],
   pipes: [MarkdownPipe]
 })
-// TODO: Solution disappears when switching tabs
 export class ProblemComponent implements OnInit {
   // Loaded from problemService on init
   problem: Problem;
-  // Manipulated by editor, it eventually adheres to the Submission interface
-  submission = DefaultSubmission;
+  // Manipulated by editor. Set as a new object instance so as not to keep it in memory
+  submission: Submission = {
+    lang: DefaultSubmission.lang,
+    src: DefaultSubmission.src,
+    problem: DefaultSubmission.problem
+  };
   // Manipulated by submissionModal
   lastResult: Result;
   // TODO: try ng2-bootstrap tabset again
