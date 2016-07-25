@@ -7,34 +7,23 @@
         <div class="modal-body">
           <!-- Submission Sending -->
           <div *ngIf="state == 0">
+            <h3>Submitting your code...</h3>
             <div class="row">
-              <h3>Submitting your code...</h3>
+              <img class="loading-icon center-block" src="assets/loading.svg">
             </div>
-            <div class="loading-spinner center-block"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
-            <input (click)="cancel()" class="btn btn-lg btn-default" type="button" value="Cancel">
+            <input (click)="cancel()" class="btn btn-default" type="button" value="Cancel">
           </div>
           <!-- Results Received -->
           <div *ngIf="state == 1">
             <!-- Correct Solution -->
             <div *ngIf="result.status === 'Pass'">
-              <div class="row">
-                <i fa class="green" [name]="'check'" [size]=3></i>
-              </div>
-              <div class="row">
-                <h4 class="green">Correct</h4>
-              </div>
-              <div class="row">
-                <p>All tests passed!</p>
-              </div>
+              <i fa class="green" [name]="'check'" [size]=4></i>
+              <h3 class="green">Correct</h3>
             </div>
             <!-- Incorrect Solution -->
             <div *ngIf="result.status === 'Fail'">
-              <div class="row">
-                <i fa class="red" [name]="'times'" [size]=3></i>
-              </div>
-              <div class="row">
-                <h4 class="red">Incorrect Submission</h4>
-              </div>
+              <i fa class="red" [name]="'times'" [size]=4></i>
+              <h3 class="red">Incorrect Submission</h3>
               <!-- TODO: address the revealing output -->
               <div *ngIf="result.results" class="row">
                 <div *ngFor="let testResult of result.results; let i = index">
@@ -52,34 +41,22 @@
             </div>
             <!-- Timeout -->
             <div *ngIf="result.status === 'Timeout'">
-              <div class="row">
-                <i fa class="red" [name]="'clock-o'" [size]=3></i>
-              </div>
-              <div class="row">
-                <h4 class="red">Time Limit Exceeded</h4>
-              </div>
+              <i fa class="red" [name]="'clock-o'" [size]=4></i>
+              <h3 class="red">Time Limit Exceeded</h3>
             </div>
             <!-- Compilation Error -->
             <div *ngIf="result.status === 'CompilationError'">
-              <div class="row">
-                <i fa class="red" [name]="'exclamation-circle'" [size]=3></i>
-              </div>
-              <div class="row">
-                <h4 class="red">Compilation Error</h4>
-              </div>
-              <div class="row well">
+              <i fa class="red" [name]="'exclamation-circle'" [size]=4></i>
+              <h3 class="red">Compilation Error</h3>
+              <div class="well">
                 <p class="result-error-message" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
             </div>
             <!-- Runtime Error -->
             <div *ngIf="result.status === 'RuntimeError'">
-              <div class="row">
-                <i fa class="red" [name]="'exclamation-circle'" [size]=3></i>
-              </div>
-              <div class="row">
-                <h4 class="red">Runtime Error</h4>
-              </div>
-              <div class="row well">
+              <i fa class="red" [name]="'exclamation-circle'" [size]=4></i>
+              <h3 class="red">Runtime Error</h3>
+              <div class="well">
                 <p class="result-error-message" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
             </div>
@@ -87,12 +64,8 @@
           </div>
           <!-- Server Error -->
           <div *ngIf="state == 2">
-            <div class="row">
-              <i fa class="red" [name]="'exclamation-triangle'" [size]=3></i>
-            </div>
-            <div class="row">
-              <h4>The server is unreachable!</h4>
-            </div>
+            <i fa class="red" [name]="'exclamation-triangle'" [size]=4></i>
+            <h3>The server is unreachable!</h3>
             <div class="clearfix">
               <input (click)="retry()" class="btn btn-primary pull-right" type="button" value="Retry">
               <input (click)="close()" class="btn btn-default pull-left" type="button" value="Close">
