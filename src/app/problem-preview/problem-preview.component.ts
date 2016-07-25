@@ -17,9 +17,7 @@ export class ProblemPreviewComponent implements OnInit {
   }
 
   openProblemPage() {
-    // TODO: I potentially need to make an ID for the problems
-    let problemId = this.problem.name.replace(/[^\w\d]/g, '');
-    this.router.navigate(['/problems/', problemId]);
+    this.router.navigate(['/problems/', this.problem.$key]);
   }
 
 }
