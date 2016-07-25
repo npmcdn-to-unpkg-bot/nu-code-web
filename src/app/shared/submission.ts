@@ -1,6 +1,6 @@
 import { Problem } from './';
 
-export class Submission {
+export interface Submission {
   lang: string;
   src: string;
   problem: string;
