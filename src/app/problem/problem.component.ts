@@ -21,8 +21,8 @@ import { MarkdownPipe, Problem, ProblemService, Result, Submission } from '../sh
 export class ProblemComponent implements OnInit {
   // Loaded from problemService on init
   problem: Problem;
-  // Manipulated by editor
-  submission: Submission;
+  // Manipulated by editor, it eventually adheres to the Submission interface
+  submission: any = {};
   // Manipulated by submissionModal
   lastResult: Result;
   // TODO: try ng2-bootstrap tabset again
@@ -37,11 +37,6 @@ export class ProblemComponent implements OnInit {
 
   ngOnInit() {
     this.currentTab = Tab.Problem;
-    this.submission = {
-      lang: 'c',
-      src: '',
-      problem: ''
-    };
     this.route.params
         .subscribe(params => {
           let id = params['id'];

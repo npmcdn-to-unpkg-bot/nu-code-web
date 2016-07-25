@@ -19,11 +19,7 @@ const CharacterLimit = 10000;
   directives: [LanguageDropdownComponent]
 })
 export class CodeEditorComponent implements OnInit {
-  @Input() submission: Submission = {
-        lang: 'c',
-        src: '',
-        problem: ''
-      };
+  @Input() submission: any = {};
   @ViewChild('textarea') textarea: ElementRef;
   private editor: Editor;
 
@@ -39,17 +35,11 @@ export class CodeEditorComponent implements OnInit {
   }
 
   onLangChange(langId: string): void {
-    if (this.submission) {
-      this.submission.lang = langId;
-    }
+    this.submission.lang = langId;
     // this.editor.setOption('mode', langId);
   }
 
   private charCountDisplay() {
-    return `${this.submission ? this.submission.src.length : 0}/${CharacterLimit}`;
+    return `${this.submission.src ? this.submission.src.length : 0}/${CharacterLimit}`;
   };
-
-  numChars() {
-    return this.editor.getValue().length;
-  }
 }
