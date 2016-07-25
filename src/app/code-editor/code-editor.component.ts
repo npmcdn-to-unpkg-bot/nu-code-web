@@ -19,6 +19,7 @@ const CharacterLimit = 10000;
   directives: [LanguageDropdownComponent]
 })
 export class CodeEditorComponent implements OnInit {
+  @Input() autofocus: boolean = false;
   @Input() submission: any = {};
   @ViewChild('textarea') textarea: ElementRef;
   private editor: Editor;
@@ -26,7 +27,7 @@ export class CodeEditorComponent implements OnInit {
   ngOnInit() {
     // let startingMode = 'text/x-csrc';
     let options: EditorConfiguration = {
-      autofocus: true,
+      autofocus: this.autofocus,
       lineNumbers: true,
       lineWrapping: true
     };
