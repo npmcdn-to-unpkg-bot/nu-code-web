@@ -1,10 +1,10 @@
-import { Component, AfterViewChecked, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
 import { CodeEditorComponent } from '../code-editor';
 import { SubmissionModalComponent } from '../submission-modal';
-import { MarkdownPipe, Problem, ProblemService, Submission } from '../shared';
+import { MarkdownPipe, Problem, ProblemService, Result, Submission } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -18,13 +18,16 @@ import { MarkdownPipe, Problem, ProblemService, Submission } from '../shared';
   pipes: [MarkdownPipe]
 })
 // TODO: Solution disappears when switching tabs
-export class ProblemComponent implements OnInit, AfterViewChecked {
+export class ProblemComponent implements OnInit {
+  // Loaded from problemService on init
   problem: Problem;
-  workingSubmission: Submission;
+  // Manipulated by editor
+  submission: Submission;
+  // Manipulated by submissionModal
+  lastResult: Result;
+  // TODO: try ng2-bootstrap tabset again
   currentTab: Tab;
 
-  // TODO: try using viewchild to keep the editor in memory
-  @ViewChild('editor') editor: CodeEditorComponent;
   @ViewChild('submissionModal') submissionModal: SubmissionModalComponent;
 
   constructor(
@@ -34,26 +37,26 @@ export class ProblemComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.currentTab = Tab.Problem;
+    this.submission = {
+      lang: 'c',
+      src: '',
+      problem: ''
+    };
     this.route.params
         .subscribe(params => {
           let id = params['id'];
-          // TODO: store tab in the route data
+          // TODO: store current tab in the route data
           this.problemService.getProblem(id)
               .subscribe(problem => {
                 // TODO: could use some more elegant validation that the problem exists
                 if (problem.name) {
                   this.problem = problem;
+                  this.submission.problem = problem.$key;
                 } else {
                   this.goToProblemsList();
                 }
               })
         });
-  }
-
-  ngAfterViewChecked() {
-    // if (this.editor) {
-      // this.editor.sourceCode = '#include <stdio.h>\nint main()\n{\n  printf("233168");\n}\n';
-    // }
   }
 
   isCurrentTab(tab: string): boolean {
@@ -77,12 +80,7 @@ export class ProblemComponent implements OnInit, AfterViewChecked {
   }
 
   submit(): void {
-    const submission = {
-      lang: this.editor.langId,
-      src: this.editor.sourceCode,
-      problem: this.problem.$key
-    };
-    this.submissionModal.handleSubmission(submission);
+    this.submissionModal.handleSubmission(this.submission);
     // TODO: record submission data
   }
 

@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <app-code-editor #editor></app-code-editor>
+    <app-code-editor #editor [submission]="submission"></app-code-editor>
     <div class="row clearfix">
       <button (click)="submit()" class="problem-submit btn btn-primary pull-right">Submit</button>
     </div>
