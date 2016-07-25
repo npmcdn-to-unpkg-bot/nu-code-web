@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewChecked, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CatchSignature } from 'rxjs/operator/catch';
@@ -18,13 +18,10 @@ import { MarkdownPipe, Problem, ProblemService, Submission } from '../shared';
   pipes: [MarkdownPipe]
 })
 // TODO: Solution disappears when switching tabs
-export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class ProblemComponent implements OnInit, AfterViewChecked {
   problem: Problem;
   workingSubmission: Submission;
   currentTab: Tab;
-
-  // A connection opened in ngOnInit(), closed in ngOnDestroy()
-  private problemSubscription: Subscription;
 
   // TODO: try using viewchild to keep the editor in memory
   @ViewChild('editor') editor: CodeEditorComponent;
@@ -37,20 +34,19 @@ export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngOnInit() {
     this.currentTab = Tab.Problem;
-    this.problemSubscription = this.route
-        .params
+    this.route.params
         .subscribe(params => {
           let id = params['id'];
-          // TODO: grab which tab from route data
+          // TODO: store tab in the route data
           this.problemService.getProblem(id)
-            .subscribe(problem => {
-              // TODO: could use some more elegant validation that the problem exists
-              if (problem.name) {
-                this.problem = problem;
-              } else {
-                this.goToProblemsList();
-              }
-            })
+              .subscribe(problem => {
+                // TODO: could use some more elegant validation that the problem exists
+                if (problem.name) {
+                  this.problem = problem;
+                } else {
+                  this.goToProblemsList();
+                }
+              })
         });
   }
 
@@ -58,12 +54,6 @@ export class ProblemComponent implements OnInit, AfterViewChecked, OnDestroy {
     // if (this.editor) {
       // this.editor.sourceCode = '#include <stdio.h>\nint main()\n{\n  printf("233168");\n}\n';
     // }
-  }
-
-  ngOnDestroy() {
-    if (this.problemSubscription) {
-      this.problemSubscription.unsubscribe();
-    }
   }
 
   isCurrentTab(tab: string): boolean {
