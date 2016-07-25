@@ -6,6 +6,12 @@ import { CodeEditorComponent } from '../code-editor';
 import { SubmissionModalComponent } from '../submission-modal';
 import { MarkdownPipe, Problem, ProblemService, Result, Submission } from '../shared';
 
+const DefaultSubmission: Submission = {
+  lang: 'c',
+  src: '',
+  problem: undefined
+};
+
 @Component({
   moduleId: module.id,
   selector: 'app-problem',
@@ -22,7 +28,7 @@ export class ProblemComponent implements OnInit {
   // Loaded from problemService on init
   problem: Problem;
   // Manipulated by editor, it eventually adheres to the Submission interface
-  submission: any = {};
+  submission = DefaultSubmission;
   // Manipulated by submissionModal
   lastResult: Result;
   // TODO: try ng2-bootstrap tabset again

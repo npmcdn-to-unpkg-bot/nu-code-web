@@ -1,12 +1,18 @@
-import { Component, ElementRef, forwardRef, Input, OnInit, Output, NgZone, Provider, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CORE_DIRECTIVES } from '@angular/common';
+import { Component, ElementRef, forwardRef, Input, OnInit, Output, NgZone, Provider, SimpleChange, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { fromTextArea, Editor, EditorConfiguration } from 'codemirror';
 import { LanguageDropdownComponent } from './language-dropdown';
 import { Submission } from '../shared';
 
 const CharacterLimit = 10000;
-const DefaultSrc = '';
-const DefaultLang = 'c';
+
+const noop = () => {};
+
+const INPUT_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => CodeEditorComponent),
+  multi: true
+};
 
 @Component({
   moduleId: module.id,
@@ -18,9 +24,14 @@ const DefaultLang = 'c';
     'code-editor.component.css'
   ],
   encapsulation: ViewEncapsulation.None,
-  directives: [LanguageDropdownComponent]
+  directives: [LanguageDropdownComponent],
+  providers: [INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class CodeEditorComponent implements OnInit {
+export class CodeEditorComponent implements OnInit, ControlValueAccessor {
+  // Registed by ngModel
+  private onTouchedCallback: () => void = noop;
+  private onChangeCallback: (_: any) => void = noop;
+
   @Input() autofocus: boolean = false;
   @Input() submission: any = {};
   @ViewChild('textarea') textarea: ElementRef;
@@ -33,13 +44,39 @@ export class CodeEditorComponent implements OnInit {
       lineNumbers: true,
       lineWrapping: true
     };
-    this.submission.lang = DefaultLang;
-    this.submission.src = DefaultSrc;
     this.editor = fromTextArea(this.textarea.nativeElement, options);
-    this.editor.on('change', editor => this.submission.src = editor.getValue());
+    this.editor.on('change', editor => {
+      this.submission.src = editor.getValue();
+      this.onChangeCallback(this.submission);
+    });
+  }
+
+  onLangChange(newLang: string) {
+    this.submission.lang = newLang;
+    this.onChangeCallback(this.submission);
+    // TODO: change editor language mode
   }
 
   private charCountDisplay() {
     return `${this.submission.src ? this.submission.src.length : 0}/${CharacterLimit}`;
   };
+
+  // TODO: figure out why the first write is null
+  firstWriteDone = false;
+  writeValue(submission: any) {
+    if (this.firstWriteDone) {
+      this.submission = submission;
+      this.editor.setValue(submission.src);
+    } else {
+      this.firstWriteDone = true;
+    }
+  }
+
+  registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
 }
