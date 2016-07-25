@@ -22,7 +22,7 @@
           <span class="pull-left problem-detail-label">Difficulty:</span> <span class="pull-right problem-detail-value">{{problem.difficulty}}</span>
         </div>
         <div class="clearfix">
-          <span class="pull-left problem-detail-label">Execution Time Limit:</span> <span class="pull-right">{{problem.timeout}} seconds</span>
+          <span class="pull-left problem-detail-label">Execution Time Limit:</span> <span class="pull-right">{{problem.timeout}} second{{problem.timeout > 1 ? 's' : ''}}</span>
         </div>
       </div>
     </div>
