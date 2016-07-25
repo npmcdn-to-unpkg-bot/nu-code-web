@@ -4,7 +4,7 @@
       <h3>Your Solution</h3>
     </div>
     <div class="pull-right">
-      <app-language-dropdown (langChange)="onLangChange($event)"></app-language-dropdown>
+      <app-language-dropdown [(ngModel)]="submission.lang"></app-language-dropdown>
     </div>
   </div>
   <div class="row editor">

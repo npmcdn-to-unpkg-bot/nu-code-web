@@ -5,6 +5,8 @@ import { LanguageDropdownComponent } from './language-dropdown';
 import { Submission } from '../shared';
 
 const CharacterLimit = 10000;
+const DefaultSrc = '';
+const DefaultLang = 'c';
 
 @Component({
   moduleId: module.id,
@@ -31,13 +33,10 @@ export class CodeEditorComponent implements OnInit {
       lineNumbers: true,
       lineWrapping: true
     };
+    this.submission.lang = DefaultLang;
+    this.submission.src = DefaultSrc;
     this.editor = fromTextArea(this.textarea.nativeElement, options);
     this.editor.on('change', editor => this.submission.src = editor.getValue());
-  }
-
-  onLangChange(langId: string): void {
-    this.submission.lang = langId;
-    // this.editor.setOption('mode', langId);
   }
 
   private charCountDisplay() {
