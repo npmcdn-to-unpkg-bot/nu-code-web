@@ -1,5 +1,5 @@
 // A mapping between user-friendly display and the lang-id sent to the server for compilation.
-export const SupportedLanguages = {
+export const SupportedLanguagesByDisplay = {
   'C': 'c',
   'C++': 'cpp',
   'C#': 'csharp',
@@ -7,7 +7,18 @@ export const SupportedLanguages = {
   'JavaScript': 'js',
   'Python 2': 'python',
   'Python 3': 'python3'
-}
+};
+
+// Self-called function that produces the inverse of SupportedLanguagesByDisplay
+export const SupportedLanguagesByCode = (function () {
+  var supportedLanguagesByCode = {};
+  for (var displayName in SupportedLanguagesByDisplay) {
+    if (SupportedLanguagesByDisplay.hasOwnProperty(displayName)) {
+      supportedLanguagesByCode[SupportedLanguagesByDisplay[displayName]] = displayName;
+    }
+  }
+  return supportedLanguagesByCode;
+})();
 
 // export const SupportedLanguages = {
 //   'C': {
