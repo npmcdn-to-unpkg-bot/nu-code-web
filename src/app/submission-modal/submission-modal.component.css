@@ -21,7 +21,8 @@ p {
   text-align: left;
 }
 .loading-icon {
-  size: 50%;
+  width: 75px;
+  height: 75px;
 }
 
 /* Center the modal to the middle of the screen */
