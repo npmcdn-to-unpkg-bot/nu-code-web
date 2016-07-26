@@ -18,12 +18,13 @@
             <!-- Correct Solution -->
             <div *ngIf="result.status === 'Pass'">
               <i fa class="green" [name]="'check'" [size]=4></i>
-              <h3 class="green">Correct</h3>
+              <h3 class="result-status green">Correct</h3>
+              <p class="result-time">{{result.execTime | precision:5}} seconds</p>
             </div>
             <!-- Incorrect Solution -->
             <div *ngIf="result.status === 'Fail'">
               <i fa class="red" [name]="'times'" [size]=4></i>
-              <h3 class="red">Incorrect Submission</h3>
+              <h3 class="result-status red">Incorrect</h3>
               <!-- TODO: address the revealing output -->
               <div *ngIf="result.results" class="row">
                 <div *ngFor="let testResult of result.results; let i = index">
@@ -42,12 +43,12 @@
             <!-- Timeout -->
             <div *ngIf="result.status === 'Timeout'">
               <i fa class="red" [name]="'clock-o'" [size]=4></i>
-              <h3 class="red">Time Limit Exceeded</h3>
+              <h3 class="result-status red">Time Limit Exceeded</h3>
             </div>
             <!-- Compilation Error -->
             <div *ngIf="result.status === 'CompilationError'">
               <i fa class="red" [name]="'exclamation-circle'" [size]=4></i>
-              <h3 class="red">Compilation Error</h3>
+              <h3 class="result-status red">Compilation Error</h3>
               <div class="well">
                 <p class="result-error-message" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
@@ -55,7 +56,7 @@
             <!-- Runtime Error -->
             <div *ngIf="result.status === 'RuntimeError'">
               <i fa class="red" [name]="'exclamation-circle'" [size]=4></i>
-              <h3 class="red">Runtime Error</h3>
+              <h3 class="result-status red">Runtime Error</h3>
               <div class="well">
                 <p class="result-error-message" [innerHTML]="result.message | ansiToHtml"></p>
               </div>

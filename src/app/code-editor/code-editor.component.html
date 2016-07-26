@@ -1,16 +1,14 @@
-<div class="container">
-  <div class="row clearfix header">
-    <div class="pull-left">
-      <h3>Your Solution</h3>
-    </div>
-    <div class="pull-right">
-      <app-language-dropdown [(ngModel)]="submission.lang" (ngModelChange)="onLangChange($event)"></app-language-dropdown>
-    </div>
+<div class="row clearfix header">
+  <div class="pull-left">
+    <h3>Your Solution</h3>
   </div>
-  <div class="row editor">
-    <textarea class="hidden" #textarea></textarea>
+  <div class="pull-right">
+    <app-language-dropdown [(ngModel)]="submission.lang" (ngModelChange)="onLangChange($event)"></app-language-dropdown>
   </div>
-  <div class="row clearfix status-bar">
-    <p class="pull-right">{{charCountDisplay()}}</p>
-  </div>
+</div>
+<div class="row editor">
+  <textarea class="hidden" #textarea></textarea>
+</div>
+<div class="row clearfix status-bar">
+  <p class="pull-right">{{charCountDisplay()}}</p>
 </div>

@@ -1,3 +1,6 @@
+/*f7f7f7*/
+/*TODO: style the CodeMirror thing*/
+
 p {
   margin-bottom: 0;
 }
@@ -16,6 +19,13 @@ p {
 }
 .red {
   color: red;
+}
+.result-status {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.result-time {
+  font-size: 1.25em;
 }
 .result-error-message {
   text-align: left;
