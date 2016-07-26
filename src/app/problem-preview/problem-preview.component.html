@@ -1,13 +1,9 @@
-<div class="row problem-preview list-group-item">
-  <div class="col-xs-11">
-    <div class="row">
-      <h3 class="problem-name">{{problem.name}}</h3>
-    </div>
-    <div class="row">
-      <span class="problem-difficulty">Difficulty: {{problem.difficulty}}</span>
-    </div>
+<a class="problem-preview btn btn-default list-group-item" (click)="openProblemPage()">
+  <div class="problem-info col-xs-12">
+    <h3 class="problem-name">{{problem.name}}</h3>
+    <span class="problem-difficulty">Difficulty: {{problem.difficulty}}</span>
   </div>
-  <a class="col-xs-1 problem-btn btn btn-primary" (click)="openProblemPage()">
+  <a class="problem-btn btn btn-primary">
     Solve Now
   </a>
-</div>
+</a>
