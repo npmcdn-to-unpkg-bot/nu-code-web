@@ -42,6 +42,23 @@ p {
 .result-error-message {
   text-align: left;
 }
+.alert-warning {
+  border-radius: 4px;
+}
+.hint {
+  margin-top: 5px;
+  padding: 5px;
+  display: flex;
+  text-align: left;
+}
+.hint-label {
+  padding: 5px;
+  padding-right: 10px;
+  align-self: center;
+}
+.hint-value {
+  align-self: center;
+}
 
 /* Center the modal to the middle of the screen */
 .vertical-alignment-helper {

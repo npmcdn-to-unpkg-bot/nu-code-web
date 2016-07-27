@@ -25,10 +25,10 @@
             <div *ngIf="result.status === 'Fail'">
               <i fa class="red" [name]="'times'" [size]=4></i>
               <h3 class="result-status red">Incorrect</h3>
-              <!-- TODO: address the revealing output -->
               <div *ngIf="result.hints">
-                <div *ngFor="let hint of result.hints" class="alert-warning">
-                  <span class="larger"><span class="lighter">Hint: </span>{{hint}}</span>
+                <div class="alert-warning hint larger" *ngFor="let hint of result.hints">
+                  <div class="lighter hint-label">Hint: </div>
+                  <div class="hint-value">{{hint}}</div>
                 </div>
               </div>
             </div>
