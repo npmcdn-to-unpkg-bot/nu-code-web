@@ -1,10 +1,10 @@
 export interface Result {
   status: Status;
-  // Included if status === Status.Pass
+  // If status === 'Pass'
   execTime?: number;
-  // Included if status !== Status.Pass and the problem's feedback is 'Revealing'
-  results?: [any]
-  // Included if status === Status.Error
+  // If status === 'Fail' and one of the failed tests had a hint
+  hints?: [any]
+  // If status === 'CompilationError' | 'RuntimeError'
   message?: string;
 }
 

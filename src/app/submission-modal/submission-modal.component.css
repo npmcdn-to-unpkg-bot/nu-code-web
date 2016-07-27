@@ -23,6 +23,12 @@ p {
 .btn {
   margin-top: 10px;
 }
+.larger {
+  font-size: 1.2em;
+}
+.lighter {
+  opacity: 0.8;
+}
 .green {
   color: green;
 }
@@ -32,9 +38,6 @@ p {
 .result-status {
   margin-top: 10px;
   margin-bottom: 10px;
-}
-.result-time {
-  font-size: 1.25em;
 }
 .result-error-message {
   text-align: left;

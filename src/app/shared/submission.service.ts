@@ -12,9 +12,8 @@ export class SubmissionService {
   constructor(private http: Http) {}
 
   submit(submission: Submission): Observable<Result> {
-    const submissionJson = JSON.stringify(submission);
     return this.http
-        .post(Url, submissionJson, {headers: headers})
+        .post(Url, submission, {headers: headers})
         .map(res => {
           return res.json() as Result;
         });

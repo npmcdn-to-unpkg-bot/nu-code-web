@@ -19,24 +19,16 @@
             <div *ngIf="result.status === 'Pass'">
               <i fa class="green" [name]="'check'" [size]=4></i>
               <h3 class="result-status green">Correct</h3>
-              <p class="result-time">{{result.execTime | precision:5}} seconds</p>
+              <span class="larger">{{result.execTime | precision:5}} seconds</span>
             </div>
             <!-- Incorrect Solution -->
             <div *ngIf="result.status === 'Fail'">
               <i fa class="red" [name]="'times'" [size]=4></i>
               <h3 class="result-status red">Incorrect</h3>
               <!-- TODO: address the revealing output -->
-              <div *ngIf="result.results" class="row">
-                <div *ngFor="let testResult of result.results; let i = index">
-                  Test {{i + 1}}:
-                  <div *ngIf="testResult.status">
-                    {{testResult.status}}
-                  </div>
-                  <div *ngIf="testResult.differences">
-                    <div *ngFor="let difference of testResult.differences">
-                      Expected: {{difference.expected}}, Actual: {{difference.actual}}
-                    </div>
-                  </div>
+              <div *ngIf="result.hints">
+                <div *ngFor="let hint of result.hints" class="alert-warning">
+                  <span class="larger"><span class="lighter">Hint: </span>{{hint}}</span>
                 </div>
               </div>
             </div>
@@ -50,7 +42,7 @@
               <i fa class="red" [name]="'exclamation-circle'" [size]=4></i>
               <h3 class="result-status red">Compilation Error</h3>
               <div class="well">
-                <p class="result-error-message" [innerHTML]="result.message | ansiToHtml"></p>
+                <p class="result-error-message larger" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
             </div>
             <!-- Runtime Error -->
@@ -58,7 +50,7 @@
               <i fa class="red" [name]="'exclamation-circle'" [size]=4></i>
               <h3 class="result-status red">Runtime Error</h3>
               <div class="well">
-                <p class="result-error-message" [innerHTML]="result.message | ansiToHtml"></p>
+                <p class="result-error-message larger" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
             </div>
             <input (click)="close()" class="btn btn-default" type="button" value="Close">
