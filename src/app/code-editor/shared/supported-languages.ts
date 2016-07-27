@@ -3,7 +3,7 @@ export const SupportedLanguagesByDisplay = {
   'C': 'c',
   'C++': 'cpp',
   'C#': 'csharp',
-  'Java 8': 'java',
+  'Java': 'java',
   'JavaScript': 'js',
   'Python 2': 'python',
   'Python 3': 'python3'
