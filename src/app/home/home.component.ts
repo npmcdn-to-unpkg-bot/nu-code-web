@@ -15,6 +15,6 @@ export class HomeComponent implements OnInit {
   }
 
   goToProblemList() {
-    this.router.navigate(['/problems']);
+    this.router.navigateByUrl('/problems');
   }
 }
