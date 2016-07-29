@@ -80,7 +80,7 @@ export class ProblemComponent implements OnInit {
   }
 
   goToProblemsList() {
-    this.router.navigate(['/problems']);
+    this.router.navigateByUrl('/problems');
   }
 
   submit(): void {
