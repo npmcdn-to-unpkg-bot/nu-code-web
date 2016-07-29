@@ -1,4 +1,5 @@
 export * from './ansi-to-html.pipe';
+export * from './auth.service';
 export * from './markdown.pipe';
 export * from './precision.pipe';
 export * from './problem';
