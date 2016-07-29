@@ -9,9 +9,12 @@ if (environment.production) {
 }
 
 bootstrap(AppComponent, [
+  // Angular 2 RC.4 use new forms
   disableDeprecatedForms(),
   provideForms(),
+  // Routing
   appRouterProviders,
+  // Firebase
   FIREBASE_PROVIDERS,
   defaultFirebase({
     apiKey: 'AIzaSyBJeW4SZUNUySEHd7GLc1qwBxsNLgN2a8Y',
