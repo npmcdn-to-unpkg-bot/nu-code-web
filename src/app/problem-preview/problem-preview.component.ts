@@ -17,7 +17,7 @@ export class ProblemPreviewComponent implements OnInit {
   }
 
   openProblemPage() {
-    this.router.navigate(['/problems/', this.problem.$key]);
+    this.router.navigate(['/problems', this.problem.$key]);
   }
 
 }
