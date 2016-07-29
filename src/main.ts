@@ -14,10 +14,9 @@ bootstrap(AppComponent, [
   appRouterProviders,
   FIREBASE_PROVIDERS,
   defaultFirebase({
-    apiKey: "AIzaSyBJeW4SZUNUySEHd7GLc1qwBxsNLgN2a8Y",
-    authDomain: "nu-code-350ea.firebaseapp.com",
-    databaseURL: "https://nu-code-350ea.firebaseio.com",
-    storageBucket: "nu-code-350ea.appspot.com",
+    apiKey: 'AIzaSyBJeW4SZUNUySEHd7GLc1qwBxsNLgN2a8Y',
+    authDomain: 'nu-code-350ea.firebaseapp.com',
+    databaseURL: 'https://nu-code-350ea.firebaseio.com',
+    storageBucket: 'nu-code-350ea.appspot.com',
   })
-])
-.catch(err => console.error(err));
+]).catch(err => console.error(err));
