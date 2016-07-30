@@ -1,7 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { CatchSignature } from 'rxjs/operator/catch';
 import { CodeEditorComponent } from '../code-editor';
 import { SubmissionModalComponent } from '../submission-modal';
 import { MarkdownPipe, Problem, ProblemService, Result, Submission } from '../shared';
@@ -64,7 +62,7 @@ export class ProblemComponent implements OnInit {
   }
 
   isCurrentTab(tab: string): boolean {
-    return this.currentTab == Tab[tab];
+    return this.currentTab === Tab[tab];
   }
 
   goToProblemTab(): void {
