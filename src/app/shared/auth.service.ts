@@ -10,6 +10,7 @@ const EmailPasswordConfig = {
 
 @Injectable()
 export class AuthService {
+  ready: boolean = false;
   private _auth: FirebaseAuthState;
   private _user: User;
 
@@ -27,6 +28,7 @@ export class AuthService {
           } else {
             this._user = null;
           }
+          this.ready = true;
         });
   }
 
