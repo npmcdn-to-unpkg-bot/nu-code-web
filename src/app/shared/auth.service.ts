@@ -44,8 +44,12 @@ export class AuthService {
     // TODO: then log in?
   }
 
-  logInWithEmailPassword(email: string, password: string): void {
-    this.af.auth.login({ email, password }, EmailPasswordConfig);
+  logInWithEmailPassword(email: string, password: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.af.auth.login({ email, password }, EmailPasswordConfig).then(
+          auth => resolve(),
+          err => reject(err));
+    });
   }
 
   logInWithFacebook(): void { }
