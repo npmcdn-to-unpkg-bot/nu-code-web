@@ -7,7 +7,7 @@ import {
   ModalDirective
 } from 'ng2-bootstrap/ng2-bootstrap';
 import { FaDirective } from 'angular2-fontawesome/directives';
-import { AuthService } from '../shared';
+import { AuthService } from '../../../shared';
 
 @Component({
   moduleId: module.id,

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { LoginModalComponent } from '../../login-modal';
+import { LoginModalComponent } from './login-modal';
 import { AuthService } from '../../shared';
 
 @Component({
