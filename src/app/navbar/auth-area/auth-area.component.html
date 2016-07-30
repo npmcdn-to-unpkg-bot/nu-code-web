@@ -16,7 +16,7 @@
   <div *ngIf="!authService.user">
     <ul class="nav navbar-nav navbar-right">
       <li><a (click)="logIn()">Log In</a></li>
-      <li><a href="#">Register</a></li>
+      <li><a routerLink="/register">Register</a></li>
     </ul>
   </div>
 

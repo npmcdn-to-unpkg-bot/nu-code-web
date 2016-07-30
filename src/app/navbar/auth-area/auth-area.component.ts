@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { LoginModalComponent } from '../../login-modal';
 import { AuthService } from '../../shared';
 
@@ -7,7 +8,10 @@ import { AuthService } from '../../shared';
   selector: 'app-auth-area',
   templateUrl: 'auth-area.component.html',
   styleUrls: ['auth-area.component.css'],
-  directives: [LoginModalComponent]
+  directives: [
+    ROUTER_DIRECTIVES,
+    LoginModalComponent
+  ]
 })
 export class AuthAreaComponent implements OnInit {
   @ViewChild('loginModal') loginModal: LoginModalComponent;

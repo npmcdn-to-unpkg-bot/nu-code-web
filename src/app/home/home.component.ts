@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
   moduleId: module.id,
   selector: 'app-home',
   templateUrl: 'home.component.html',
-  styleUrls: ['home.component.css']
+  styleUrls: ['home.component.css'],
+  directives: [ROUTER_DIRECTIVES]
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit() {
-  }
-
-  goToProblemList() {
-    this.router.navigateByUrl('/problems');
   }
 }
