@@ -65,6 +65,7 @@ const barrels: string[] = [
   'app/code-editor/language-dropdown',
   'app/navbar',
   'app/navbar/auth-area',
+  'app/login-modal',
   /** @cli-barrel */
 ];
 

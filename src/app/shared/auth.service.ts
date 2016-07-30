@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 import { User } from './';
+import { UserService } from './user.service';
 
 const EmailPasswordConfig = {
   provider: AuthProviders.Password,
@@ -12,16 +13,16 @@ export class AuthService {
   private _auth: FirebaseAuthState;
   private _user: User;
 
-  constructor(private af: AngularFire) {
-      // TODO: why can't I inject
-      // userService: UserService) {
+  constructor(
+      private af: AngularFire,
+      private userService: UserService) {
     af.auth.subscribe(
         auth => {
           console.log(auth);
           this._auth = auth;
-          // Update the logged in user
+          // `auth` only contains the `uid`: resolve the associated user
           if (auth) {
-            this.af.database.object(`/users/${auth.uid}`)
+            this.userService.getUser(auth.uid)
               .subscribe(user => this._user = user);
           } else {
             this._user = null;

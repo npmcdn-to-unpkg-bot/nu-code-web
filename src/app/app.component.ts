@@ -2,7 +2,7 @@ import { Component, ViewContainerRef } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { NavbarComponent } from './navbar';
-import { ProblemService, UserService } from './shared';
+import { AuthService, ProblemService, UserService } from './shared';
 
 @Component({
   moduleId: module.id,
@@ -15,6 +15,7 @@ import { ProblemService, UserService } from './shared';
   ],
   providers: [
     HTTP_PROVIDERS,
+    AuthService,
     ProblemService,
     UserService
   ]

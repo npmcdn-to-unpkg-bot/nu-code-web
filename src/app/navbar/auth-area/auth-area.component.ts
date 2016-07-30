@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LoginModalComponent } from '../../login-modal';
 import { AuthService } from '../../shared';
 
 @Component({
@@ -7,23 +7,23 @@ import { AuthService } from '../../shared';
   selector: 'app-auth-area',
   templateUrl: 'auth-area.component.html',
   styleUrls: ['auth-area.component.css'],
-  providers: [AuthService]
+  directives: [LoginModalComponent]
 })
 export class AuthAreaComponent implements OnInit {
+  @ViewChild('loginModal') loginModal: LoginModalComponent;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService) { }
+  // Needed to access current user
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   logIn(): void {
-    this.authService.logInWithEmailPassword('tberry@student.neumont.edu', 'samplepassword');
+    // Deferred to the login modal
+    this.loginModal.handleLogin();
   }
 
   logOut(): void {
     this.authService.logOut();
   }
-
 }
