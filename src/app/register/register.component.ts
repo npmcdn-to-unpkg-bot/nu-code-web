@@ -7,7 +7,7 @@ import {
   Validators
 } from '@angular/forms';
 import { emailValidator, matchingPasswordValidator } from './validators';
-import { User, AuthService, UserService } from '../shared';
+import { AuthService, UserService } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -46,7 +46,29 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    // validate password = password
-    // this.authService.registerWithEmailPassword(this.email, this.password);
+    let email = this.emailControl.value;
+    let password = this.passwordControl.value;
+    // Try to create user
+    this.authService.registerWithEmailPassword(email, password).then(
+        authState => {
+          let uid = authState.uid;
+          let name = this.nameControl.value;
+          this.userService.createUser(uid, { name, email }).then(
+            () => console.log('successfully created account and logged in'),
+            err => console.log(err));
+        },
+        err => {
+          switch (err.code) {
+            case 'auth/email-already-in-use':
+              this.emailControl.setErrors({ emailAlreadyInUse: true });
+              break;
+            case 'auth/invalid-email':
+              this.emailControl.setErrors({ invalidEmail: true });
+              break;
+            default:
+              console.error(err);
+              break;
+          }
+        });
   }
 }

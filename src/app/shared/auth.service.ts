@@ -40,11 +40,11 @@ export class AuthService {
     return this._auth;
   }
 
-  // TODO: error handling
-
-  registerWithEmailPassword(email: string, password: string): void {
-    this.af.auth.createUser({ email, password });
-    // TODO: then log in?
+  /**
+   * Resolves with the `uid` of the created user.
+   */
+  registerWithEmailPassword(email: string, password: string): Promise<FirebaseAuthState> {
+    return this.af.auth.createUser({ email, password });
   }
 
   logInWithEmailPassword(email: string, password: string): Promise<void> {
