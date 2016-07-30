@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FORM_DIRECTIVES,
   REACTIVE_FORM_DIRECTIVES,
@@ -7,7 +8,7 @@ import {
   Validators
 } from '@angular/forms';
 import { emailValidator, matchingPasswordValidator } from './validators';
-import { AuthService, UserService } from '../shared';
+import { AuthService, User } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -27,6 +28,7 @@ export class RegisterComponent implements OnInit {
   ]);
   passwordControl = new FormControl('', [
     Validators.required,
+    // As required by firebase
     Validators.minLength(6)
   ]);
   confirmPasswordControl = new FormControl('', Validators.required);
@@ -40,23 +42,19 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private userService: UserService) { }
+    private router: Router) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    let email = this.emailControl.value;
+    let user: User = {
+      name: this.nameControl.value,
+      email: this.emailControl.value,
+    }
     let password = this.passwordControl.value;
-    // Try to create user
-    this.authService.registerWithEmailPassword(email, password).then(
-        authState => {
-          let uid = authState.uid;
-          let name = this.nameControl.value;
-          this.userService.createUser(uid, { name, email }).then(
-            () => console.log('successfully created account and logged in'),
-            err => console.log(err));
-        },
+    this.authService.registerNewUser(user, password).then(
+        () => this.router.navigateByUrl('/'),
         err => {
           switch (err.code) {
             case 'auth/email-already-in-use':
@@ -66,6 +64,7 @@ export class RegisterComponent implements OnInit {
               this.emailControl.setErrors({ invalidEmail: true });
               break;
             default:
+              this.registerForm.setErrors({ unexpectedError: err });
               console.error(err);
               break;
           }

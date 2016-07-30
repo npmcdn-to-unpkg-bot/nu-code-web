@@ -8,4 +8,3 @@ export * from './result';
 export * from './submission';
 export * from './submission.service';
 export * from './user';
-export * from './user.service';
