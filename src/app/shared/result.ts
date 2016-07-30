@@ -3,7 +3,7 @@ export interface Result {
   // If status === 'Pass'
   execTime?: number;
   // If status === 'Fail' and one of the failed tests had a hint
-  hints?: string[]
+  hints?: string[];
   // If status === 'CompilationError' | 'RuntimeError'
   message?: string;
 }

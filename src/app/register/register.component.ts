@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
     let user: User = {
       name: this.nameControl.value,
       email: this.emailControl.value,
-    }
+    };
     let password = this.passwordControl.value;
     this.authService.registerNewUser(user, password).then(
         () => this.router.navigateByUrl('/'),
