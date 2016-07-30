@@ -21,11 +21,14 @@ import { User, AuthService, UserService } from '../shared';
 })
 export class RegisterComponent implements OnInit {
   nameControl = new FormControl('', Validators.required);
-  emailControl = new FormControl('', Validators.compose([
+  emailControl = new FormControl('', [
     Validators.required,
     emailValidator
-  ]));
-  passwordControl = new FormControl('', Validators.required);
+  ]);
+  passwordControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(6)
+  ]);
   confirmPasswordControl = new FormControl('', Validators.required);
 
   registerForm = new FormGroup({
