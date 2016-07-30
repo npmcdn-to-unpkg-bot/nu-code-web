@@ -20,3 +20,24 @@
   margin: 0 auto;
   pointer-events: all;
 }
+.no-margin {
+  margin: 0;
+}
+.section-title {
+  margin-bottom: 15px;
+}
+.close-btn:focus {
+  outline: none;
+}
+.email-group > * {
+  border-radius: 0;
+}
+.password-group > * {
+  border-radius: 0;
+}
+.options {
+  color: #d5d5d5;
+  /*text-align: center;*/
+  text-align: right;
+  opacity: 0.8;
+}

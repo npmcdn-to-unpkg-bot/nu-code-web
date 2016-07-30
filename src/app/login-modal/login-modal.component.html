@@ -1,23 +1,40 @@
 <!-- TODO: see if name conflicts with submission modal -->
-<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="modal" aria-hidden="true">
+<div bsModal (onHide)="onHide()" #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
   <div class="vertical-alignment-helper">
     <div class="modal-dialog modal-sm vertical-align-center">
       <div class="modal-content">
-        <!--<div class="modal-header">
-          <h3 class="no-margin">Log In</h3>
-        </div>-->
-        <div class="modal-body">
-          <form class="form-group">
-            <input type="text" placeholder="Email" class="form-control">
-            <input type="password" placeholder="Password" class="form-control">
-            <div class="clear-fix">
-              <input type="button" class="pull-left btn btn-default" (click)="cancel()" value="Cancel">
-              <button class="pull-right btn btn-primary" (click)="logInWithEmailPassword()">Log In</button>
-            </div>
-          </form>
-          <div class="form-group">
+        <div class="modal-body container-fluid">
+          <!--<div class="clearfix section-title">
+            <h4 class="pull-left no-margin">Email / Password</h4>
+            <button (click)="cancel()" class="pull-right close close-btn"><i fa [name]="'times'"></i></button>
+          </div>-->
+          <div *ngIf="failed" class="alert alert-danger">
+            Wrong username or password
           </div>
+          <form role="form" (ngSubmit)="logInWithEmailPassword()" #loginForm="ngForm">
+            <div class="form-group">
+              <div class="input-group email-group">
+                <span class="input-group-addon"><i fa [name]="'envelope'" [fw]=true></i></span>
+                <input type="email" class="form-control input-lg" [(ngModel)]="email" name="email" #emailField="ngModel" placeholder="Email" required>
+              </div>
+              <div class="input-group password-group">
+                <span class="input-group-addon"><i fa [name]="'lock'" [fw]=true></i></span>
+                <input type="password" class="form-control input-lg" [(ngModel)]="password" name="password" #passwordField="ngModel" placeholder="Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary form-control">
+                Log In
+              </button>
+            </div>
+            <div class="options">
+              <a (click)="goToSignUp()">Sign Up</a>
+              <span> | </span>
+              <a (click)="forgotPassword()">Forgot Password?</a>
+            </div>
+            <!--<hr/>-->
+            <!-- TODO: facebook, google, github -->
+          </form>
         </div>
       </div>
     </div>
