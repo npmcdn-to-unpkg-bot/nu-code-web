@@ -65,4 +65,9 @@ export class LoginModalComponent implements OnInit {
     this.password = '';
   }
 
+  goToRegister(): void {
+    this.router.navigateByUrl('/register');
+    this.modal.hide();
+  }
+
 }
