@@ -42,7 +42,7 @@ export class AuthService {
 
   // TODO: error handling
 
-  signUpWithEmailPassword(email: string, password: string): void {
+  registerWithEmailPassword(email: string, password: string): void {
     this.af.auth.createUser({ email, password });
     // TODO: then log in?
   }
