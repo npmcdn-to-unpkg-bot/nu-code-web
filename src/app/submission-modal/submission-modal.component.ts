@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective, ModalOptions } from 'ng2-bootstrap/ng2-bootstrap';
+import {
+  BS_VIEW_PROVIDERS,
+  MODAL_DIRECTIVES,
+  ModalDirective,
+  ModalOptions
+} from 'ng2-bootstrap/ng2-bootstrap';
 import { FaDirective } from 'angular2-fontawesome/directives';
 import { AnsiToHtmlPipe, PrecisionPipe, Result, Submission, SubmissionService } from '../shared';
 
