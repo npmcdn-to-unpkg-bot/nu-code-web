@@ -56,7 +56,6 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
         result => {
           this.state = State.ResultReceived;
           this.result = result;
-          console.log(result);
         },
         err => {
           this.state = State.ServerError;

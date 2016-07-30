@@ -17,7 +17,6 @@ export class AuthService {
   constructor(private af: AngularFire) {
     af.auth.subscribe(
         auth => {
-          console.log(auth);
           this._auth = auth;
           // `auth` only contains the `uid`: resolve the associated user
           if (auth) {
