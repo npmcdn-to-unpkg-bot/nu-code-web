@@ -2,7 +2,7 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
 import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { FIREBASE_PROVIDERS, defaultFirebase } from 'angularfire2';
-import { AppComponent, appRouterProviders, environment } from './app/';
+import { AppComponent, AppRouterProviders, environment } from './app/';
 
 if (environment.production) {
   enableProdMode();
@@ -13,7 +13,7 @@ bootstrap(AppComponent, [
   disableDeprecatedForms(),
   provideForms(),
   // Routing
-  appRouterProviders,
+  AppRouterProviders,
   // Firebase
   FIREBASE_PROVIDERS,
   defaultFirebase({
