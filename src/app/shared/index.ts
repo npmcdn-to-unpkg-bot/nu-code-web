@@ -3,7 +3,7 @@ export * from './auth.service';
 export * from './markdown.pipe';
 export * from './precision.pipe';
 export * from './problem';
-export * from './problem.service';
+export * from './repository.service';
 export * from './result';
 export * from './submission';
 export * from './submission.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
-import { AuthService, ProblemService, Submission } from '../shared';
+import { AuthService, RepositoryService, Submission } from '../shared';
 import { SharingService } from './shared';
 
 const DefaultSubmission: Submission = {
@@ -29,7 +29,7 @@ export class ProblemComponent implements OnInit {
   constructor(
       private router: Router,
       private route: ActivatedRoute,
-      private problemService: ProblemService,
+      private repoService: RepositoryService,
       private authService: AuthService,
       private sharingService: SharingService) { }
 
@@ -38,7 +38,7 @@ export class ProblemComponent implements OnInit {
         params => {
           let id = params['id'];
           // Anytime the problem service's problem changes, change the sharing service's.
-          this.problemService.getProblem(id).subscribe(
+          this.repoService.getProblem(id).subscribe(
               problem => {
                 this.problemName = problem.name;
                 this.sharingService.problem = problem;

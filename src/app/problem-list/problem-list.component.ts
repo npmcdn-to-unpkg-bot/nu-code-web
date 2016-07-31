@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Problem, ProblemService } from '../shared';
+import { Problem, RepositoryService } from '../shared';
 import { ProblemPreviewComponent } from './problem-preview';
 
 @Component({
@@ -12,10 +12,10 @@ import { ProblemPreviewComponent } from './problem-preview';
 export class ProblemListComponent implements OnInit {
   problems: Problem[];
 
-  constructor(private problemService: ProblemService) {}
+  constructor(private repoService: RepositoryService) {}
 
   ngOnInit() {
-    this.problemService.getTopProblems(10)
+    this.repoService.getTopProblems(10)
       .subscribe(problems => this.problems = problems);
   }
 
