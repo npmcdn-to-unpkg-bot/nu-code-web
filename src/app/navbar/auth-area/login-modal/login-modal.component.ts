@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import {
   BS_VIEW_PROVIDERS,
@@ -15,6 +15,7 @@ import { AuthService } from '../../../shared';
   templateUrl: 'login-modal.component.html',
   styleUrls: ['login-modal.component.css'],
   directives: [
+    ROUTER_DIRECTIVES,
     MODAL_DIRECTIVES,
     FaDirective
   ],
@@ -29,9 +30,7 @@ export class LoginModalComponent implements OnInit {
 
   failed: boolean = false;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -64,10 +63,4 @@ export class LoginModalComponent implements OnInit {
     this.email = '';
     this.password = '';
   }
-
-  goToRegister(): void {
-    this.router.navigateByUrl('/register');
-    this.modal.hide();
-  }
-
 }
