@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CodeEditorComponent } from '../code-editor';
 import { SubmissionModalComponent } from '../submission-modal';
-import { MarkdownPipe, Problem, ProblemService, Result, Submission } from '../shared';
+import { AuthService, MarkdownPipe, Problem, ProblemService, Submission } from '../shared';
 
 const DefaultSubmission: Submission = {
   lang: 'c',
@@ -30,17 +30,16 @@ export class ProblemComponent implements OnInit {
     src: DefaultSubmission.src,
     problem: DefaultSubmission.problem
   };
-  // Manipulated by submissionModal
-  lastResult: Result;
   // TODO: try ng2-bootstrap tabset again
   currentTab: Tab;
 
   @ViewChild('submissionModal') submissionModal: SubmissionModalComponent;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private problemService: ProblemService) {}
+      private router: Router,
+      private route: ActivatedRoute,
+      private problemService: ProblemService,
+      private authService: AuthService) {}
 
   ngOnInit() {
     this.currentTab = Tab.Problem;
@@ -54,10 +53,13 @@ export class ProblemComponent implements OnInit {
                 if (problem.name) {
                   this.problem = problem;
                   this.submission.problem = problem.$key;
+                  if (this.authService.auth) {
+                    this.submission.submitterUid = this.authService.auth.uid;
+                  }
                 } else {
                   this.goToProblemsList();
                 }
-              })
+              });
         });
   }
 
