@@ -8,18 +8,16 @@
             <h4 class="pull-left no-margin">Email / Password</h4>
             <button (click)="cancel()" class="pull-right close close-btn"><i fa [name]="'times'"></i></button>
           </div>-->
-          <div *ngIf="failed" class="alert alert-danger">
-            Wrong username or password
-          </div>
-          <form role="form" (ngSubmit)="logInWithEmailPassword()" #loginForm="ngForm">
+          <div *ngIf="loginForm.hasError('invalidEmailOrPassword')" class="alert alert-danger">Wrong username or password</div>
+          <form role="form" [formGroup]="loginForm" (ngSubmit)="logInWithEmailPassword()">
             <div class="form-group">
               <div class="input-group email-group">
                 <span class="input-group-addon"><i fa [name]="'envelope'" [fw]=true></i></span>
-                <input type="email" class="form-control input-lg" [(ngModel)]="email" name="email" #emailField="ngModel" placeholder="Email" required>
+                <input type="email" class="form-control input-lg" name="email" placeholder="Email" formControlName="email" [(ngModel)]="email">
               </div>
               <div class="input-group password-group">
                 <span class="input-group-addon"><i fa [name]="'lock'" [fw]=true></i></span>
-                <input type="password" class="form-control input-lg" [(ngModel)]="password" name="password" #passwordField="ngModel" placeholder="Password">
+                <input type="password" class="form-control input-lg" name="password" placeholder="Password" formControlName="password" [(ngModel)]="password">
               </div>
             </div>
             <div class="form-group">

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, Validators } from '@angular/forms';
 import {
   BS_VIEW_PROVIDERS,
   MODAL_DIRECTIVES,
@@ -15,6 +15,8 @@ import { AuthService } from '../../../shared';
   templateUrl: 'login-modal.component.html',
   styleUrls: ['login-modal.component.css'],
   directives: [
+    FORM_DIRECTIVES,
+    REACTIVE_FORM_DIRECTIVES,
     ROUTER_DIRECTIVES,
     MODAL_DIRECTIVES,
     FaDirective
@@ -23,12 +25,16 @@ import { AuthService } from '../../../shared';
 })
 export class LoginModalComponent implements OnInit {
   @ViewChild('modal') modal: ModalDirective;
-  @ViewChild('loginForm') loginForm: NgForm;
 
-  email: string;
-  password: string;
+  email: string = '';
+  password: string = '';
 
-  failed: boolean = false;
+  emailControl = new FormControl('');
+  passwordControl = new FormControl('');
+  loginForm = new FormGroup({
+    email: this.emailControl,
+    password: this.passwordControl
+  });
 
   constructor(private authService: AuthService) { }
 
@@ -41,14 +47,15 @@ export class LoginModalComponent implements OnInit {
 
   logInWithEmailPassword(): void {
     if (this.loginForm.valid) {
-      this.failed = false;
-      // Show spinner
+      // TODO: Indicate loading?
+      // let email = this.emailControl.value;
+      // let password = this.passwordControl.value;
       this.authService.logInWithEmailPassword(this.email, this.password).then(
           () => {
             this.modal.hide();
           },
           err => {
-            this.failed = true;
+            this.loginForm.setErrors({ invalidEmailOrPassword: true });
             this.password = '';
             console.log(err);
           });
@@ -62,5 +69,6 @@ export class LoginModalComponent implements OnInit {
   onHide(): void {
     this.email = '';
     this.password = '';
+    this.loginForm.setErrors({});
   }
 }
