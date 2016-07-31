@@ -1,0 +1,10 @@
+.problem-submission-details {
+  opacity: 0.5;
+}
+.problem-submission-details>p {
+  margin-top: 0px;
+}
+.problem-my-submissions-absent {
+  text-align: center;
+  font-size: 1.25em;
+}
