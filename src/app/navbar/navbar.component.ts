@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { AuthAreaComponent } from './auth-area';
 
 @Component({
@@ -7,17 +7,9 @@ import { AuthAreaComponent } from './auth-area';
   selector: 'app-navbar',
   templateUrl: 'navbar.component.html',
   styleUrls: ['navbar.component.css'],
-  directives: [AuthAreaComponent]
+  directives: [
+    ROUTER_DIRECTIVES,
+    AuthAreaComponent
+  ]
 })
-export class NavbarComponent implements OnInit {
-
-  constructor(private router: Router) { }
-
-  ngOnInit() {
-  }
-
-  navigate(path: string): Promise<boolean> {
-    return this.router.navigateByUrl(path);
-  }
-
-}
+export class NavbarComponent { }

@@ -8,14 +8,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" (click)="navigate('/')">NU Code</a>
+      <a class="navbar-brand" routerLink="/">NU Code</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a (click)="navigate('/problems')">Problems</a></li>
-        <li><a (click)="navigate('/competitions')">Competitions</a></li>
+        <li><a routerLink="/problems">Problems</a></li>
+        <li><a routerLink="/competitions">Competitions</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
