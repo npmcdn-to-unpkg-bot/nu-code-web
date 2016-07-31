@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   BS_VIEW_PROVIDERS,
@@ -42,6 +42,8 @@ const ConfigPreventCloseOnClickOutside: ModalOptions = { backdrop: 'static' };
   viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class SubmissionModalComponent implements OnInit, OnDestroy {
+  @Input() problemId: string;
+
   @ViewChild('modal') modal: ModalDirective;
   submissionSubscription: Subscription;
 
@@ -61,6 +63,7 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
   }
 
   handleSubmission(submission: Submission) {
+    submission.problem = this.problemId;
     if (this.authService.auth) {
       submission.submitterUid = this.authService.auth.uid;
     }

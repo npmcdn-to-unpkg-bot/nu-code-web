@@ -18,18 +18,6 @@ p {
   padding: 5px 10px 10px 10px;
   color: #555;
 }
-.problem-description {
-  font-size: 1.25em;
-}
-.problem-details {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-.problem-detail-label {
-  opacity: 0.75;
-}
 .problem-submission-details {
   opacity: 0.5;
 }
