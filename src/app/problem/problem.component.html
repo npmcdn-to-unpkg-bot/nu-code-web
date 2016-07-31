@@ -4,13 +4,13 @@
       <h2 class="problem-name">{{problem.name}}</h2>
     </div>
     <ul class="row problem-tabs nav nav-tabs">
-      <li [ngClass]="{'active': isCurrentTab('Problem')}">
-        <a [routerLink]="['/problems/' + problem.$key]">Problem</a>
+      <li routerLinkActive="active">
+        <a [routerLink]="['/problems/' + problem.$key + '/solve']">Problem</a>
       </li>
-      <li [ngClass]="{'active': isCurrentTab('MySubmissions')}">
+      <li routerLinkActive="active">
         <a [routerLink]="['/problems/' + problem.$key + '/my-submissions']">My Submissions</a>
       </li>
-      <li [ngClass]="{'active': isCurrentTab('Leaderboard')}">
+      <li routerLinkActive="active">
         <a [routerLink]="['/problems/' + problem.$key + '/leaderboard']">Leaderboard</a>
       </li>
     </ul>
