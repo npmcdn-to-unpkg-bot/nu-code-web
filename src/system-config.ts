@@ -58,6 +58,7 @@ const barrels: string[] = [
   'app/competition-list',
   'app/home',
   'app/problem',
+  'app/problem/shared',
   'app/language-dropdown',
   'app/submission-modal',
   'app/code-editor',

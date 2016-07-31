@@ -1,8 +1,8 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CodeEditorComponent } from '../../code-editor';
 import { SubmissionModalComponent } from '../../submission-modal';
-import { AuthService, MarkdownPipe, Problem, ProblemService, Submission } from '../../shared';
+import { MarkdownPipe, Problem, Submission } from '../../shared';
+import { SharingService } from '../shared';
 
 const DefaultSubmission: Submission = {
   lang: 'c',
@@ -15,36 +15,28 @@ const DefaultSubmission: Submission = {
   selector: 'app-view',
   templateUrl: 'view.component.html',
   styleUrls: ['view.component.css'],
-    directives: [
+  directives: [
     CodeEditorComponent,
     SubmissionModalComponent
   ],
   pipes: [MarkdownPipe]
 })
-export class ViewComponent { // implements OnInit {
-// // Loaded from problemService on init
-//   problem: Problem;
-//   // Manipulated by editor. Set as a new object instance so as not to keep it in memory
-//   submission: Submission = {
-//     lang: DefaultSubmission.lang,
-//     src: DefaultSubmission.src,
-//     problem: DefaultSubmission.problem
-//   };
+export class ViewComponent implements OnInit {
+  problem: Problem;
+  submission: Submission;
 
-//   @ViewChild('submissionModal') submissionModal: SubmissionModalComponent;
+  @ViewChild('submissionModal') submissionModal: SubmissionModalComponent;
 
-//   constructor(
-//       private router: Router,
-//       private route: ActivatedRoute,
-//       private problemService: ProblemService,
-//       private authService: AuthService) {}
+  constructor(private sharingService: SharingService) {
+    this.problem = sharingService.problem;
+    sharingService.problemObservable.subscribe(problem => this.problem = problem);
+  }
 
-//   ngOnInit() {
+  ngOnInit() {
+  }
 
-//   }
-
-//   submit(): void {
-//     this.submissionModal.handleSubmission(this.submission);
-//     // TODO: record submission data
-//   }
+  submit(): void {
+    this.submissionModal.handleSubmission(this.sharingService.submission);
+    // TODO: record submission data
+  }
 }

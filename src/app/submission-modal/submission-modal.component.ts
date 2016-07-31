@@ -7,7 +7,14 @@ import {
   ModalOptions
 } from 'ng2-bootstrap/ng2-bootstrap';
 import { FaDirective } from 'angular2-fontawesome/directives';
-import { AnsiToHtmlPipe, PrecisionPipe, Result, Submission, SubmissionService } from '../shared';
+import {
+  AuthService,
+  AnsiToHtmlPipe,
+  PrecisionPipe,
+  Result,
+  Submission,
+  SubmissionService
+} from '../shared';
 
 const ConfigPreventCloseOnClickOutside: ModalOptions = { backdrop: 'static' };
 
@@ -28,7 +35,10 @@ const ConfigPreventCloseOnClickOutside: ModalOptions = { backdrop: 'static' };
     AnsiToHtmlPipe,
     PrecisionPipe
   ],
-  providers: [SubmissionService],
+  providers: [
+    AuthService,
+    SubmissionService
+  ],
   viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class SubmissionModalComponent implements OnInit, OnDestroy {
@@ -39,7 +49,9 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
   lastSubmission: Submission;
   result: Result;
 
-  constructor(private submissionService: SubmissionService) {}
+  constructor(
+    private authService: AuthService,
+    private submissionService: SubmissionService) { }
 
   ngOnInit() {
   }
@@ -49,6 +61,10 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
   }
 
   handleSubmission(submission: Submission) {
+    if (this.authService.auth) {
+      submission.submitterUid = this.authService.auth.uid;
+    }
+
     this.modal.config = ConfigPreventCloseOnClickOutside;
     this.lastSubmission = submission;
     this.state = State.Submitting;

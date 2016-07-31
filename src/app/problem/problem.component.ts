@@ -1,8 +1,7 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
-import { CodeEditorComponent } from '../code-editor';
-import { SubmissionModalComponent } from '../submission-modal';
-import { AuthService, MarkdownPipe, Problem, ProblemService, Submission } from '../shared';
+import { AuthService, Problem, ProblemService, Submission } from '../shared';
+import { SharingService } from './shared';
 
 const DefaultSubmission: Submission = {
   lang: 'c',
@@ -15,50 +14,34 @@ const DefaultSubmission: Submission = {
   selector: 'app-problem',
   templateUrl: 'problem.component.html',
   styleUrls: ['problem.component.css'],
-  directives: [
-    ROUTER_DIRECTIVES,
-    CodeEditorComponent,
-    SubmissionModalComponent
-  ],
-  pipes: [MarkdownPipe]
+  directives: [ROUTER_DIRECTIVES],
+  providers: [SharingService]
 })
 export class ProblemComponent implements OnInit {
-  // Loaded from problemService on init
-  problem: Problem;
+  problemName: string;
   // Manipulated by editor. Set as a new object instance so as not to keep it in memory
   submission: Submission = {
     lang: DefaultSubmission.lang,
     src: DefaultSubmission.src,
     problem: DefaultSubmission.problem
   };
-  // TODO: try ng2-bootstrap tabset again
-  currentTab: Tab;
-
-  @ViewChild('submissionModal') submissionModal: SubmissionModalComponent;
 
   constructor(
       private router: Router,
       private route: ActivatedRoute,
       private problemService: ProblemService,
-      private authService: AuthService) {}
+      private authService: AuthService,
+      private sharingService: SharingService) { }
 
   ngOnInit() {
-    this.currentTab = Tab.Problem;
-    this.route.params
-        .subscribe(params => {
+    this.route.params.subscribe(
+        params => {
           let id = params['id'];
-          this.problemService.getProblem(id)
-              .subscribe(problem => {
-                // TODO: could use some more elegant validation that the problem exists
-                if (problem.name) {
-                  this.problem = problem;
-                  this.submission.problem = problem.$key;
-                  if (this.authService.auth) {
-                    this.submission.submitterUid = this.authService.auth.uid;
-                  }
-                } else {
-                  this.goToProblemsList();
-                }
+          // Anytime the problem service's problem changes, change the sharing service's.
+          this.problemService.getProblem(id).subscribe(
+              problem => {
+                this.problemName = problem.name;
+                this.sharingService.problem = problem;
               });
         });
   }
@@ -66,15 +49,4 @@ export class ProblemComponent implements OnInit {
   goToProblemsList() {
     this.router.navigateByUrl('/problems');
   }
-
-  submit(): void {
-    this.submissionModal.handleSubmission(this.submission);
-    // TODO: record submission data
-  }
-}
-
-enum Tab {
-  Problem,
-  MySubmissions,
-  Leaderboard
 }
