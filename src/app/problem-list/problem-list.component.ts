@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Problem, ProblemService } from '../shared';
-import { ProblemPreviewComponent } from '../problem-preview';
+import { ProblemPreviewComponent } from './problem-preview';
 
 @Component({
   moduleId: module.id,
