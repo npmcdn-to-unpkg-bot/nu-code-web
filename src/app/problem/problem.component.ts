@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { CodeEditorComponent } from '../code-editor';
 import { SubmissionModalComponent } from '../submission-modal';
 import { AuthService, MarkdownPipe, Problem, ProblemService, Submission } from '../shared';
@@ -16,6 +16,7 @@ const DefaultSubmission: Submission = {
   templateUrl: 'problem.component.html',
   styleUrls: ['problem.component.css'],
   directives: [
+    ROUTER_DIRECTIVES,
     CodeEditorComponent,
     SubmissionModalComponent
   ],
@@ -46,7 +47,6 @@ export class ProblemComponent implements OnInit {
     this.route.params
         .subscribe(params => {
           let id = params['id'];
-          // TODO: store current tab in the route data
           this.problemService.getProblem(id)
               .subscribe(problem => {
                 // TODO: could use some more elegant validation that the problem exists
@@ -63,22 +63,6 @@ export class ProblemComponent implements OnInit {
         });
   }
 
-  isCurrentTab(tab: string): boolean {
-    return this.currentTab === Tab[tab];
-  }
-
-  goToProblemTab(): void {
-    this.currentTab = Tab.Problem;
-  }
-
-  goToMySubmissionsTab(): void {
-    this.currentTab = Tab.MySubmissions;
-  }
-
-  goToLeaderboardTab(): void {
-    this.currentTab = Tab.Leaderboard;
-  }
-
   goToProblemsList() {
     this.router.navigateByUrl('/problems');
   }
@@ -87,7 +71,6 @@ export class ProblemComponent implements OnInit {
     this.submissionModal.handleSubmission(this.submission);
     // TODO: record submission data
   }
-
 }
 
 enum Tab {

@@ -67,6 +67,9 @@ const barrels: string[] = [
   'app/navbar/auth-area',
   'app/navbar/auth-area/login-modal',
   'app/register',
+  'app/problem/view',
+  'app/problem/my-submissions',
+  'app/problem/leaderboard',
   /** @cli-barrel */
 ];
 
