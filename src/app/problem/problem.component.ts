@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
-import { AuthService, Problem, ProblemService, Submission } from '../shared';
+import { AuthService, ProblemService, Submission } from '../shared';
 import { SharingService } from './shared';
 
 const DefaultSubmission: Submission = {
@@ -19,7 +19,7 @@ const DefaultSubmission: Submission = {
 })
 export class ProblemComponent implements OnInit {
   problemName: string;
-  // Manipulated by editor. Set as a new object instance so as not to keep it in memory
+  // Manipulated by editor. Set as a new object instance so as not to change the const
   submission: Submission = {
     lang: DefaultSubmission.lang,
     src: DefaultSubmission.src,
@@ -44,6 +44,7 @@ export class ProblemComponent implements OnInit {
                 this.sharingService.problem = problem;
               });
         });
+    this.sharingService.submission = this.submission;
   }
 
   goToProblemsList() {

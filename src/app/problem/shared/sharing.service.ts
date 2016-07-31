@@ -5,18 +5,23 @@ import { Problem, Submission } from '../../shared';
 
 @Injectable()
 export class SharingService {
-  private _submission = new Subject<Submission>();
+  private _submission: Submission;
   public set submission(submission: Submission) {
-    this._submission.next(submission);
+    this._submission = submission;
+    this._submissionSubject.next(submission);
   }
-  public get submissionObservable() : Observable<Submission> {
-    return this._submission.asObservable();
+  public get submission(): Submission {
+    return this._submission;
+  }
+  private _submissionSubject = new Subject<Submission>();
+  public get submissionObservable(): Observable<Submission> {
+    return this._submissionSubject.asObservable();
   }
 
   private _problem: Problem;
   public set problem(problem: Problem) {
-    this._problemSubject.next(problem);
     this._problem = problem;
+    this._problemSubject.next(problem);
   }
   public get problem(): Problem {
     return this._problem;
