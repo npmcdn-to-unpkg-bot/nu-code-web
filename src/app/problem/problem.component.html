@@ -1,22 +1,17 @@
 <div class="container">
-  <div *ngIf="problem">
-    <div class="row">
-      <h2 class="problem-name">{{problem.name}}</h2>
-    </div>
-    <ul class="row problem-tabs nav nav-tabs">
-      <li routerLinkActive="active">
-        <a [routerLink]="['/problems/' + problem.$key + '/solve']">Problem</a>
-      </li>
-      <li routerLinkActive="active">
-        <a [routerLink]="['/problems/' + problem.$key + '/my-submissions']">My Submissions</a>
-      </li>
-      <li routerLinkActive="active">
-        <a [routerLink]="['/problems/' + problem.$key + '/leaderboard']">Leaderboard</a>
-      </li>
-    </ul>
+  <div class="row">
+    <h2 class="problem-name">{{problem?.name}}</h2>
   </div>
+  <ul class="row problem-tabs nav nav-tabs">
+    <li routerLinkActive="active">
+      <a [routerLink]="['solve']">Problem</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['my-submissions']">My Submissions</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['leaderboard']">Leaderboard</a>
+    </li>
+  </ul>
   <router-outlet></router-outlet>
 </div>
-
-<!-- The modal that will pop up on submit. -->
-<app-submission-modal #submissionModal></app-submission-modal>
