@@ -4,8 +4,8 @@
     <div class="col-xs-3 leaderboard-user">
       <a *ngIf="submitter" [routerLink]="['/profile', submitter.$key]">{{submitter.name}}</a>
     </div>
-    <div class="col-xs-2 leaderboard-lang">{{submission.lang | lang}}</div>
     <div class="col-xs-2 leaderboard-time">{{submission.execTime | precision:5}} seconds</div>
+    <div class="col-xs-2 leaderboard-lang">{{submission.lang | lang}}</div>
     <div class="col-xs-4 leaderboard-date">{{submission.submittedOn | date:'medium'}}</div>
   </div>
 </div>
