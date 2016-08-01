@@ -1,4 +1,22 @@
-<div class="problem-leaderboard-absent">
-  <p>There are no submissions yet!</p>
-  <a class="btn btn-primary" [routerLink]="['../solve']">Solve Now</a>
+<div *ngIf="topSubmissions">
+  <div *ngIf="topSubmissions.length">
+    <!-- Ranking table -->
+    <div class="list-group">
+      <!-- Heading -->
+      <div class="list-group-item leaderboard-header">
+        <div class="row">
+          <div class="col-xs-1">#</div>
+          <div class="col-xs-3">Holder</div>
+          <div class="col-xs-2">Language</div>
+          <div class="col-xs-2">Time</div>
+          <div class="col-xs-4">Date</div>
+        </div>
+      </div>
+      <app-ranking *ngFor="let submission of topSubmissions; let i = index" [rank]="i+1" [submission]="submission"></app-ranking>
+    </div>
+  </div>
+  <div *ngIf="!topSubmissions.length" class="problem-leaderboard-absent">
+    <p>There are no submissions yet!</p>
+    <a class="btn btn-primary" [routerLink]="['../solve']">Solve Now</a>
+  </div>
 </div>

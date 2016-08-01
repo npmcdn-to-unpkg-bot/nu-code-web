@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CodeEditorComponent } from '../../code-editor';
 import { SubmissionModalComponent } from '../../submission-modal';
-import { MarkdownPipe, Problem, Submission } from '../../shared';
+import { AuthService, MarkdownPipe, Problem, Submission } from '../../shared';
 import { SharingService } from '../shared';
 
 @Component({
@@ -19,7 +19,9 @@ export class ViewComponent {
   problem: Problem;
   submission: Submission;
 
-  constructor(sharingService: SharingService) {
+  constructor(
+      private authService: AuthService,
+      sharingService: SharingService) {
     this.problem = sharingService.problem;
     sharingService.problemObservable.subscribe(problem => this.problem = problem);
 

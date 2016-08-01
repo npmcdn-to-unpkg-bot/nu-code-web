@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFire } from 'angularfire2';
-import { Problem, User } from './';
+import { Problem, SuccessfulSubmission, User } from './';
 
 @Injectable()
 export class RepositoryService {
@@ -20,5 +20,14 @@ export class RepositoryService {
     // TODO: consider calling `af.database.list` everytime
     return this.af.database.list('/problems')
         .take(numProblems);
+  }
+
+  getLeaderboard(problemId: string): Observable<SuccessfulSubmission[]> {
+    return this.af.database.list(`/successfulSubmissions/${problemId}`, {
+      query: {
+        orderByChild: 'execTime',
+        limitToLast: 10
+      }
+    });
   }
 }

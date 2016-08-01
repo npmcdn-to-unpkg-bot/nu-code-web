@@ -13,9 +13,9 @@
   <app-code-editor #editor [(ngModel)]="submission"></app-code-editor>
   <div class="row clearfix">
     <button (click)="submissionModal.handleSubmission(submission)" class="problem-submit btn btn-primary pull-right">Submit</button>
+    <p *ngIf="!authService.auth">Your submissions will not be counted if you are not logged in!</p>
   </div>
 
   <!-- The modal that will pop up on submit. -->
   <app-submission-modal [problemId]="problem.$key" #submissionModal></app-submission-modal>
 </div>
-
