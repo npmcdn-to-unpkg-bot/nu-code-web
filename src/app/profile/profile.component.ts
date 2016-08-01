@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User, RepositoryService } from '../shared';
 
 @Component({
@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
   user: User;
 
   constructor(
+      private router: Router,
       private route: ActivatedRoute,
       private repoService: RepositoryService) { }
 
@@ -19,7 +20,13 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(
         params => {
           let id = params['id'];
-          this.repoService.getUser(id).subscribe(user => this.user = user);
+          this.repoService.getUser(id).subscribe(user => {
+            if (user) {
+              this.user = user;
+            } else {
+              this.router.navigateByUrl('/');
+            }
+          });
         });
   }
 

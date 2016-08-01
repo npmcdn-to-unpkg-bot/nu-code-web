@@ -8,7 +8,14 @@ export class RepositoryService {
   constructor(private af: AngularFire) { }
 
   getUser(uid: string): Observable<User> {
-    return uid ? this.af.database.object(`/users/${uid}`) : null;
+    return uid
+        ? this.af.database.object(`/users/${uid}`).map(
+              snapshot => {
+                return snapshot.$value !== null
+                  ? snapshot as User
+                  : null;
+              })
+        : null;
   }
 
   getProblem(id: string): Observable<Problem> {
