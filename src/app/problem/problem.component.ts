@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
-import { AuthService, RepositoryService, Submission } from '../shared';
+import { RepositoryService, Submission } from '../shared';
 import { SharingService } from './shared';
 
 const DefaultSubmission: Submission = {
@@ -30,7 +30,6 @@ export class ProblemComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private repoService: RepositoryService,
-      private authService: AuthService,
       private sharingService: SharingService) { }
 
   ngOnInit() {
