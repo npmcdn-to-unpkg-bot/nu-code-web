@@ -61,6 +61,7 @@ export class LoginModalComponent implements OnInit {
           },
           err => {
             switch (err.code) {
+              case 'auth/user-not-found':
               case 'auth/invalid-email':
               case 'auth/wrong-password':
                 this.loginForm.setErrors({ invalidEmailOrPassword: true });

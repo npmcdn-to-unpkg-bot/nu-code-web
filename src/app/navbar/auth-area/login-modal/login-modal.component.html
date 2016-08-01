@@ -7,7 +7,7 @@
             <h4 class="pull-left no-margin">Email / Password</h4>
             <button (click)="cancel()" class="pull-right close close-btn"><i fa [name]="'times'"></i></button>
           </div>-->
-          <div *ngIf="loginForm.hasError('invalidEmailOrPassword')" class="alert alert-danger">Wrong username or password</div>
+          <div *ngIf="loginForm.hasError('invalidEmailOrPassword')" class="alert alert-danger">Wrong email or password</div>
           <div *ngIf="loginForm.hasError('tooManyRequests')" class="alert alert-danger">Too many attempts. Try again later.</div>
           <div *ngIf="loginForm.hasError('unexpectedError')" class="alert alert-danger">An unexpected error occurred. Try again later.</div>
           <form role="form" [formGroup]="loginForm" (ngSubmit)="logInWithEmailPassword()">
