@@ -71,6 +71,7 @@ const barrels: string[] = [
   'app/problem/my-submissions',
   'app/problem/leaderboard',
   'app/problem/leaderboard/ranking',
+  'app/profile',
   /** @cli-barrel */
 ];
 
