@@ -1,8 +1,9 @@
 <div class="list-group-item">
   <div class="row">
     <div class="col-xs-1 leaderboard-rank">{{rank}}</div>
-    <!-- TODO: link to profile -->
-    <div class="col-xs-3 leaderboard-user">{{username}}</div>
+    <div class="col-xs-3 leaderboard-user">
+      <a *ngIf="submitter" [routerLink]="['/profile', submitter.$key]">{{submitter.name}}</a>
+    </div>
     <div class="col-xs-2 leaderboard-lang">{{submission.lang | lang}}</div>
     <div class="col-xs-2 leaderboard-time">{{submission.execTime | precision:5}} seconds</div>
     <div class="col-xs-4 leaderboard-date">{{submission.submittedOn | date:'medium'}}</div>
