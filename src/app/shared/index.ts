@@ -7,4 +7,5 @@ export * from './repository.service';
 export * from './result';
 export * from './submission';
 export * from './submission.service';
+export * from './supported-languages';
 export * from './user';

@@ -5,7 +5,7 @@
 
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SupportedLanguagesByCode, SupportedLanguagesByDisplay } from '../shared';
+import { SupportedLanguagesByCode, SupportedLanguagesByDisplay } from '../../shared';
 
 const noop = () => {};
 

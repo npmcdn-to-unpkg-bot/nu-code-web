@@ -62,7 +62,6 @@ const barrels: string[] = [
   'app/language-dropdown',
   'app/submission-modal',
   'app/code-editor',
-  'app/code-editor/shared',
   'app/code-editor/language-dropdown',
   'app/navbar',
   'app/navbar/auth-area',
@@ -71,6 +70,7 @@ const barrels: string[] = [
   'app/problem/view',
   'app/problem/my-submissions',
   'app/problem/leaderboard',
+  'app/problem/leaderboard/ranking',
   /** @cli-barrel */
 ];
 

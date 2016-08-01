@@ -11,8 +11,8 @@ export const SupportedLanguagesByDisplay = {
 
 // Self-called function that produces the inverse of SupportedLanguagesByDisplay
 export const SupportedLanguagesByCode = (function () {
-  var supportedLanguagesByCode = {};
-  for (var displayName in SupportedLanguagesByDisplay) {
+  let supportedLanguagesByCode = {};
+  for (let displayName in SupportedLanguagesByDisplay) {
     if (SupportedLanguagesByDisplay.hasOwnProperty(displayName)) {
       supportedLanguagesByCode[SupportedLanguagesByDisplay[displayName]] = displayName;
     }
