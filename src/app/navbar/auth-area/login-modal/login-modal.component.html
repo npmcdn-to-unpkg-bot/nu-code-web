@@ -1,4 +1,3 @@
-<!-- TODO: see if name conflicts with submission modal -->
 <div bsModal role="dialog" class="modal fade" (onHide)="onHide()" #modal="bs-modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
   <div class="vertical-alignment-helper">
     <div class="modal-dialog modal-sm vertical-align-center">
@@ -9,6 +8,8 @@
             <button (click)="cancel()" class="pull-right close close-btn"><i fa [name]="'times'"></i></button>
           </div>-->
           <div *ngIf="loginForm.hasError('invalidEmailOrPassword')" class="alert alert-danger">Wrong username or password</div>
+          <div *ngIf="loginForm.hasError('tooManyRequests')" class="alert alert-danger">Too many attempts. Try again later.</div>
+          <div *ngIf="loginForm.hasError('unexpectedError')" class="alert alert-danger">An unexpected error occurred. Try again later.</div>
           <form role="form" [formGroup]="loginForm" (ngSubmit)="logInWithEmailPassword()">
             <div class="form-group">
               <div class="input-group email-group">

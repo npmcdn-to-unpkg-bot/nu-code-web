@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { LoginModalComponent } from './login-modal';
-import { AuthService } from '../../shared';
+import { AuthService, User } from '../../shared';
 
 @Component({
   moduleId: module.id,
@@ -14,17 +14,19 @@ import { AuthService } from '../../shared';
   ]
 })
 export class AuthAreaComponent implements OnInit {
+  user: User;
+
   @ViewChild('loginModal') loginModal: LoginModalComponent;
 
-  // Needed to access current user
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.user.subscribe(user => this.user = user);
   }
 
   logIn(): void {
     // Deferred to the login modal
-    this.loginModal.handleLogin();
+    this.loginModal.show();
   }
 
   logOut(): void {

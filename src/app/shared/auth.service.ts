@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 import { User } from './';
 import { RepositoryService } from './repository.service';
@@ -10,32 +12,27 @@ const EmailPasswordConfig = {
 
 @Injectable()
 export class AuthService {
-  ready: boolean = false;
-  private _auth: FirebaseAuthState;
-  private _user: User;
+  get loggedIn(): boolean {
+    return !this._user.value;
+  }
+
+  private _user = new BehaviorSubject<User>(null);
+  public get user(): Observable<User> {
+    return this._user.asObservable();
+  }
 
   constructor(
       private af: AngularFire,
       private repoService: RepositoryService) {
     af.auth.subscribe(
         auth => {
-          this._auth = auth;
-          // `auth` only contains the `uid`: resolve the associated user
           if (auth) {
-            this.repoService.getUser(auth.uid).subscribe(user => this._user = user);
+            repoService.getUser(auth.uid).subscribe(
+                user => this._user.next(user));
           } else {
-            this._user = null;
+            this._user.next(null);
           }
-          this.ready = true;
         });
-  }
-
-  get user(): User {
-    return this._user;
-  }
-
-  get auth(): FirebaseAuthState {
-    return this._auth;
   }
 
   /**

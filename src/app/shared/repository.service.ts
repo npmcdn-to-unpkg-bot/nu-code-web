@@ -8,7 +8,7 @@ export class RepositoryService {
   constructor(private af: AngularFire) { }
 
   getUser(uid: string): Observable<User> {
-    return this.af.database.object(`/users/${uid}`);
+    return uid ? this.af.database.object(`/users/${uid}`) : null;
   }
 
   getProblem(id: string): Observable<Problem> {

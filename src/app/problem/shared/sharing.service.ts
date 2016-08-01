@@ -1,33 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Problem, Submission } from '../../shared';
 
 @Injectable()
 export class SharingService {
-  private _submission: Submission;
+  private _submission = new BehaviorSubject<Submission>(null);
   public set submission(submission: Submission) {
-    this._submission = submission;
-    this._submissionSubject.next(submission);
+    this._submission.next(submission);
   }
   public get submission(): Submission {
-    return this._submission;
+    return this._submission.value;
   }
-  private _submissionSubject = new Subject<Submission>();
   public get submissionObservable(): Observable<Submission> {
-    return this._submissionSubject.asObservable();
+    return this._submission.asObservable();
   }
 
-  private _problem: Problem;
+  private _problem = new BehaviorSubject<Problem>(null);
   public set problem(problem: Problem) {
-    this._problem = problem;
-    this._problemSubject.next(problem);
+    this._problem.next(problem);
   }
   public get problem(): Problem {
-    return this._problem;
+    return this._problem.value;
   }
-  private _problemSubject = new Subject<Problem>();
   public get problemObservable(): Observable<Problem> {
-    return this._problemSubject.asObservable();
+    return this._problem.asObservable();
   }
 }

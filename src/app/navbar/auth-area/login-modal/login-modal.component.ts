@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FORM_DIRECTIVES,
+  REACTIVE_FORM_DIRECTIVES,
+  FormGroup,
+  FormControl
+} from '@angular/forms';
 import {
   BS_VIEW_PROVIDERS,
   MODAL_DIRECTIVES,
@@ -41,7 +46,7 @@ export class LoginModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  handleLogin(): void {
+  show(): void {
     this.modal.show();
   }
 
@@ -55,10 +60,21 @@ export class LoginModalComponent implements OnInit {
             this.modal.hide();
           },
           err => {
-            this.loginForm.setErrors({ invalidEmailOrPassword: true });
-            this.password = '';
+            switch (err.code) {
+              case 'auth/invalid-email':
+              case 'auth/wrong-password':
+                this.loginForm.setErrors({ invalidEmailOrPassword: true });
+                break;
+              case 'auth/too-many-requests':
+                this.loginForm.setErrors({ tooManyRequests: true });
+                break;
+              default:
+                this.loginForm.setErrors({ unexpectedError: true });
+                break;
+            }
             console.log(err);
           });
+      this.password = '';
     }
   }
 
