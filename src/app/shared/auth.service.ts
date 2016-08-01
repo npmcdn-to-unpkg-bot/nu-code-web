@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
+import * as firebase from 'firebase';
+import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { User } from './';
 import { RepositoryService } from './repository.service';
 
@@ -46,6 +47,9 @@ export class AuthService {
       // First create the user in auth
       this.af.auth.createUser({ email: user.email, password: password }).then(
           authState => {
+            // Send email verification
+            let newUser = firebase.auth().currentUser;
+            newUser.sendEmailVerification();
             // If that succeeded, create the user in the database
             let uid = authState.uid;
             this.af.database.object(`/users/${uid}`).set(user).then(
