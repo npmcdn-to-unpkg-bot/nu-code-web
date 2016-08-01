@@ -1,7 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { CodeEditorComponent } from '../../code-editor';
 import { SubmissionModalComponent } from '../../submission-modal';
-import { AuthService, MarkdownPipe, Problem, Submission } from '../../shared';
+import {
+  AuthService,
+  MarkdownPipe,
+  Problem,
+  RepositoryService,
+  Submission,
+  User
+} from '../../shared';
 import { SharingService } from '../shared';
 
 @Component({
@@ -10,22 +18,31 @@ import { SharingService } from '../shared';
   templateUrl: 'view.component.html',
   styleUrls: ['view.component.css'],
   directives: [
+    ROUTER_DIRECTIVES,
     CodeEditorComponent,
     SubmissionModalComponent
   ],
   pipes: [MarkdownPipe]
 })
-export class ViewComponent {
+export class ViewComponent implements OnInit {
   problem: Problem;
+  creator: User;
   submission: Submission;
 
   constructor(
+      private repoService: RepositoryService,
       private authService: AuthService,
-      sharingService: SharingService) {
-    this.problem = sharingService.problem;
-    sharingService.problemObservable.subscribe(problem => this.problem = problem);
+      private sharingService: SharingService) { }
 
-    this.submission = sharingService.submission;
-    sharingService.submissionObservable.subscribe(submission => this.submission = submission);
+  ngOnInit() {
+    this.sharingService.problemObservable.subscribe(
+        problem => {
+          this.problem = problem;
+          if (problem) {
+            this.repoService.getUser(problem.creatorUid).subscribe(
+                user => this.creator = user);
+          }
+        });
+    this.sharingService.submissionObservable.subscribe(submission => this.submission = submission);
   }
 }

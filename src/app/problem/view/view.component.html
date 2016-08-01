@@ -3,10 +3,16 @@
     <p class="col-xs-12 col-md-9 problem-description" [innerHTML]="problem.description | markdown"></p>
     <div class="col-xs-12 col-md-3 pull-right problem-details">
       <div class="clearfix problem-detail">
-        <span class="pull-left problem-detail-label">Difficulty:</span> <span class="pull-right problem-detail-value">{{problem.difficulty}}</span>
+        <span class="pull-left problem-detail-label">Difficulty:</span>
+        <span class="pull-right problem-detail-value">{{problem.difficulty}}</span>
       </div>
-      <div class="clearfix">
-        <span class="pull-left problem-detail-label">Execution Time Limit:</span> <span class="pull-right">{{problem.timeout}} second{{problem.timeout > 1 ? 's' : ''}}</span>
+      <div class="clearfix problem-detail">
+        <span class="pull-left problem-detail-label">Time Limit:</span>
+        <span class="pull-right">{{problem.timeout}} second{{problem.timeout > 1 ? 's' : ''}}</span>
+      </div>
+      <div class="clearfix problem-detail" *ngIf="creator">
+        <span class="pull-left problem-detail-label">Created by:</span>
+        <a class="pull-right" [routerLink]="['/profile', creator.$key]">{{creator.name}}</a>
       </div>
     </div>
   </div>
