@@ -22,17 +22,12 @@ export class LeaderboardComponent implements OnInit {
       private repoService: RepositoryService) { }
 
   ngOnInit() {
-    if (this.sharingService.problem) {
-      this.initLeaderboard(this.sharingService.problem.$key)
-    } else {
-      this.sharingService.problemObservable.subscribe(
-          problem => this.initLeaderboard(problem.$key));
-    }
+    this.sharingService.problemObservable.subscribe(
+        problem => {
+          if (problem) {
+            this.repoService.getLeaderboard(problem.$key).subscribe(
+                topSubmissions => this.topSubmissions = topSubmissions);
+          }
+        });
   }
-
-  private initLeaderboard(problemId: string) {
-    this.repoService.getLeaderboard(problemId).subscribe(
-          topSubmissions => this.topSubmissions = topSubmissions);
-  }
-
 }

@@ -1,31 +1,29 @@
-<div class="container">
-  <div *ngIf="authService.user | async">
-    <div *ngIf="mySubmissions">
-      <div *ngIf="mySubmissions.length">
-        <div class="list-group">
-          <div *ngFor="let submission of mySubmissions" class="list-group-item">
-            <div class="row">
-              <div class="col-xs-1">
-                <i *ngIf="submission.status === 'Pass'" fa [name]="'check'" class="green"></i>
-                <i *ngIf="submission.status !== 'Pass'" fa [name]="'times'" class="red"></i>
-              </div>
-              <div class="col-xs-3">{{submission.lang | lang}}</div>
-              <div class="col-xs-4">
-                <div *ngIf="submission.status === 'Pass'">{{submission.execTime | precision:5}} seconds</div>
-                <div *ngIf="submission.status !== 'Pass'">{{submission.status | spacify}}</div>
-              </div>
-              <div class="col-xs-4">{{submission.submittedOn | date:'medium'}}</div>
+<div *ngIf="authService.user">
+  <div *ngIf="mySubmissions">
+    <div *ngIf="mySubmissions.length">
+      <div class="list-group">
+        <div *ngFor="let submission of mySubmissions" class="list-group-item">
+          <div class="row">
+            <div class="col-xs-1">
+              <i *ngIf="submission.status === 'Pass'" fa [name]="'check'" class="green"></i>
+              <i *ngIf="submission.status !== 'Pass'" fa [name]="'times'" class="red"></i>
             </div>
+            <div class="col-xs-3">{{submission.lang | lang}}</div>
+            <div class="col-xs-4">
+              <div *ngIf="submission.status === 'Pass'">{{submission.execTime | precision:5}} seconds</div>
+              <div *ngIf="submission.status !== 'Pass'">{{submission.status | spacify}}</div>
+            </div>
+            <div class="col-xs-4">{{submission.submittedOn | date:'medium'}}</div>
           </div>
         </div>
       </div>
-      <div *ngIf="!mySubmissions.length" class="notification">
-        <p>You currently have no submissions!</p>
-        <a class="btn btn-primary" [routerLink]="['../solve']">Solve Now</a>
-      </div>
+    </div>
+    <div *ngIf="!mySubmissions.length" class="notification">
+      <p>You currently have no submissions!</p>
+      <a class="btn btn-primary" [routerLink]="['../solve']">Solve Now</a>
     </div>
   </div>
-  <div *ngIf="!(authService.user | async)" class="notification">
-    <p>You are not logged in.</p>
-  </div>
+</div>
+<div *ngIf="!authService.user" class="notification">
+  <p>You are not logged in.</p>
 </div>

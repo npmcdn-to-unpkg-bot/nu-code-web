@@ -21,7 +21,7 @@ export class AuthAreaComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.user.subscribe(user => this.user = user);
+    this.authService.userObservable.subscribe(user => this.user = user);
   }
 
   logIn(): void {

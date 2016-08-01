@@ -36,19 +36,20 @@ export class MySubmissionsComponent implements OnInit {
 
   ngOnInit() {
     // Do not try to load submissions until the user is logged in
-    this.authService.user.subscribe(
+    this.authService.userObservable.subscribe(
         user => {
           if (user) {
-            this.initMySubmissions(user.$key, this.sharingService.problem.$key);
+            this.sharingService.problemObservable.subscribe(
+                problem => {
+                  if (problem) {
+                    this.repoService.getSubmissions(user.$key, problem.$key).subscribe(
+                        submissions => this.mySubmissions = submissions);
+                  }
+                });
           } else {
             this.mySubmissions = [];
           }
         }
     );
-  }
-
-  initMySubmissions(userId: string, problemId: string) {
-    this.repoService.getSubmissions(userId, problemId).subscribe(
-        submissions => this.mySubmissions = submissions);
   }
 }
