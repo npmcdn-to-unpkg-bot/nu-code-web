@@ -1,3 +1,7 @@
 a {
   cursor: pointer;
 }
+.list-group-header {
+  font-weight: bold;
+  background: #f8f9fa;
+}
