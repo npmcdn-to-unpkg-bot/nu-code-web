@@ -5,3 +5,9 @@ a {
   font-weight: bold;
   background: #f8f9fa;
 }
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}

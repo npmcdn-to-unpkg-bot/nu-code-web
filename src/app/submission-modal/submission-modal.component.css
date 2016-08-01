@@ -29,12 +29,6 @@ p {
 .lighter {
   opacity: 0.8;
 }
-.green {
-  color: green;
-}
-.red {
-  color: red;
-}
 .result-status {
   margin-top: 10px;
   margin-bottom: 10px;
