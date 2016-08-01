@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 import { User } from './';
+import { RepositoryService } from './repository.service';
 
 const EmailPasswordConfig = {
   provider: AuthProviders.Password,
@@ -14,13 +14,15 @@ export class AuthService {
   private _auth: FirebaseAuthState;
   private _user: User;
 
-  constructor(private af: AngularFire) {
+  constructor(
+      private af: AngularFire,
+      private repoService: RepositoryService) {
     af.auth.subscribe(
         auth => {
           this._auth = auth;
           // `auth` only contains the `uid`: resolve the associated user
           if (auth) {
-            this.getUser(auth.uid).subscribe(user => this._user = user);
+            this.repoService.getUser(auth.uid).subscribe(user => this._user = user);
           } else {
             this._user = null;
           }
@@ -34,10 +36,6 @@ export class AuthService {
 
   get auth(): FirebaseAuthState {
     return this._auth;
-  }
-
-  getUser(uid: string): Observable<User> {
-    return this.af.database.object(`/users/${uid}`);
   }
 
   /**
