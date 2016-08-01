@@ -27,7 +27,7 @@ export class RepositoryService {
       query: {
         orderByChild: 'submittedOn'
       }
-    });
+    }).map(submissions => submissions.reverse());
   }
 
   getLeaderboard(problemId: string): Observable<SuccessfulSubmission[]> {
