@@ -6,6 +6,7 @@ export * from './precision.pipe';
 export * from './problem';
 export * from './repository.service';
 export * from './results';
+export * from './spacify.pipe';
 export * from './submission';
 export * from './submission.service';
 export * from './supported-languages';
