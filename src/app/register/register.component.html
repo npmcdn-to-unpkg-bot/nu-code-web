@@ -34,3 +34,29 @@
     <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary">Register</button>
   </form>
 </div>
+
+<!-- Email Verification Notification Modal -->
+<div bsModal role="dialog" class="modal fade" [config]="{backdrop: 'static'}" (onHide)="onModalHide()" #modal="bs-modal" tabindex="-1"
+     aria-labelledby="modal" aria-hidden="true">
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog vertical-align-center">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i fa class="green" [name]="'check'" [size]=1></i> Email Verification Sent</h3>
+        </div>
+        <div class="modal-body container-fluid main-message">
+          <p><span class="lead">An email has been sent to <strong>{{emailControl.value}}</strong> to verify your address.</span></p>
+          <span>Once verified, you can:</span>
+          <ul>
+            <li>Appear on the leaderboards</li>
+            <li>Participate in competitions</li>
+            <li *ngIf="isNeumontEmail()">Create problems</li>
+            <li *ngIf="isFacultyEmail()">Create competitions</li>
+          </ul>
+          <!-- Hiding triggers onHide(), which redirects to the home page -->
+          <button class="btn btn-lg btn-primary center-block" (click)="modal.hide()">Okay, take me to the home page</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

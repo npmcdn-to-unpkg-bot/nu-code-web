@@ -48,8 +48,7 @@ export class AuthService {
       this.af.auth.createUser({ email: user.email, password: password }).then(
           authState => {
             // Send email verification
-            let newUser = firebase.auth().currentUser;
-            newUser.sendEmailVerification();
+            this.sendVerificationEmail();
             // If that succeeded, create the user in the database
             let uid = authState.uid;
             this.af.database.object(`/users/${uid}`).set(user).then(
@@ -58,6 +57,13 @@ export class AuthService {
           },
           err => reject(err));
     });
+  }
+
+  sendVerificationEmail(): Promise<void> {
+    let currentUser = firebase.auth().currentUser;
+    return currentUser
+        ? currentUser.sendEmailVerification()
+        : Promise.resolve();
   }
 
   logInWithEmailPassword(email: string, password: string): Promise<void> {

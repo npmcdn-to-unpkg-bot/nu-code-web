@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FORM_DIRECTIVES,
@@ -7,6 +7,8 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
+import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
+import { FaDirective } from 'angular2-fontawesome/directives';
 import { emailValidator, matchingPasswordValidator } from './validators';
 import { AuthService, User } from '../shared';
 
@@ -17,8 +19,12 @@ import { AuthService, User } from '../shared';
   styleUrls: ['register.component.css'],
   directives: [
     FORM_DIRECTIVES,
-    REACTIVE_FORM_DIRECTIVES
-  ]
+    REACTIVE_FORM_DIRECTIVES,
+    MODAL_DIRECTIVES,
+    ModalDirective,
+    FaDirective
+  ],
+  viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class RegisterComponent implements OnInit {
   nameControl = new FormControl('', Validators.required);
@@ -40,6 +46,8 @@ export class RegisterComponent implements OnInit {
     confirmPassword: this.confirmPasswordControl
   }, {}, matchingPasswordValidator('password', 'confirmPassword'));
 
+  @ViewChild('modal') modal: ModalDirective;
+
   constructor(
     private authService: AuthService,
     private router: Router) { }
@@ -51,10 +59,11 @@ export class RegisterComponent implements OnInit {
     let user: User = {
       name: this.nameControl.value,
       email: this.emailControl.value,
+      verified: false
     };
     let password = this.passwordControl.value;
     this.authService.registerNewUser(user, password).then(
-        () => this.router.navigateByUrl('/'),
+        () => this.modal.show(),
         err => {
           switch (err.code) {
             case 'auth/email-already-in-use':
@@ -69,5 +78,17 @@ export class RegisterComponent implements OnInit {
               break;
           }
         });
+  }
+
+  isNeumontEmail(): boolean {
+    return this.emailControl.value.endsWith('neumont.edu');
+  }
+
+  isFacultyEmail(): boolean {
+    return this.emailControl.value.endsWith('@neumont.edu');
+  }
+
+  onModalHide(): void {
+    this.router.navigateByUrl('/');
   }
 }
