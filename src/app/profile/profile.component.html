@@ -1,16 +1,27 @@
 <div *ngIf="user" class="container">
+  <div class="clearfix">
+    <a *ngIf="isMyProfile()" class="btn btn-warning pull-right" [routerLink]="['/editProfile']"><i fa [name]="'pencil'"></i> Edit</a>
+  </div>
   <div class="row">
     <div class="col-xs-12 col-md-4">
       <!-- TODO: Picture -->
       <img src="" alt="">
     </div>
-    <div class="col-xs-12 col-md-8 row">
-      <div class="col-xs-12 name">
+    <div class="col-xs-12 col-md-8">
+      <div class="row name">
         <h2>{{user.name}}</h2>
       </div>
-      <div class="col-xs-12 email">
+      <div class="row email">
         <p>{{user.email}}</p>
       </div>
+      <!-- TODO: Only if this is your profile -->
+      <div *ngIf="!user.verified" class="row not-verified">
+        <p class="row">Your email is still unverified!</p>
+        <a (click)="authService.sendVerificationEmail()" class="row btn btn-default">Resend Verification Email</a>
+      </div>
     </div>
+  </div>
+  <div *ngIf="isMyProfile()" class="row">
+    this is me!
   </div>
 </div>

@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { User, RepositoryService } from '../shared';
+import { ActivatedRoute, Router, ROUTER_DIRECTIVES } from '@angular/router';
+import { FaDirective } from 'angular2-fontawesome/directives';
+import { AuthService, RepositoryService, User } from '../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-profile',
   templateUrl: 'profile.component.html',
-  styleUrls: ['profile.component.css']
+  styleUrls: ['profile.component.css'],
+  directives: [
+    ROUTER_DIRECTIVES,
+    FaDirective
+  ]
 })
 export class ProfileComponent implements OnInit {
   user: User;
@@ -14,6 +19,7 @@ export class ProfileComponent implements OnInit {
   constructor(
       private router: Router,
       private route: ActivatedRoute,
+      private authService: AuthService,
       private repoService: RepositoryService) { }
 
   ngOnInit() {
@@ -30,4 +36,8 @@ export class ProfileComponent implements OnInit {
         });
   }
 
+  isMyProfile(): boolean {
+    return this.user && this.authService.user
+        && this.user.$key === this.authService.user.$key;
+  }
 }
