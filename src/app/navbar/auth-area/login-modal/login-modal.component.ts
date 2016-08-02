@@ -1,16 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import {
-  FORM_DIRECTIVES,
-  REACTIVE_FORM_DIRECTIVES,
-  FormGroup,
-  FormControl
-} from '@angular/forms';
-import {
-  BS_VIEW_PROVIDERS,
-  MODAL_DIRECTIVES,
-  ModalDirective
-} from 'ng2-bootstrap/ng2-bootstrap';
+import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl } from '@angular/forms';
+import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { FaDirective } from 'angular2-fontawesome/directives';
 import { AuthService } from '../../../shared';
 
@@ -53,28 +44,24 @@ export class LoginModalComponent implements OnInit {
   logInWithEmailPassword(): void {
     if (this.loginForm.valid) {
       // TODO: Indicate loading?
-      // let email = this.emailControl.value;
-      // let password = this.passwordControl.value;
       this.authService.logInWithEmailPassword(this.email, this.password).then(
-          () => {
-            this.modal.hide();
-          },
-          err => {
-            switch (err.code) {
-              case 'auth/user-not-found':
-              case 'auth/invalid-email':
-              case 'auth/wrong-password':
-                this.loginForm.setErrors({ invalidEmailOrPassword: true });
-                break;
-              case 'auth/too-many-requests':
-                this.loginForm.setErrors({ tooManyRequests: true });
-                break;
-              default:
-                this.loginForm.setErrors({ unexpectedError: true });
-                break;
-            }
-            console.log(err);
-          });
+        () => this.modal.hide(),
+        err => {
+          switch (err.code) {
+            case 'auth/user-not-found':
+            case 'auth/invalid-email':
+            case 'auth/wrong-password':
+              this.loginForm.setErrors({ invalidEmailOrPassword: true });
+              break;
+            case 'auth/too-many-requests':
+              this.loginForm.setErrors({ tooManyRequests: true });
+              break;
+            default:
+              this.loginForm.setErrors({ unexpectedError: true });
+              break;
+          }
+          console.log(err);
+        });
       this.password = '';
     }
   }
