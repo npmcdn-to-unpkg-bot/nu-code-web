@@ -1,4 +1,16 @@
 <div *ngIf="user" class="container">
-  <div class="name">{{user.name}}</div>
-  <div class="email">{{user.email}}</div>
+  <div class="row">
+    <div class="col-xs-12 col-md-4">
+      <!-- TODO: Picture -->
+      <img src="" alt="">
+    </div>
+    <div class="col-xs-12 col-md-8 row">
+      <div class="col-xs-12 name">
+        <h2>{{user.name}}</h2>
+      </div>
+      <div class="col-xs-12 email">
+        <p>{{user.email}}</p>
+      </div>
+    </div>
+  </div>
 </div>
