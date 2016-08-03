@@ -14,7 +14,7 @@ const EmailPasswordConfig = {
 @Injectable()
 export class AuthService {
   get loggedIn(): boolean {
-    return !this._user.value;
+    return !!this.user;
   }
 
   private _user = new BehaviorSubject<User>(null);
