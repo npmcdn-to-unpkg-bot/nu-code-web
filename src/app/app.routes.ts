@@ -5,6 +5,7 @@ import { ProblemListRoutes } from './problem-list';
 import { ProfileRoutes } from './profile';
 import { CompetitionListRoutes } from './competition-list';
 import { RegisterRoutes } from './register';
+import { LoginRoutes } from './login-required';
 
 const routes: RouterConfig = [
   ...HomeRoutes,
@@ -12,7 +13,8 @@ const routes: RouterConfig = [
   ...ProblemRoutes,
   ...ProfileRoutes,
   ...CompetitionListRoutes,
-  ...RegisterRoutes
+  ...RegisterRoutes,
+  ...LoginRoutes
 ];
 
 export const AppRouterProviders = [
