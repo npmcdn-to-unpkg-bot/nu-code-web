@@ -43,23 +43,28 @@ export class LoginModalComponent implements OnInit {
 
   logInWithEmailPassword(): void {
     if (this.loginForm.valid) {
-      // TODO: Indicate loading?
+      // TODO: Indicate loading
       this.authService.logInWithEmailPassword(this.email, this.password).then(
         () => this.modal.hide(),
         err => {
+          let error;
           switch (err.code) {
             case 'auth/user-not-found':
             case 'auth/invalid-email':
             case 'auth/wrong-password':
-              this.loginForm.setErrors({ invalidEmailOrPassword: true });
+              error = { invalidEmailOrPassword: true };
+              break;
+            case 'auth/network-request-failed':
+              error = { serverUnreachable: true };
               break;
             case 'auth/too-many-requests':
-              this.loginForm.setErrors({ tooManyRequests: true });
+              error = { tooManyRequests: true };
               break;
             default:
-              this.loginForm.setErrors({ unexpectedError: true });
+              error = { unexpectedError: true };
               break;
           }
+          this.loginForm.setErrors(error);
           console.log(err);
         });
       this.password = '';

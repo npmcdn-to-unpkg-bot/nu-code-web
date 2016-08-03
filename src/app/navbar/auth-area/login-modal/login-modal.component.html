@@ -6,11 +6,8 @@
           Log in to an existing account
         </div>
         <div class="modal-body">
-          <!--<div class="clearfix section-title">
-            <h4 class="pull-left no-margin">Email / Password</h4>
-            <button (click)="cancel()" class="pull-right close close-btn"><i fa [name]="'times'"></i></button>
-          </div>-->
           <div *ngIf="loginForm.hasError('invalidEmailOrPassword')" class="alert alert-danger">Wrong email or password</div>
+          <div *ngIf="loginForm.hasError('serverUnreachable')" class="alert alert-danger">The server is unreachable. Are you connected to the internet?</div>
           <div *ngIf="loginForm.hasError('tooManyRequests')" class="alert alert-danger">Too many attempts. Try again later.</div>
           <div *ngIf="loginForm.hasError('unexpectedError')" class="alert alert-danger">An unexpected error occurred. Try again later.</div>
           <form role="form" [formGroup]="loginForm" (ngSubmit)="logInWithEmailPassword()">
