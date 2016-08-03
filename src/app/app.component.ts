@@ -4,6 +4,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { NavbarComponent } from './navbar';
 import { LoginModalComponent } from './login-modal';
 import { AuthService, LoginModalService, RepositoryService } from './shared';
+import { AppRouterProviders } from './app.routes';
 
 @Component({
   moduleId: module.id,
@@ -16,6 +17,7 @@ import { AuthService, LoginModalService, RepositoryService } from './shared';
     LoginModalComponent
   ],
   providers: [
+    AppRouterProviders,
     HTTP_PROVIDERS,
     AuthService,
     LoginModalService,

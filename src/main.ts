@@ -12,8 +12,6 @@ bootstrap(AppComponent, [
   // Angular 2 RC.4 use new forms
   disableDeprecatedForms(),
   provideForms(),
-  // Routing
-  AppRouterProviders,
   // Firebase
   FIREBASE_PROVIDERS,
   defaultFirebase({
