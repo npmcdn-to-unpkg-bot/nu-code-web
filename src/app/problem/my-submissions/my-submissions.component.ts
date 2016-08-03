@@ -4,6 +4,7 @@ import { FaDirective } from 'angular2-fontawesome/directives';
 import {
   AuthService,
   LangPipe,
+  LoginModalService,
   MySubmission,
   PrecisionPipe,
   RepositoryService,
@@ -31,6 +32,7 @@ export class MySubmissionsComponent implements OnInit {
 
   constructor(
       private authService: AuthService,
+      private loginModalService: LoginModalService,
       private sharingService: SharingService,
       private repoService: RepositoryService) { }
 

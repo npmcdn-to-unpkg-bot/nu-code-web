@@ -26,4 +26,5 @@
 </div>
 <div *ngIf="!authService.user" class="notification">
   <p>You are not logged in.</p>
+  <a class="btn btn-primary" (click)="loginModalService.show()">Log In</a>
 </div>
