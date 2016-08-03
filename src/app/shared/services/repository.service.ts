@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFire } from 'angularfire2';
-import { MySubmission, Problem, SuccessfulSubmission, User } from './';
+import { MySubmission, Problem, SuccessfulSubmission, User } from '../';
 
 @Injectable()
 export class RepositoryService {

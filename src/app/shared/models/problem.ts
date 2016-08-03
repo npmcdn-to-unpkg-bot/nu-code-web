@@ -1,5 +1,3 @@
-import { User } from './';
-
 export class Problem {
   $key: string;
   creatorUid: string;

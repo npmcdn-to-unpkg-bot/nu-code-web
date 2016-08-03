@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SupportedLanguagesByCode } from './';
+import { SupportedLanguagesByCode } from '../';
 
 @Pipe({
   name: 'lang'

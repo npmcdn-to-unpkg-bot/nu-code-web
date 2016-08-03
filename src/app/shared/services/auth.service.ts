@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as firebase from 'firebase';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
-import { User } from './';
+import { User } from '../';
 import { RepositoryService } from './repository.service';
 
 const EmailPasswordConfig = {
