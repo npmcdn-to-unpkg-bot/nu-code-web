@@ -25,6 +25,9 @@ a {
   vertical-align: middle;
   pointer-events: none;
 }
+.modal-header {
+  margin-bottom: 0;
+}
 .modal-content {
   /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
   width: inherit;
