@@ -1,24 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { LoginModalComponent } from './login-modal';
-import { AuthService, User } from '../../shared';
+import { AuthService, LoginModalService, User } from '../../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-auth-area',
   templateUrl: 'auth-area.component.html',
   styleUrls: ['auth-area.component.css'],
-  directives: [
-    ROUTER_DIRECTIVES,
-    LoginModalComponent
-  ]
+  directives: [ROUTER_DIRECTIVES]
 })
 export class AuthAreaComponent implements OnInit {
   user: User;
 
-  @ViewChild('loginModal') loginModal: LoginModalComponent;
-
-  constructor(private authService: AuthService) { }
+  constructor(
+      private authService: AuthService,
+      private loginModalService: LoginModalService) { }
 
   ngOnInit() {
     this.authService.userObservable.subscribe(user => this.user = user);
@@ -26,7 +22,7 @@ export class AuthAreaComponent implements OnInit {
 
   logIn(): void {
     // Deferred to the login modal
-    this.loginModal.show();
+    this.loginModalService.show();
   }
 
   logOut(): void {
