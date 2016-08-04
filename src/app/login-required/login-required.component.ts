@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { FaDirective } from 'angular2-fontawesome/directives';
 import { LoginModalService } from '../shared';
 
 @Component({
@@ -7,7 +7,7 @@ import { LoginModalService } from '../shared';
   selector: 'app-login-required',
   templateUrl: 'login-required.component.html',
   styleUrls: ['login-required.component.css'],
-  directives: [ROUTER_DIRECTIVES]
+  directives: [FaDirective]
 })
 export class LoginRequiredComponent implements OnInit {
   constructor(private loginModalService: LoginModalService) { }
