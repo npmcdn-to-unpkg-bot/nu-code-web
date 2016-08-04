@@ -3,6 +3,7 @@ import { enableProdMode } from '@angular/core';
 import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { FIREBASE_PROVIDERS, defaultFirebase } from 'angularfire2';
 import { AppComponent, AppRouterProviders, environment } from './app/';
+import { AuthService, RepositoryService } from './app/shared';
 
 if (environment.production) {
   enableProdMode();
@@ -19,5 +20,8 @@ bootstrap(AppComponent, [
     authDomain: 'nu-code-350ea.firebaseapp.com',
     databaseURL: 'https://nu-code-350ea.firebaseio.com',
     storageBucket: 'nu-code-350ea.appspot.com',
-  })
+  }),
+  AuthService,
+  RepositoryService,
+  AppRouterProviders
 ]).catch(err => console.error(err));
