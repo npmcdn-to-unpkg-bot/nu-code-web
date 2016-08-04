@@ -6,7 +6,8 @@ import { ProfileRoutes } from './profile';
 import { CompetitionListRoutes } from './competition-list';
 import { RegisterRoutes } from './register';
 import { LoginRoutes } from './login-required';
-import { LoggedInGuard } from './shared';
+import { VerificationRoutes } from './verification-required';
+import { LoggedInGuard, VerifiedGuard } from './shared';
 
 const routes: RouterConfig = [
   ...HomeRoutes,
@@ -15,10 +16,12 @@ const routes: RouterConfig = [
   ...ProfileRoutes,
   ...CompetitionListRoutes,
   ...RegisterRoutes,
-  ...LoginRoutes
+  ...LoginRoutes,
+  ...VerificationRoutes
 ];
 
 export const AppRouterProviders = [
   LoggedInGuard,
+  VerifiedGuard,
   provideRouter(routes),
 ];

@@ -77,6 +77,7 @@ const barrels: string[] = [
   'app/profile',
   'app/edit-profile',
   'app/login-required',
+  'app/verification-required',
   /** @cli-barrel */
 ];
 
