@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as firebase from 'firebase';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 import { User } from '../';
 import { RepositoryService } from './repository.service';
 
@@ -28,8 +28,12 @@ export class AuthService {
   get userSnapshot(): User {
     return this._user.value;
   }
-  public get userObservable(): Observable<User> {
-    return this._user.asObservable();
+
+  /**
+   * Listen for changes in auth state.
+   */
+  get auth(): Observable<FirebaseAuthState> {
+    return this.af.auth;
   }
 
   constructor(
@@ -71,6 +75,15 @@ export class AuthService {
     return currentUser
         ? currentUser.sendEmailVerification()
         : Promise.resolve();
+  }
+
+  /**
+   * Requires that a user be logged in.
+   */
+  verifyEmail(oobCode): Promise<void> {
+    // TODO: Once verified, send a request to move this user's successful submissions to the
+    // successfulSubmissions area
+    return firebase.auth().applyActionCode(oobCode);
   }
 
   logInWithEmailPassword(email: string, password: string): Promise<void> {

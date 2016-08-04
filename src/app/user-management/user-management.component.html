@@ -1,19 +1,19 @@
 <div class="container">
   <div *ngIf="authService.loggedIn">
-    <div [ngSwitch]="mode">
+    <div [ngSwitch]="action">
       <!-- Email Verification -->
-      <div *ngSwitchCase="'VerifyEmail'">
+      <div *ngSwitchCase="'verifyEmail'">
         <div [ngSwitch]="state">
-          <div *ngSwitchCase="Loading">
+          <div *ngSwitchCase="'loading'">
             <h2>Loading...</h2>
           </div>
-          <div *ngSwitchCase="Success">
+          <div *ngSwitchCase="'success'">
             <h2 class="green">Email Verified!</h2>
             <p>The account associated with {{email}} has successfully been verified.</p>
             <!-- TODO: list the newly granted permissions -->
-            <a [routerLink]="['/']">Return to the homepage</a>
+            <a (click)="redirectHome()">Return to the homepage</a>
           </div>
-          <div *ngSwitchCase="Error">
+          <div *ngSwitchCase="'error'">
             <h2 class="red">Uh oh!</h2>
             <p>There was an error verifying your email.</p>
             <p>Try verifying again.</p>

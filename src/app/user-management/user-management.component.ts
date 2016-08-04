@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
-import * as firebase from 'firebase';
 import { AuthService, LoginModalService } from '../shared';
 
 @Component({
@@ -13,6 +12,7 @@ import { AuthService, LoginModalService } from '../shared';
 export class UserManagementComponent implements OnInit {
   action: Action;
   state: State;
+  email: string;
 
   constructor(
       private router: Router,
@@ -33,9 +33,10 @@ export class UserManagementComponent implements OnInit {
   }
 
   private handleEvent(mode: string, oobCode: string): void {
-    this.authService.userObservable.subscribe(user => {
-      if (user) {
-        this.state = State.Loading;
+    // Await log in
+    this.authService.auth.subscribe(auth => {
+      if (auth) {
+        this.state = 'loading';
         switch (mode) {
           case 'resetPassword':
             // TODO:
@@ -44,37 +45,27 @@ export class UserManagementComponent implements OnInit {
             // TODO:
             break;
           case 'verifyEmail':
-            this.action = Action.VerifyEmail;
-            this.verifyEmail(oobCode).then(
-                () => this.state = State.Success,
-                err => this.state = State.Error);
+            this.action = 'verifyEmail';
+            this.authService.verifyEmail(oobCode).then(
+                () => this.state = 'success',
+                err => this.state = 'error');
             break;
           default:
             this.redirectHome();
-            // TODO: error
             break;
         }
       }
     });
   }
 
-  private verifyEmail(oobCode: string): Promise<void> {
-    return firebase.auth().applyActionCode(oobCode);
-  }
-
+  /**
+   * Resets the query parameters and redirects to the homepage
+   */
   private redirectHome(): void {
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/'], { queryParams: {} });
   }
 }
 
-enum Action {
-  ResetPassword,
-  RecoverEmail,
-  VerifyEmail
-}
+type Action = 'resetPassword' | 'recoverEmail' | 'verifyEmail';
 
-enum State {
-  Loading,
-  Success,
-  Error
-}
+type State = 'loading' | 'success' | 'error';
