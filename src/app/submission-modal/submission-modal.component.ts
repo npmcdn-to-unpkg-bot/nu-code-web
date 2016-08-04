@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { Subscription } from 'rxjs';
 import {
   BS_VIEW_PROVIDERS,
@@ -36,6 +37,7 @@ const ConfigPreventCloseOnClickOutside: ModalOptions = { backdrop: 'static' };
     PrecisionPipe
   ],
   providers: [
+    HTTP_PROVIDERS,
     AuthService,
     SubmissionService
   ],

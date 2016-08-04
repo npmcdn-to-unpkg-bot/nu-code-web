@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
-import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { NavbarComponent } from './navbar';
 import { LoginModalComponent } from './login-modal';
-import { AuthService, LoginModalService, RepositoryService } from './shared';
-import { AppRouterProviders } from './app.routes';
+import { LoginModalService } from './shared';
 
 @Component({
   moduleId: module.id,
@@ -16,13 +14,7 @@ import { AppRouterProviders } from './app.routes';
     NavbarComponent,
     LoginModalComponent
   ],
-  providers: [
-    AppRouterProviders,
-    HTTP_PROVIDERS,
-    AuthService,
-    LoginModalService,
-    RepositoryService
-  ]
+  providers: [LoginModalService]
 })
 export class AppComponent implements OnInit {
   @ViewChild('loginModal') loginModal: LoginModalComponent;
