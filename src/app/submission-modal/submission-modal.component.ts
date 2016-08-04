@@ -66,8 +66,8 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
 
   handleSubmission(submission: Submission) {
     submission.problem = this.problemId;
-    if (this.authService.user) {
-      submission.submitterUid = this.authService.user.$key;
+    if (this.authService.loggedIn) {
+      submission.submitterUid = this.authService.userSnapshot.$key;
     }
 
     this.modal.config = ConfigPreventCloseOnClickOutside;

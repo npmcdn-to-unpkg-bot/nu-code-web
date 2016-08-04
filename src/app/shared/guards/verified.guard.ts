@@ -12,7 +12,7 @@ export class VerifiedGuard implements CanActivate {
       private authService: AuthService) { }
 
   canActivate() {
-    let canActivate = this.authService.loggedIn && this.authService.user.verified;
+    let canActivate = this.authService.verified;
     if (!canActivate) {
       this.router.navigateByUrl('/verification-required');
     }

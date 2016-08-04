@@ -38,7 +38,7 @@ export class MySubmissionsComponent implements OnInit {
 
   ngOnInit() {
     // Do not try to load submissions until the user is logged in
-    this.authService.userObservable.subscribe(
+    this.authService.user.subscribe(
         user => {
           if (user) {
             this.sharingService.problemObservable.subscribe(

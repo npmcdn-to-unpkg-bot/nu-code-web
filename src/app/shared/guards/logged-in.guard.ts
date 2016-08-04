@@ -12,8 +12,8 @@ export class LoggedInGuard implements CanActivate {
       private router: Router,
       private authService: AuthService) { }
 
-  canActivate() {
-    let canActivate = !!this.authService.user;
+  canActivate(): boolean {
+    let canActivate = this.authService.loggedIn;
     if (!canActivate) {
       this.router.navigateByUrl('/login');
     }

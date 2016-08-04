@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
   }
 
   isMyProfile(): boolean {
-    return this.user && this.authService.user
-        && this.user.$key === this.authService.user.$key;
+    return this.user && this.authService.userSnapshot
+        && this.user.$key === this.authService.userSnapshot.$key;
   }
 }

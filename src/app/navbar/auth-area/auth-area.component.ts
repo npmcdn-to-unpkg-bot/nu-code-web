@@ -17,7 +17,7 @@ export class AuthAreaComponent implements OnInit {
       private loginModalService: LoginModalService) { }
 
   ngOnInit() {
-    this.authService.userObservable.subscribe(user => this.user = user);
+    this.authService.user.subscribe(user => this.user = user);
   }
 
   logIn(): void {

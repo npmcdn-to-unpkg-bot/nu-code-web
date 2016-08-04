@@ -1,4 +1,4 @@
-<div *ngIf="authService.user">
+<div *ngIf="authService.userSnapshot">
   <div *ngIf="mySubmissions">
     <div *ngIf="mySubmissions.length">
       <div class="list-group">
@@ -24,7 +24,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="!authService.user" class="notification">
+<div *ngIf="!authService.userSnapshot" class="notification">
   <p>You are not logged in.</p>
   <a class="btn btn-primary" (click)="loginModalService.show()">Log In</a>
 </div>
