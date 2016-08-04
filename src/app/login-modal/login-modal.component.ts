@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormGroup, FormControl } from '@angular/forms';
 import { BS_VIEW_PROVIDERS, MODAL_DIRECTIVES, ModalDirective } from 'ng2-bootstrap/ng2-bootstrap';
 import { FaDirective } from 'angular2-fontawesome/directives';
@@ -32,7 +32,9 @@ export class LoginModalComponent implements OnInit {
     password: this.passwordControl
   });
 
-  constructor(private authService: AuthService) { }
+  constructor(
+      private router: Router,
+      private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -45,7 +47,12 @@ export class LoginModalComponent implements OnInit {
     if (this.loginForm.valid) {
       // TODO: Indicate loading
       this.authService.logInWithEmailPassword(this.email, this.password).then(
-        () => this.modal.hide(),
+        () => {
+          if (this.router.url.endsWith('/login')) {
+            this.router.navigateByUrl('/');
+          }
+          this.modal.hide();
+        },
         err => {
           let error;
           switch (err.code) {
