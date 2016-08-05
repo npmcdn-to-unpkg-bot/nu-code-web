@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { AuthService, LoginModalService, User } from '../../shared';
 
 @Component({
@@ -13,6 +13,7 @@ export class AuthAreaComponent implements OnInit {
   user: User;
 
   constructor(
+      private router: Router,
       private authService: AuthService,
       private loginModalService: LoginModalService) { }
 
@@ -27,5 +28,6 @@ export class AuthAreaComponent implements OnInit {
 
   logOut(): void {
     this.authService.logOut();
+    this.router.navigateByUrl('/');
   }
 }
