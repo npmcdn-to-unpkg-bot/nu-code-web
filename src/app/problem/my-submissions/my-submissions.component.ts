@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { FaDirective } from 'angular2-fontawesome/directives';
 import {
   AuthService,
@@ -27,8 +28,9 @@ import { SharingService } from '../shared';
     SpacifyPipe
   ]
 })
-export class MySubmissionsComponent implements OnInit {
+export class MySubmissionsComponent implements OnInit, OnDestroy {
   mySubmissions: MySubmission[];
+  mySubmissionsSubscription: Subscription;
 
   constructor(
       private authService: AuthService,
@@ -44,14 +46,25 @@ export class MySubmissionsComponent implements OnInit {
             this.sharingService.problemObservable.subscribe(
                 problem => {
                   if (problem) {
-                    this.repoService.getSubmissions(user.$key, problem.$key).subscribe(
-                        submissions => this.mySubmissions = submissions);
+                    this.mySubmissionsSubscription = this.repoService
+                        .getSubmissions(user.$key, problem.$key).subscribe(
+                            submissions => this.mySubmissions = submissions);
                   }
                 });
           } else {
             this.mySubmissions = [];
+            this.killSubscription();
           }
-        }
-    );
+        });
+  }
+
+  ngOnDestroy() {
+    this.killSubscription();
+  }
+
+  killSubscription() {
+    if (this.mySubmissionsSubscription) {
+      this.mySubmissionsSubscription.unsubscribe();
+    }
   }
 }
