@@ -20,6 +20,6 @@ export class NotLoggedInGuard implements CanActivate {
         this.router.navigateByUrl('/');
       }
       return !loggedIn;
-    });
+    }).take(1); // Observable needs to complete
   }
 }

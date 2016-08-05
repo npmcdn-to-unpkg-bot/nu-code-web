@@ -20,6 +20,6 @@ export class NotVerifiedGuard implements CanActivate {
         this.router.navigateByUrl('/');
       }
       return !verified;
-    });
+    }).take(1); // Observable needs to complete
   }
 }
