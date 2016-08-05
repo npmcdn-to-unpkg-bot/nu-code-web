@@ -3,8 +3,7 @@ import { LoginRequiredComponent } from './';
 
 export const LoginRoutes: RouterConfig = [
   {
-    path: 'login',
+    path: 'login-required',
     component: LoginRequiredComponent
-    // TODO: can only activate if NOT logged in
   }
 ];

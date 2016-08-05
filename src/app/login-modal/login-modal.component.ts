@@ -48,7 +48,8 @@ export class LoginModalComponent implements OnInit {
       // TODO: Indicate loading
       this.authService.logInWithEmailPassword(this.email, this.password).then(
         () => {
-          if (this.router.url.endsWith('/login') || this.router.url.endsWith('/register')) {
+          let url = this.router.url;
+          if (url.endsWith('/login-required') || url.endsWith('/register')) {
             this.router.navigateByUrl('/');
           }
           this.modal.hide();

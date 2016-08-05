@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 
 /**
  * Only allows those who are logged in to pass.
- * If the user is not logged in, they are redirected to '/login', the login required page.
+ * If the user is not logged in, they are redirected to the login required page.
  */
 @Injectable()
 export class LoggedInGuard implements CanActivate {
@@ -15,7 +15,7 @@ export class LoggedInGuard implements CanActivate {
   canActivate(): boolean {
     let canActivate = this.authService.loggedIn;
     if (!canActivate) {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/login-required');
     }
     return canActivate;
   }
