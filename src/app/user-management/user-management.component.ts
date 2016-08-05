@@ -34,9 +34,10 @@ export class UserManagementComponent implements OnInit {
 
   private handleEvent(mode: string, oobCode: string): void {
     // Await log in
-    let subscription = this.authService.auth.subscribe(auth => {
+    this.authService.auth
+        .take(1) // Limit to one run
+        .subscribe(auth => {
       if (auth) {
-        subscription.unsubscribe();
         this.state = 'loading';
         switch (mode) {
           case 'resetPassword':
