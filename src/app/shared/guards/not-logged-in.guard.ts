@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service';
 
 /**
@@ -12,11 +13,13 @@ export class NotLoggedInGuard implements CanActivate {
       private router: Router,
       private authService: AuthService) { }
 
-  canActivate(): boolean {
-    let canActivate = !this.authService.loggedIn;
-    if (!canActivate) {
-      this.router.navigateByUrl('/');
-    }
-    return canActivate;
+  canActivate(): Observable<boolean> {
+    return this.authService.auth.map(auth => {
+      let loggedIn = !!auth;
+      if (loggedIn) {
+        this.router.navigateByUrl('/');
+      }
+      return !loggedIn;
+    });
   }
 }
