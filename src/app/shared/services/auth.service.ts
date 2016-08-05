@@ -19,12 +19,15 @@ const EmailPasswordConfig = {
 
 @Injectable()
 export class AuthService {
-  get loggedIn(): boolean {
-    return !!this.userSnapshot;
+  get loggedIn(): Observable<boolean> {
+    return this.auth.map(auth => !!auth);
+  }
+  get loggedInSnapshot(): boolean {
+    return !!this._user.value;
   }
 
   get verified(): boolean {
-    return this.loggedIn && firebase.auth().currentUser.emailVerified;
+    return this.loggedInSnapshot && firebase.auth().currentUser.emailVerified;
   }
 
   private _user = new BehaviorSubject<User>(null);
