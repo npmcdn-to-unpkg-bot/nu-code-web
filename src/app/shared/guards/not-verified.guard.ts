@@ -16,7 +16,7 @@ export class NotVerifiedGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.authService.auth.map(auth => {
       let verified = this.authService.verified;
-      if (!verified) {
+      if (verified) {
         this.router.navigateByUrl('/');
       }
       return !verified;

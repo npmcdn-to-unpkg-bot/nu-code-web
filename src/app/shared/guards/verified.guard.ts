@@ -17,7 +17,7 @@ export class VerifiedGuard implements CanActivate {
     return this.authService.auth.map(auth => {
       let verified = this.authService.verified;
       if (!verified) {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/verification-required');
       }
       return verified;
     }).take(1); // Observable needs to complete
