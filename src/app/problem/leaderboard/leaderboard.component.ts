@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { SuccessfulSubmission, RepositoryService } from '../../shared';
+import { AuthService, RepositoryService, SuccessfulSubmission } from '../../shared';
 import { SharingService } from '../shared';
 import { RankingComponent } from './ranking';
 
@@ -18,6 +18,7 @@ export class LeaderboardComponent implements OnInit {
   topSubmissions: SuccessfulSubmission[];
 
   constructor(
+      private authService: AuthService,
       private sharingService: SharingService,
       private repoService: RepositoryService) { }
 

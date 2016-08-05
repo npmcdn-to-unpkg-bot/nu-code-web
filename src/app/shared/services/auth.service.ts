@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as firebase from 'firebase';
 import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 import { User } from '../';
 import { RepositoryService } from './repository.service';
+
+const NewlyVerifiedUrl = 'http://172.17.0.2:8080/verified';
+const RequestHeaders = new Headers({
+  'Content-Type': 'application/json'
+});
 
 const EmailPasswordConfig = {
   provider: AuthProviders.Password,
@@ -36,7 +42,15 @@ export class AuthService {
     return this.af.auth;
   }
 
+  get token(): Promise<string> {
+    let auth = firebase.auth();
+    return (auth && auth.currentUser)
+        ? auth.currentUser.getToken(true)
+        : Promise.resolve(null);
+  }
+
   constructor(
+      private http: Http,
       private af: AngularFire,
       private repoService: RepositoryService) {
     af.auth.subscribe(
@@ -81,9 +95,17 @@ export class AuthService {
    * Requires that a user be logged in.
    */
   verifyEmail(oobCode): Promise<void> {
-    // TODO: Once verified, send a request to move this user's successful submissions to the
-    // successfulSubmissions area
-    return firebase.auth().applyActionCode(oobCode);
+    return firebase.auth().applyActionCode(oobCode).then(
+        () => this.notifyNewlyVerified());
+  }
+
+  private notifyNewlyVerified(): Promise<void> {
+    return this.token.then(token => token
+        ? this.http
+              .post(NewlyVerifiedUrl, { token }, RequestHeaders)
+              .map(res => {})
+              .toPromise()
+        : Promise.resolve(null));
   }
 
   logInWithEmailPassword(email: string, password: string): Promise<void> {

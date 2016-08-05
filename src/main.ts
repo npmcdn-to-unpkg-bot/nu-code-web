@@ -1,5 +1,6 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { FIREBASE_PROVIDERS, defaultFirebase } from 'angularfire2';
 import { AppComponent, AppRouterProviders, environment } from './app/';
@@ -10,6 +11,7 @@ if (environment.production) {
 }
 
 bootstrap(AppComponent, [
+  HTTP_PROVIDERS,
   // Angular 2 RC.4 use new forms
   disableDeprecatedForms(),
   provideForms(),

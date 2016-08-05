@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { HTTP_PROVIDERS } from '@angular/http';
 import { Subscription } from 'rxjs';
 import {
   BS_VIEW_PROVIDERS,
@@ -37,7 +36,6 @@ const ConfigPreventCloseOnClickOutside: ModalOptions = { backdrop: 'static' };
     PrecisionPipe
   ],
   providers: [
-    HTTP_PROVIDERS,
     AuthService,
     SubmissionService
   ],
@@ -66,27 +64,32 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
 
   handleSubmission(submission: Submission) {
     submission.problem = this.problemId;
-    if (this.authService.loggedIn) {
-      submission.submitterUid = this.authService.userSnapshot.$key;
-    }
+    this.authService.token.then(token => {
+      if (token) {
+        submission.submitterToken = token;
+      }
+      console.log(submission);
 
-    this.modal.config = ConfigPreventCloseOnClickOutside;
-    this.lastSubmission = submission;
-    this.state = State.Submitting;
-    this.submissionSubscription = this.submissionService.submit(submission).subscribe(
-        result => {
-          this.state = State.ResultReceived;
-          this.result = result;
-        },
-        err => {
-          this.state = State.ServerError;
-        },
-        () => {
-          // Allow click outside
-          this.modal.config = {};
-          this.killSubscription();
-        });
-    this.modal.show();
+      // Disallow click away
+      this.modal.config = ConfigPreventCloseOnClickOutside;
+      // Save in case of retry
+      this.lastSubmission = submission;
+      this.state = State.Submitting;
+      this.submissionSubscription = this.submissionService.submit(submission).subscribe(
+          result => {
+            this.state = State.ResultReceived;
+            this.result = result;
+          },
+          err => {
+            this.state = State.ServerError;
+          },
+          () => {
+            // Allow click outside
+            this.modal.config = {};
+            this.killSubscription();
+          });
+      this.modal.show();
+    });
   }
 
   retry() {
@@ -109,6 +112,9 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
     this.modal.hide();
   }
 
+  onHide() {
+    this.killSubscription();
+  }
 }
 
 enum State {
