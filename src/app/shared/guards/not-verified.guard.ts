@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services';
 
 /**
@@ -12,11 +13,13 @@ export class NotVerifiedGuard implements CanActivate {
       private router: Router,
       private authService: AuthService) { }
 
-  canActivate() {
-    let canActivate = !this.authService.verified;
-    if (!canActivate) {
-      this.router.navigateByUrl('/');
-    }
-    return canActivate;
+  canActivate(): Observable<boolean> {
+    return this.authService.auth.map(auth => {
+      let verified = this.authService.verified;
+      if (!verified) {
+        this.router.navigateByUrl('/');
+      }
+      return !verified;
+    });
   }
 }
