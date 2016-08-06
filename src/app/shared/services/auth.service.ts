@@ -19,6 +19,13 @@ const EmailPasswordConfig = {
 
 @Injectable()
 export class AuthService {
+  /**
+   * Listen for changes in auth state.
+   */
+  get auth(): Observable<FirebaseAuthState> {
+    return this.af.auth;
+  }
+
   get loggedIn(): Observable<boolean> {
     return this.auth.map(auth => !!auth);
   }
@@ -26,8 +33,36 @@ export class AuthService {
     return !!this._user.value;
   }
 
-  get verified(): boolean {
+  get verified(): Observable<boolean> {
+    return this.auth.map(auth => !!auth && firebase.auth().currentUser.emailVerified);
+  }
+
+  get verifiedSnapshot(): boolean {
     return this.loggedInSnapshot && firebase.auth().currentUser.emailVerified;
+  }
+
+  get isNeumonter(): Observable<boolean> {
+    return this.user.map(user => {
+      let isNeumonter = false;
+      if (user) {
+        let isVerified = this.verifiedSnapshot;
+        let hasNeumontEmail = user ? user.email.endsWith('neumont.edu') : false;
+        isNeumonter = isVerified && hasNeumontEmail;
+      }
+      return isNeumonter;
+    });
+  }
+
+  get isFaculty(): Observable<boolean> {
+    return this.user.map(user => {
+      let isFaculty = false;
+      if (user) {
+        let isVerified = this.verifiedSnapshot;
+        let hasFacultyEmail = user ? user.email.endsWith('@neumont.edu') : false;
+        isFaculty = isVerified && hasFacultyEmail;
+      }
+      return isFaculty;
+    });
   }
 
   private _user = new BehaviorSubject<User>(null);
@@ -36,13 +71,6 @@ export class AuthService {
   }
   get userSnapshot(): User {
     return this._user.value;
-  }
-
-  /**
-   * Listen for changes in auth state.
-   */
-  get auth(): Observable<FirebaseAuthState> {
-    return this.af.auth;
   }
 
   get token(): Promise<string> {
