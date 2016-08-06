@@ -19,8 +19,7 @@ export class RepositoryService {
   }
 
   getProblem(id: string): Observable<Problem> {
-    return this.af.database.object(`/problems/${id}`)
-        .map(problemJson => Problem.fromJson(problemJson));
+    return this.af.database.object(`/problems/${id}`);
   }
 
   getTopProblems(numProblems: number): Observable<Problem[]> {
