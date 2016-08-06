@@ -1,5 +1,12 @@
-<div class="container list-group">
-  <div class="problem-preview" *ngFor="let problem of problems">
-    <app-problem-preview [problem]="problem"></app-problem-preview>
+<div class="container">
+  <div class="clearfix">
+    <a class="pull-right btn btn-warning" [routerLink]="['/create-problem']" *ngIf="canCreateProblem">
+      <i fa [name]="'plus'"></i> Create
+    </a>
+  </div>
+  <div class="list-group">
+    <div class="problem-preview" *ngFor="let problem of problems">
+      <app-problem-preview [problem]="problem"></app-problem-preview>
+    </div>
   </div>
 </div>
