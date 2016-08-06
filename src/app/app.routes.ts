@@ -8,7 +8,13 @@ import { RegisterRoutes } from './register';
 import { LoginRoutes } from './login-required';
 import { VerificationRoutes } from './verification-required';
 import { UserManagementRoutes } from './user-management';
-import { LoggedInGuard, NotLoggedInGuard, VerifiedGuard, NotVerifiedGuard } from './shared';
+import {
+  LoggedInGuard,
+  NotLoggedInGuard,
+  VerifiedGuard,
+  NotVerifiedGuard,
+  IsNeumonterGuard
+} from './shared';
 
 const routes: RouterConfig = [
   ...HomeRoutes,
@@ -27,5 +33,6 @@ export const AppRouterProviders = [
   NotLoggedInGuard,
   VerifiedGuard,
   NotVerifiedGuard,
+  IsNeumonterGuard,
   provideRouter(routes),
 ];
