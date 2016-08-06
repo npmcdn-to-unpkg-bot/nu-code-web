@@ -14,6 +14,7 @@ import { AuthService, RepositoryService, User } from '../shared';
   ]
 })
 export class ProfileComponent implements OnInit {
+  myUid: string;
   user: User;
 
   constructor(
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
       private repoService: RepositoryService) { }
 
   ngOnInit() {
+    this.authService.auth.subscribe(auth => this.myUid = auth ? auth.uid : null);
     this.route.params.subscribe(
         params => {
           let id = params['id'];
@@ -37,7 +39,6 @@ export class ProfileComponent implements OnInit {
   }
 
   isMyProfile(): boolean {
-    return this.user && this.authService.userSnapshot
-        && this.user.$key === this.authService.userSnapshot.$key;
+    return this.myUid === this.user.$key;
   }
 }

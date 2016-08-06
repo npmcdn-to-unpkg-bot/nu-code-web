@@ -64,7 +64,7 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
 
   handleSubmission(submission: Submission) {
     submission.problem = this.problemId;
-    this.authService.token.then(token => {
+    this.authService.token.take(1).subscribe(token => {
       if (token) {
         submission.submitterToken = token;
       }

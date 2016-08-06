@@ -14,8 +14,7 @@ export class LoggedInGuard implements CanActivate {
       private authService: AuthService) { }
 
   canActivate(): Observable<boolean> {
-    return this.authService.auth.map(auth => {
-      let loggedIn = !!auth;
+    return this.authService.loggedIn.map(loggedIn => {
       if (!loggedIn) {
         this.router.navigateByUrl('/login-required');
       }

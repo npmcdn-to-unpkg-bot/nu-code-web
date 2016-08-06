@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as firebase from 'firebase';
-import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { User } from '../';
 import { RepositoryService } from './repository.service';
 
@@ -20,33 +19,27 @@ const EmailPasswordConfig = {
 @Injectable()
 export class AuthService {
   /**
-   * Listen for changes in auth state.
+   * Listen for changes in auth state, through the `firebase.auth.Auth` interface.
+   * https://firebase.google.com/docs/reference/js/firebase.auth.Auth
    */
-  get auth(): Observable<FirebaseAuthState> {
-    return this.af.auth;
+  get auth(): Observable<firebase.User> {
+    return this.af.auth.map(auth => auth ? auth.auth : null);
   }
 
   get loggedIn(): Observable<boolean> {
     return this.auth.map(auth => !!auth);
   }
-  get loggedInSnapshot(): boolean {
-    return !!this._user.value;
-  }
 
   get verified(): Observable<boolean> {
-    return this.auth.map(auth => !!auth && firebase.auth().currentUser.emailVerified);
-  }
-
-  get verifiedSnapshot(): boolean {
-    return this.loggedInSnapshot && firebase.auth().currentUser.emailVerified;
+    return this.auth.map(auth => auth && auth.emailVerified);
   }
 
   get isNeumonter(): Observable<boolean> {
-    return this.user.map(user => {
+    return this.auth.map(auth => {
       let isNeumonter = false;
-      if (user) {
-        let isVerified = this.verifiedSnapshot;
-        let hasNeumontEmail = user ? user.email.endsWith('neumont.edu') : false;
+      if (auth) {
+        let isVerified = auth.emailVerified;
+        let hasNeumontEmail = auth.email.endsWith('neumont.edu');
         isNeumonter = isVerified && hasNeumontEmail;
       }
       return isNeumonter;
@@ -54,46 +47,34 @@ export class AuthService {
   }
 
   get isFaculty(): Observable<boolean> {
-    return this.user.map(user => {
+    return this.auth.map(auth => {
       let isFaculty = false;
-      if (user) {
-        let isVerified = this.verifiedSnapshot;
-        let hasFacultyEmail = user ? user.email.endsWith('@neumont.edu') : false;
+      if (auth) {
+        let isVerified = auth.emailVerified;
+        let hasFacultyEmail = auth.email.endsWith('@neumont.edu');
         isFaculty = isVerified && hasFacultyEmail;
       }
       return isFaculty;
     });
   }
 
-  private _user = new BehaviorSubject<User>(null);
   get user(): Observable<User> {
-    return this._user.asObservable();
-  }
-  get userSnapshot(): User {
-    return this._user.value;
+    return this.auth.flatMap(auth => auth
+        ? this.repoService.getUser(auth.uid)
+        : Observable.of(null));
   }
 
-  get token(): Promise<string> {
-    let auth = firebase.auth();
-    return (auth && auth.currentUser)
-        ? auth.currentUser.getToken(true)
-        : Promise.resolve(null);
+  get token(): Observable<string> {
+    return this.auth.flatMap(auth => {
+      let promise: Promise<string> = auth ? auth.getToken(true) : Promise.resolve(null);
+      return Observable.fromPromise(promise);
+    });
   }
 
   constructor(
       private http: Http,
       private af: AngularFire,
-      private repoService: RepositoryService) {
-    af.auth.subscribe(
-        auth => {
-          if (auth) {
-            repoService.getUser(auth.uid).subscribe(
-                user => this._user.next(user));
-          } else {
-            this._user.next(null);
-          }
-        });
-  }
+      private repoService: RepositoryService) { }
 
   /**
    * Resolves with the `uid` of the created user.
@@ -103,8 +84,8 @@ export class AuthService {
       // First create the user in auth
       this.af.auth.createUser({ email: user.email, password: password }).then(
           authState => {
-            // Send email verification
-            this.sendVerificationEmail();
+            // Send email verification once logged in
+            authState.auth.sendEmailVerification();
             // If that succeeded, create the user in the database
             let uid = authState.uid;
             this.af.database.object(`/users/${uid}`).set(user).then(
@@ -116,10 +97,9 @@ export class AuthService {
   }
 
   sendVerificationEmail(): Promise<void> {
-    let currentUser = firebase.auth().currentUser;
-    return currentUser
-        ? currentUser.sendEmailVerification()
-        : Promise.resolve();
+    return this.auth.take(1).toPromise().then(auth => auth
+        ? auth.sendEmailVerification()
+        : Promise.reject('User is not logged in!'));
   }
 
   /**
@@ -131,7 +111,7 @@ export class AuthService {
   }
 
   private notifyNewlyVerified(): Promise<void> {
-    return this.token.then(token => token
+    return this.token.take(1).toPromise().then(token => token
         ? this.http
               .post(NewlyVerifiedUrl, { token }, RequestHeaders)
               .map(res => {})
@@ -140,11 +120,7 @@ export class AuthService {
   }
 
   logInWithEmailPassword(email: string, password: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this.af.auth.login({ email, password }, EmailPasswordConfig).then(
-          auth => resolve(),
-          err => reject(err));
-    });
+    return this.af.auth.login({ email, password }, EmailPasswordConfig);
   }
 
   logInWithFacebook(): void { }

@@ -58,8 +58,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     let user: User = {
       name: this.nameControl.value,
-      email: this.emailControl.value,
-      verified: false
+      email: this.emailControl.value
     };
     let password = this.passwordControl.value;
     this.authService.registerNewUser(user, password).then(

@@ -14,8 +14,7 @@
       <div class="row email">
         <p>{{user.email}}</p>
       </div>
-      <!-- TODO: Only if this is your profile -->
-      <div *ngIf="isMyProfile() && !authService.verified" class="row not-verified">
+      <div *ngIf="isMyProfile() && !(authService.verified | async)" class="row not-verified">
         <p class="row">Your email is still unverified!</p>
         <a (click)="authService.sendVerificationEmail()" class="row btn btn-default">Resend Verification Email</a>
       </div>
