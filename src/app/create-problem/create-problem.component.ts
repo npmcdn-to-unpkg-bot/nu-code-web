@@ -3,6 +3,7 @@ import {
   FORM_DIRECTIVES,
   REACTIVE_FORM_DIRECTIVES
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService, Problem, RepositoryService, TestCase, } from '../shared';
 
 @Component({
@@ -21,6 +22,7 @@ export class CreateProblemComponent implements OnInit {
   @ViewChild('form') form;
 
   constructor(
+      private router: Router,
       private authService: AuthService,
       private repoService: RepositoryService) { }
 
@@ -34,9 +36,17 @@ export class CreateProblemComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.form.value);
-    // TODO: loop through test cases and set hints to undefined if ''
-    console.log(this.problem);
-    console.log(this.testCases);
+    this.removeEmptyHints();
+    // TODO: show loading progress
+    let problemId = this.repoService.createProblem(this.problem, this.testCases);
+    this.router.navigate(['/problems', problemId]);
+  }
+
+  private removeEmptyHints() {
+    this.testCases.forEach(testCase => {
+      if (testCase.hint && testCase.hint.trim() === '') {
+        delete testCase.hint;
+      }
+    });
   }
 }
