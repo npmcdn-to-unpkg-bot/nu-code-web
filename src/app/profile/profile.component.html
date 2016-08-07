@@ -1,6 +1,6 @@
 <div *ngIf="user" class="container">
   <div class="clearfix">
-    <a *ngIf="isMyProfile()" class="btn btn-warning pull-right" [routerLink]="['/editProfile']"><i fa [name]="'pencil'"></i> Edit</a>
+    <a *ngIf="isMyProfile()" class="btn btn-warning pull-right" [routerLink]="['/edit-profile', user.$key]"><i fa [name]="'pencil'"></i> Edit</a>
   </div>
   <div class="row">
     <div class="col-xs-12 col-md-4" *ngIf="user.imgUrl">
