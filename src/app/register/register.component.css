@@ -16,3 +16,9 @@ label {
 .main-message {
   font-size: 1.2em;
 }
+img {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  max-width: 400px;
+  max-height: 400px;
+}

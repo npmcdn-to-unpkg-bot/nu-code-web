@@ -46,6 +46,8 @@ export class RegisterComponent implements OnInit {
     confirmPassword: this.confirmPasswordControl
   }, {}, matchingPasswordValidator('password', 'confirmPassword'));
 
+  profilePicturePreviewData = '';
+
   @ViewChild('modal') modal: ModalDirective;
 
   constructor(
@@ -55,7 +57,19 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit() {
+  fileChange(fileInput: any) {
+    console.log('filechange');
+    let reader = new FileReader();
+    reader.onload = (e: any) => {
+      // Done loading
+      let src = reader.result;
+      this.profilePicturePreviewData = src;
+    };
+    let file = fileInput.target.files[0];
+    reader.readAsDataURL(file);
+  }
+
+  submit() {
     let user: User = {
       name: this.nameControl.value,
       email: this.emailControl.value
