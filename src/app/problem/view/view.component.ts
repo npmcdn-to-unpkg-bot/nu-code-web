@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import { FaDirective } from 'angular2-fontawesome/directives';
 import { CodeEditorComponent } from '../../code-editor';
 import { SubmissionModalComponent } from '../../submission-modal';
 import {
@@ -19,6 +21,7 @@ import { SharingService } from '../shared';
   styleUrls: ['view.component.css'],
   directives: [
     ROUTER_DIRECTIVES,
+    FaDirective,
     CodeEditorComponent,
     SubmissionModalComponent
   ],
@@ -44,5 +47,10 @@ export class ViewComponent implements OnInit {
           }
         });
     this.sharingService.submissionObservable.subscribe(submission => this.submission = submission);
+  }
+
+  isMyProblem(): Observable<boolean> {
+    return this.authService.auth.map(
+        auth => auth && this.creator && auth.uid === this.creator.$key);
   }
 }
