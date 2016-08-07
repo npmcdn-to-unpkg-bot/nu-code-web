@@ -3,21 +3,22 @@
   <form #form="ngForm" (ngSubmit)="submit()">
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" autocomplete="off" class="form-control" name="name" [(ngModel)]="problem.name">
+      <input type="text" autocomplete="off" class="form-control" name="name" [(ngModel)]="problem.name" required>
     </div>
 
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea class="form-control" rows="5" name="description" [(ngModel)]="problem.description"></textarea>
+      <textarea class="form-control" rows="5" name="description" [(ngModel)]="problem.description" required></textarea>
     </div>
 
     <div *ngFor="let testCase of testCases; let i = index">
       <label>Test Case {{i+1}}</label>
+      <!-- TODO: no two inputs can be the same -->
       <div class="form-group">
         <textarea name="input{{i}}" [(ngModel)]="testCase.input" placeholder="Input" rows="1" class="form-control"></textarea>
       </div>
       <div class="form-group">
-        <textarea name="output{{i}}" [(ngModel)]="testCase.output" placeholder="Output" rows="1" class="form-control"></textarea>
+        <textarea name="output{{i}}" [(ngModel)]="testCase.output" placeholder="Output" rows="1" class="form-control" required></textarea>
       </div>
       <div class="form-group">
         <textarea name="hint{{i}}" [(ngModel)]="testCase.hint" placeholder="Hint (Optional)" rows="1" class="form-control"></textarea>
@@ -27,7 +28,7 @@
 
     <div class="form-group">
       <label for="timeout">Solution Time Limit (seconds)</label>
-      <input type="number" class="form-control" name="timeout" [(ngModel)]="problem.timeout">
+      <input type="number" class="form-control" name="timeout" [(ngModel)]="problem.timeout" min="1" required>
     </div>
 
     <div class="form-group">
