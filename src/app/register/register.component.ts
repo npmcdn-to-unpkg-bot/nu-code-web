@@ -46,6 +46,7 @@ export class RegisterComponent implements OnInit {
     confirmPassword: this.confirmPasswordControl
   }, {}, matchingPasswordValidator('password', 'confirmPassword'));
 
+  picture: File;
   profilePicturePreviewData = '';
 
   @ViewChild('modal') modal: ModalDirective;
@@ -58,7 +59,6 @@ export class RegisterComponent implements OnInit {
   }
 
   fileChange(fileInput: any) {
-    console.log('filechange');
     let reader = new FileReader();
     reader.onload = (e: any) => {
       // Done loading
@@ -66,6 +66,7 @@ export class RegisterComponent implements OnInit {
       this.profilePicturePreviewData = src;
     };
     let file = fileInput.target.files[0];
+    this.picture = file;
     reader.readAsDataURL(file);
   }
 
@@ -75,7 +76,7 @@ export class RegisterComponent implements OnInit {
       email: this.emailControl.value
     };
     let password = this.passwordControl.value;
-    this.authService.registerNewUser(user, password).then(
+    this.authService.registerNewUser(user, password, this.picture).then(
         () => this.modal.show(),
         err => {
           switch (err.code) {

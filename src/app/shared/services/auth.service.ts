@@ -79,20 +79,46 @@ export class AuthService {
   /**
    * Resolves with the `uid` of the created user.
    */
-  registerNewUser(user: User, password: string): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  registerNewUser(user: User, password: string, picture?: File): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
       // First create the user in auth
       this.af.auth.createUser({ email: user.email, password: password }).then(
           authState => {
             // Send email verification once logged in
             authState.auth.sendEmailVerification();
-            // If that succeeded, create the user in the database
+            // If creation succeeded, create the user in the database
             let uid = authState.uid;
-            this.af.database.object(`/users/${uid}`).set(user).then(
-                () => resolve(),
-                err => reject(err));
+            // Create the profile picture if provided
+            let storePicture = new Promise(resolve => {
+              if (picture) {
+                this.storeImage(`profile-pictures/${uid}`, picture).then(url => {
+                  user.imgUrl = url;
+                  resolve();
+                });
+              } else {
+                resolve();
+              }
+            });
+            storePicture.then(() => {
+              this.af.database.object(`/users/${uid}`).set(user).then(
+                  () => resolve(uid),
+                  err => reject(err));
+            });
           },
           err => reject(err));
+    });
+  }
+
+  /**
+   * Promise resolves with the url of the image.
+   */
+  private storeImage(path: string, image: Blob): Promise<string> {
+    let storageRef = firebase.storage().ref(path);
+    return new Promise(resolve => {
+      let uploadTask = storageRef.put(image);
+      // First two nulls are onProgress and onError, respectively. Last one is onComplete.
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, null, null,
+          () => resolve(storageRef.getDownloadURL()));
     });
   }
 
