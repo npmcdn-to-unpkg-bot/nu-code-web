@@ -9,6 +9,7 @@ import { LoginRoutes } from './login-required';
 import { VerificationRoutes } from './verification-required';
 import { UserManagementRoutes } from './user-management';
 import { CreateProblemRoutes } from './create-problem';
+import { EditProblemRoutes } from './edit-problem';
 import {
   LoggedInGuard,
   NotLoggedInGuard,
@@ -27,7 +28,8 @@ const routes: RouterConfig = [
   ...LoginRoutes,
   ...VerificationRoutes,
   ...UserManagementRoutes,
-  ...CreateProblemRoutes
+  ...CreateProblemRoutes,
+  ...EditProblemRoutes
 ];
 
 export const AppRouterProviders = [

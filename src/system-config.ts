@@ -80,6 +80,7 @@ const barrels: string[] = [
   'app/verification-required',
   'app/user-management',
   'app/create-problem',
+  'app/edit-problem',
   /** @cli-barrel */
 ];
 
