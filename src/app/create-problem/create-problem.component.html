@@ -11,6 +11,16 @@
       <textarea class="form-control" rows="5" name="description" [(ngModel)]="problem.description" required></textarea>
     </div>
 
+    <div class="form-group">
+      <label for="feedback">Feedback Level</label>
+      <div class="radio">
+        <label><input type="radio" name="feedback" value="Simple" [(ngModel)]="problem.feedback">Simple</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="feedback" value="Revealing" [(ngModel)]="problem.feedback">Revealing</label>
+      </div>
+    </div>
+
     <div *ngFor="let testCase of testCases; let i = index">
       <label>Test Case {{i+1}}</label>
       <!-- TODO: no two inputs can be the same -->
@@ -20,7 +30,7 @@
       <div class="form-group">
         <textarea name="output{{i}}" [(ngModel)]="testCase.output" placeholder="Output" rows="1" class="form-control" required></textarea>
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngIf="problem.feedback === 'Revealing'">
         <textarea name="hint{{i}}" [(ngModel)]="testCase.hint" placeholder="Hint (Optional)" rows="1" class="form-control"></textarea>
       </div>
     </div>
@@ -39,16 +49,6 @@
         <option value="Medium">Medium</option>
         <option value="Hard">Hard</option>
       </select>
-    </div>
-
-    <div class="form-group">
-      <label for="feedback">Feedback Level</label>
-      <div class="radio">
-        <label><input type="radio" name="feedback" value="Simple" [(ngModel)]="problem.feedback">Simple</label>
-      </div>
-      <div class="radio">
-        <label><input type="radio" name="feedback" value="Revealing" [(ngModel)]="problem.feedback">Revealing</label>
-      </div>
     </div>
 
     <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Submit</button>
