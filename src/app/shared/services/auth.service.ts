@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { User } from '../';
@@ -91,7 +91,7 @@ export class AuthService {
             // Create the profile picture if provided
             let storePicture = new Promise(resolve => {
               if (picture) {
-                this.storeImage(`profile-pictures/${uid}`, picture).then(url => {
+                this.repoService.storeImage(`profile-pictures/${uid}`, picture).then(url => {
                   user.imgUrl = url;
                   resolve();
                 });
@@ -106,19 +106,6 @@ export class AuthService {
             });
           },
           err => reject(err));
-    });
-  }
-
-  /**
-   * Promise resolves with the url of the image.
-   */
-  private storeImage(path: string, image: Blob): Promise<string> {
-    let storageRef = firebase.storage().ref(path);
-    return new Promise(resolve => {
-      let uploadTask = storageRef.put(image);
-      // First two nulls are onProgress and onError, respectively. Last one is onComplete.
-      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, null, null,
-          () => resolve(storageRef.getDownloadURL()));
     });
   }
 

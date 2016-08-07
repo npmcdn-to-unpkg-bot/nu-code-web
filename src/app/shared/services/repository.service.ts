@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as firebase from 'firebase';
 import { AngularFire } from 'angularfire2';
 import { MySubmission, Problem, SuccessfulSubmission, TestCase, User } from '../';
 
@@ -33,6 +34,36 @@ export class RepositoryService {
         orderByChild: 'submittedOn'
       }
     }).map(submissions => submissions.reverse());
+  }
+
+  updateUser(user: User, picture?: File): Promise<void> {
+    let uid = user.$key;
+    // Firebase does not allow $key to be present when updating
+    delete user.$key;
+    let pictureUpdate = picture
+        ? this.storeImage(`profile-pictures/${uid}`, picture)
+        : Promise.resolve(null);
+    return pictureUpdate.then(url => {
+      if (url) {
+        user.imgUrl = url;
+      }
+      return this.af.database.object(`/users/${uid}`).set(user);
+    });
+  }
+
+  /**
+   * Promise resolves with the url of the image.
+   */
+  storeImage(path: string, image: Blob): Promise<string> {
+    let storageRef = firebase.storage().ref(path);
+    return new Promise(resolve => {
+      let uploadTask = storageRef.put(image);
+      // First two nulls are onProgress and onError, respectively. Last one is onComplete.
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, x => console.log(x), err => console.log(err),
+          () => storageRef.getDownloadURL().then(
+            url => resolve(url),
+            err => console.log(err)));
+    });
   }
 
   /**

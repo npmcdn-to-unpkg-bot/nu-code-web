@@ -11,5 +11,6 @@
       <img *ngIf="profilePicturePreviewData || user.imgUrl" [src]="profilePicturePreviewData || user.imgUrl" class="img-thumbnail">
       <input type="file" name="picture" (change)="fileChange($event)" accept="image/*">
     </div>
+    <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Update</button>
   </form>
 </div>

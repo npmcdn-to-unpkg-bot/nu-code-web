@@ -44,12 +44,11 @@ export class EditProfileComponent implements OnInit {
   }
 
   update(): void {
-    console.log(this.user);
     // TODO: show loading progress
-    // TODO: potential bug with timing here.
-    // let problemId = this.problem.$key;
-    // this.repoService.updateProblem(this.problem, this.testCases);
-    // this.router.navigate(['/problems', problemId]);
+    // TODO: does not update auth area until reload
+    // TODO: profile pictures cannot be deleted
+    let uid = this.user.$key;
+    this.repoService.updateUser(this.user, this.picture);
+    this.router.navigate(['/profile', uid]);
   }
-
 }
