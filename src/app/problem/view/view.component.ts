@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { FaDirective } from 'angular2-fontawesome/directives';
 import { CodeEditorComponent } from '../../code-editor';
 import { SubmissionModalComponent } from '../../submission-modal';
@@ -27,18 +27,21 @@ import { SharingService } from '../shared';
   ],
   pipes: [MarkdownPipe]
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnDestroy {
   problem: Problem;
   creator: User;
   submission: Submission;
 
+  subscription: Subscription;
+
   constructor(
+      private router: Router,
       private repoService: RepositoryService,
       private authService: AuthService,
       private sharingService: SharingService) { }
 
   ngOnInit() {
-    this.sharingService.problemObservable.subscribe(
+    this.subscription = this.sharingService.problemObservable.subscribe(
         problem => {
           this.problem = problem;
           if (problem) {
@@ -49,8 +52,21 @@ export class ViewComponent implements OnInit {
     this.sharingService.submissionObservable.subscribe(submission => this.submission = submission);
   }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   isMyProblem(): Observable<boolean> {
     return this.authService.auth.map(
         auth => auth && this.creator && auth.uid === this.creator.$key);
+  }
+
+  delete() {
+    if (window.confirm('Are you sure you want to delete this problem?')) {
+      this.repoService.deleteProblem(this.problem.$key);
+      this.router.navigateByUrl('/problems');
+    }
   }
 }

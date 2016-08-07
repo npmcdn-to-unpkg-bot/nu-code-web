@@ -21,7 +21,10 @@
     <p *ngIf="!(authService.loggedIn | async)" class="pull-right">Your submissions will not be counted if you are not logged in!</p>
   </div>
   <div class="clearfix">
-    <a *ngIf="(isMyProblem() | async) || (authService.isFaculty | async)" class="btn btn-warning pull-left" [routerLink]="['/edit-problem', problem.$key]"><i fa [name]="'pencil'"></i> Edit</a>
+    <div *ngIf="(isMyProblem() | async) || (authService.isFaculty | async)" class="pull-left">
+      <a class="btn btn-warning" [routerLink]="['/edit-problem', problem.$key]"><i fa [name]="'pencil'"></i> Edit</a>
+      <a class="btn btn-danger" (click)="delete()"><i fa [name]="'trash'"></i> Delete</a>
+    </div>
     <button (click)="submissionModal.handleSubmission(submission)" class="problem-submit btn btn-primary pull-right">Submit</button>
   </div>
 

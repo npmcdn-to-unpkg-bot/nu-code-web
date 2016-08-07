@@ -10,7 +10,7 @@ export class RepositoryService {
   getUser(uid: string): Observable<User> {
     return this.af.database.object(`/users/${uid}`).map(
         snapshot => snapshot.$value !== null
-                  ? snapshot as User
+            ? snapshot as User
             : null);
   }
 
@@ -63,6 +63,16 @@ export class RepositoryService {
     let updateTests = this.af.database.object(`/tests/${problemId}`).set(testCasesAny);
     // Wait for both and map any[] to void
     return Promise.all([updateProblem, updateTests]).then(
+        values => Promise.resolve());
+  }
+
+  deleteProblem(problemId: string): Promise<void> {
+    // Delete the problem
+    let removeProblem = this.af.database.object(`/problems/${problemId}`).remove();
+    // Delete the testCases
+    let removeTests = this.af.database.object(`/tests/${problemId}`).remove();
+    // Wait for both and map any[] to void
+    return Promise.all([removeProblem, removeTests]).then(
         values => Promise.resolve());
   }
 
