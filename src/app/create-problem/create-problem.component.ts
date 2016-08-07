@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  FORM_DIRECTIVES,
-  REACTIVE_FORM_DIRECTIVES
-} from '@angular/forms';
 import { Router } from '@angular/router';
-import { FaDirective } from 'angular2-fontawesome/directives';
+import { EditProblemFormComponent } from '../edit-problem-form';
 import { AuthService, Problem, RepositoryService, TestCase, } from '../shared';
 
 @Component({
@@ -12,11 +8,7 @@ import { AuthService, Problem, RepositoryService, TestCase, } from '../shared';
   selector: 'app-create-problem',
   templateUrl: 'create-problem.component.html',
   styleUrls: ['create-problem.component.css'],
-  directives: [
-    FORM_DIRECTIVES,
-    REACTIVE_FORM_DIRECTIVES,
-    FaDirective
-  ]
+  directives: [EditProblemFormComponent]
 })
 export class CreateProblemComponent implements OnInit {
   problem = new Problem();
@@ -32,28 +24,10 @@ export class CreateProblemComponent implements OnInit {
     this.authService.auth.take(1).subscribe(auth => this.problem.creatorUid = auth.uid);
   }
 
-  addTestCase(): void {
-    this.testCases.push(new TestCase());
-  }
-
-  removeTestCase(index: number): void {
-    // TODO: confirm deletion
-    // TODO: bug in angular? try adding a test case, deleting the first then adding again
-    this.testCases.splice(index, 1);
-  }
-
-  submit(): void {
-    this.removeEmptyHints();
+  create(): void {
     // TODO: show loading progress
+    // TODO: potential bug with timing here.
     let problemId = this.repoService.createProblem(this.problem, this.testCases);
     this.router.navigate(['/problems', problemId]);
-  }
-
-  private removeEmptyHints() {
-    this.testCases.forEach(testCase => {
-      if (testCase.hint && testCase.hint.trim() === '') {
-        delete testCase.hint;
-      }
-    });
   }
 }
