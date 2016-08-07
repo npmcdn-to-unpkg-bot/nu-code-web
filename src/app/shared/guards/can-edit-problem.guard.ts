@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Rx';
 import { AuthService, RepositoryService } from '../services';
 
 /**
- * Only allows those who are logged in, verified, and have a Neumont email to pass.
+ * Only allows those who are Neumont faculty or the creator of the problem to pass.
  * If the user does not meet this criteria, they are redirected to the homepage.
  */
 @Injectable()
-export class CanEditGuard implements CanActivate {
+export class CanEditProblemGuard implements CanActivate {
   isCreator: boolean;
   isFaculty: boolean;
 
