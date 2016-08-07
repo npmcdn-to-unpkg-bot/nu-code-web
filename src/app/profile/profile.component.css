@@ -2,5 +2,8 @@
   font-weight: bold;
 }
 .email {
-
+  font-size: 1.1em;
+}
+.not-verified {
+  padding: 15px;
 }
