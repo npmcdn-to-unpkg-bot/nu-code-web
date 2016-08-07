@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 import { FaDirective } from 'angular2-fontawesome/directives';
-
 import { Problem, TestCase } from '../shared';
 
 @Component({
