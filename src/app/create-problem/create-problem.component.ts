@@ -4,6 +4,7 @@ import {
   REACTIVE_FORM_DIRECTIVES
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FaDirective } from 'angular2-fontawesome/directives';
 import { AuthService, Problem, RepositoryService, TestCase, } from '../shared';
 
 @Component({
@@ -13,13 +14,13 @@ import { AuthService, Problem, RepositoryService, TestCase, } from '../shared';
   styleUrls: ['create-problem.component.css'],
   directives: [
     FORM_DIRECTIVES,
-    REACTIVE_FORM_DIRECTIVES
+    REACTIVE_FORM_DIRECTIVES,
+    FaDirective
   ]
 })
 export class CreateProblemComponent implements OnInit {
   problem = new Problem();
   testCases = [new TestCase()];
-  @ViewChild('form') form;
 
   constructor(
       private router: Router,
@@ -33,6 +34,12 @@ export class CreateProblemComponent implements OnInit {
 
   addTestCase(): void {
     this.testCases.push(new TestCase());
+  }
+
+  removeTestCase(index: number): void {
+    // TODO: confirm deletion
+    // TODO: bug in angular? try adding a test case, deleting the first then adding again
+    this.testCases.splice(index, 1);
   }
 
   submit(): void {
