@@ -15,7 +15,8 @@ import {
   NotLoggedInGuard,
   VerifiedGuard,
   NotVerifiedGuard,
-  IsNeumonterGuard
+  IsNeumonterGuard,
+  CanEditGuard
 } from './shared';
 
 const routes: RouterConfig = [
@@ -38,5 +39,6 @@ export const AppRouterProviders = [
   VerifiedGuard,
   NotVerifiedGuard,
   IsNeumonterGuard,
+  CanEditGuard,
   provideRouter(routes),
 ];

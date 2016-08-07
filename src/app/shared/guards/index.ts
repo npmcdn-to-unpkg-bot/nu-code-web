@@ -1,3 +1,4 @@
+export * from './can-edit.guard';
 export * from './is-neumonter.guard';
 export * from './logged-in.guard';
 export * from './not-logged-in.guard';
