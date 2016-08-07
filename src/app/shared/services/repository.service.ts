@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Rx';
 import { AngularFire } from 'angularfire2';
 import { MySubmission, Problem, SuccessfulSubmission, TestCase, User } from '../';
 
@@ -8,14 +8,10 @@ export class RepositoryService {
   constructor(private af: AngularFire) { }
 
   getUser(uid: string): Observable<User> {
-    return uid
-        ? this.af.database.object(`/users/${uid}`).map(
-              snapshot => {
-                return snapshot.$value !== null
+    return this.af.database.object(`/users/${uid}`).map(
+        snapshot => snapshot.$value !== null
                   ? snapshot as User
-                  : null;
-              })
-        : null;
+            : null);
   }
 
   getProblem(id: string): Observable<Problem> {
