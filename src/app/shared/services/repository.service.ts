@@ -22,6 +22,10 @@ export class RepositoryService {
     return this.af.database.object(`/problems/${id}`);
   }
 
+  getTestCases(problemId: string): Observable<TestCase[]> {
+    return this.af.database.object(`/tests/${problemId}`);
+  }
+
   getTopProblems(numProblems: number): Observable<Problem[]> {
     return this.af.database.list('/problems')
         .take(numProblems);
@@ -49,7 +53,21 @@ export class RepositoryService {
   }
 
   updateProblem(problem: Problem, testCases: TestCase[]): Promise<void> {
-    return this.af.database.object(`/problems/${problem.$key}`).set(problem);
+    problem.lastUpdated = new Date();
+    let problemId = problem.$key;
+
+    // Firebase does not allow the $key property to be present
+    // TODO: this is a reference, so the $key in problem and testCases are still deleted
+    let problemAny: any = problem;
+    delete problemAny.$key;
+    let testCasesAny: any = testCases;
+    delete testCasesAny.$key;
+
+    let updateProblem = this.af.database.object(`/problems/${problemId}`).update(problemAny);
+    let updateTests = this.af.database.object(`/tests/${problemId}`).set(testCasesAny);
+    // Wait for both and map any[] to void
+    return Promise.all([updateProblem, updateTests]).then(
+        values => Promise.resolve());
   }
 
   getLeaderboard(problemId: string): Observable<SuccessfulSubmission[]> {

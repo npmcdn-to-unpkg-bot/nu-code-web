@@ -1,3 +1,4 @@
-<p>
-  edit-problem works!
-</p>
+<div class="container">
+  <h2>Edit Problem</h2>
+  <app-edit-problem-form (submit)="update()" [problem]="problem" [testCases]="testCases"></app-edit-problem-form>
+</div>
