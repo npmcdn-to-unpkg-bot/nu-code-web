@@ -23,3 +23,6 @@
   border: 0;
   border-right: solid 1px #ccc;
 }
+.create-btn {
+  margin-bottom: 15px;
+}
