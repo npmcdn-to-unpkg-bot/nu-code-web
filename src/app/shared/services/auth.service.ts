@@ -118,7 +118,7 @@ export class AuthService {
   /**
    * Requires that a user be logged in.
    */
-  verifyEmail(oobCode): Promise<void> {
+  verifyEmail(oobCode: string): Promise<void> {
     return firebase.auth().applyActionCode(oobCode).then(
         () => this.notifyNewlyVerified());
   }
@@ -130,6 +130,10 @@ export class AuthService {
               .map(res => {})
               .toPromise()
         : Promise.resolve(null));
+  }
+
+  sendPasswordResetEmail(email: string): Promise<void> {
+    return firebase.auth().sendPasswordResetEmail(email);
   }
 
   logInWithEmailPassword(email: string, password: string): Promise<void> {
