@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { FaDirective } from 'angular2-fontawesome/directives';
 import { ProblemPreviewComponent } from './problem-preview';
-import { AuthService, Problem, RepositoryService } from '../shared';
+import { AuthService, ContainsPipe, Problem, RepositoryService } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +13,8 @@ import { AuthService, Problem, RepositoryService } from '../shared';
     ROUTER_DIRECTIVES,
     FaDirective,
     ProblemPreviewComponent
-  ]
+  ],
+  pipes: [ContainsPipe]
 })
 export class ProblemListComponent implements OnInit {
   problems: Problem[];

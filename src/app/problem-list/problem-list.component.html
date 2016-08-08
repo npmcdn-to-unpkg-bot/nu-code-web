@@ -16,7 +16,7 @@
   <!--<button class="col-xs-2 btn btn-lg btn-primary">Search Options <i fa [name]="'angle-double-down'"></i></button>-->
   <div class="list-group">
     <!-- TODO: filter pipe -->
-    <div class="problem-preview" *ngFor="let problem of problems">
+    <div class="problem-preview" *ngFor="let problem of (problems | contains:query)">
       <app-problem-preview [problem]="problem"></app-problem-preview>
     </div>
   </div>
