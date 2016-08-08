@@ -11,6 +11,7 @@ import { VerificationRoutes } from './verification-required';
 import { UserManagementRoutes } from './user-management';
 import { CreateProblemRoutes } from './create-problem';
 import { EditProblemRoutes } from './edit-problem';
+import { ResetPasswordRoutes } from './reset-password';
 import {
   LoggedInGuard,
   NotLoggedInGuard,
@@ -33,7 +34,8 @@ const routes: RouterConfig = [
   ...VerificationRoutes,
   ...UserManagementRoutes,
   ...CreateProblemRoutes,
-  ...EditProblemRoutes
+  ...EditProblemRoutes,
+  ...ResetPasswordRoutes
 ];
 
 export const AppRouterProviders = [

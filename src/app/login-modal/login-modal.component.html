@@ -27,7 +27,7 @@
           </form>
             <!--<hr/>-->
             <!-- TODO: facebook, google, github -->
-          <a class="option" href="#">Forgot Password?</a>
+          <a class="option" [routerLink]="['/reset-password']" (click)="modal.hide()">Forgot Password?</a>
           <a class="option" [routerLink]="['/register']" (click)="modal.hide()">Don't have an account? Register</a>
         </div>
       </div>

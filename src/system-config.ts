@@ -82,6 +82,7 @@ const barrels: string[] = [
   'app/create-problem',
   'app/edit-problem',
   'app/edit-problem-form',
+  'app/reset-password',
   /** @cli-barrel */
 ];
 
