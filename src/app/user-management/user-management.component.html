@@ -1,18 +1,52 @@
 <div class="container">
-  <div *ngIf="authService.loggedIn">
-    <div [ngSwitch]="action">
-      <!-- Email Verification -->
-      <div *ngSwitchCase="'verifyEmail'">
+  <div *ngIf="action === 'loading'">
+    <h2>Loading...</h2>
+  </div>
+  <div [ngSwitch]="action">
+    <!-- Password Reset -->
+    <div *ngSwitchCase="'resetPassword'">
+      <div *ngIf="state === 'input'">
+        <div *ngIf="resetPasswordForm">
+          <h2>Reset Password</h2>
+          <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword(passwordControl.value)">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password" formControlName="password">
+              <div class="alert alert-danger" *ngIf="passwordControl.dirty && passwordControl.value.length < 6">
+                Password must be at least 6 characters long
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">Confirm Password</label>
+              <input type="password" class="form-control" name="confirm-password" formControlName="confirmPassword"
+                [class.valid]="confirmPasswordControl.dirty && !resetPasswordForm.hasError('mismatchedPasswords')"
+                [class.invalid]="resetPasswordForm.hasError('mismatchedPasswords')">
+              <div class="alert alert-danger" *ngIf="confirmPasswordControl.dirty && resetPasswordForm.hasError('mismatchedPasswords')">
+                Passwords do not match
+              </div>
+            </div>
+            <button type="submit" [disabled]="!resetPasswordForm.valid" class="btn btn-primary">Set Password and Log In</button>
+          </form>
+        </div>
+      </div>
+      <div *ngIf="state === 'error'">
+        <h2 class="red">Uh oh!</h2>
+        <p>A problem was encountered with the provided link. Perhaps it has already been used?</p>
+        <a [routerLink]="['/reset-password']">Try again?</a>
+      </div>
+    </div>
+
+    <!-- Email Verification -->
+    <div *ngSwitchCase="'verifyEmail'">
+      <div *ngIf="(authService.loggedIn | async)">
         <div [ngSwitch]="state">
-          <div *ngSwitchCase="'loading'">
-            <h2>Loading...</h2>
-          </div>
           <div *ngSwitchCase="'success'">
             <h2 class="green">Email Verified!</h2>
             <p>The account associated with {{email}} has successfully been verified.</p>
             <!-- TODO: list the newly granted permissions -->
             <a (click)="redirectHome()">Return to the homepage</a>
           </div>
+
           <div *ngSwitchCase="'error'">
             <h2 class="red">Uh oh!</h2>
             <p>There was an error verifying your email.</p>
@@ -21,10 +55,10 @@
           </div>
         </div>
       </div>
+      <div *ngIf="!(authService.loggedIn | async)">
+        <p>You need to log in before action can proceed.</p>
+        <a class="btn btn-primary" (click)="loginModalService.show()">Log In</a>
+      </div>
     </div>
-  </div>
-  <div *ngIf="!authService.loggedIn">
-    <p>You need to log in before action can proceed.</p>
-    <a class="btn btn-primary" (click)="loginModalService.show()">Log In</a>
   </div>
 </div>

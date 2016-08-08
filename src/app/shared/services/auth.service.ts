@@ -136,6 +136,17 @@ export class AuthService {
     return firebase.auth().sendPasswordResetEmail(email);
   }
 
+  /**
+   * Resolves with the email associated with `oobCode`.
+   */
+  verifyPasswordResetCode(oobCode: string): Promise<string> {
+    return firebase.auth().verifyPasswordResetCode(oobCode);
+  }
+
+  confirmPasswordReset(oobCode: string, newPassword: string): Promise<void> {
+    return firebase.auth().confirmPasswordReset(oobCode, newPassword);;
+  }
+
   logInWithEmailPassword(email: string, password: string): Promise<void> {
     return this.af.auth.login({ email, password }, EmailPasswordConfig);
   }
