@@ -44,10 +44,10 @@ export class LoginModalComponent implements OnInit {
   }
 
   private shouldRedirectHome(url: string): boolean {
-    return url.indexOf('/login-required') > 1
-        || url.indexOf('/register') > 1
-        || url.indexOf('/reset-password') > 1
-        || url.indexOf('/usermgmt') > 1;
+    return url.includes('/login-required')
+        || url.includes('/register')
+        || url.includes('/reset-password')
+        || url.includes('/usermgmt');
   }
 
   logInWithEmailPassword(): void {
