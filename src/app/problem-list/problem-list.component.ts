@@ -18,6 +18,7 @@ import { AuthService, Problem, RepositoryService } from '../shared';
 export class ProblemListComponent implements OnInit {
   problems: Problem[];
   canCreateProblem: boolean;
+  query = '';
 
   constructor(
       private authService: AuthService,

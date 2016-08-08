@@ -4,7 +4,18 @@
       <i fa [name]="'plus'"></i> Create
     </a>
   </div>
+  <div class="search form-group">
+    <div class="search-input input-group">
+      <span class="input-group-addon">
+        <i fa [name]="'search'" [size]=1></i>
+      </span>
+      <input type="text" class="form-control input-lg" placeholder="Search keywords..." [(ngModel)]="query">
+    </div>
+  </div>
+  <!-- TODO: more options -->
+  <!--<button class="col-xs-2 btn btn-lg btn-primary">Search Options <i fa [name]="'angle-double-down'"></i></button>-->
   <div class="list-group">
+    <!-- TODO: filter pipe -->
     <div class="problem-preview" *ngFor="let problem of problems">
       <app-problem-preview [problem]="problem"></app-problem-preview>
     </div>
