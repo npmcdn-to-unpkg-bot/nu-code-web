@@ -43,13 +43,20 @@ export class LoginModalComponent implements OnInit {
     this.modal.show();
   }
 
+  private shouldRedirectHome(url: string): boolean {
+    return url.indexOf('/login-required') > 1
+        || url.indexOf('/register') > 1
+        || url.indexOf('/reset-password') > 1
+        || url.indexOf('/usermgmt') > 1;
+  }
+
   logInWithEmailPassword(): void {
     if (this.loginForm.valid) {
       // TODO: Indicate loading
       this.authService.logInWithEmailPassword(this.email, this.password).then(
         () => {
           let url = this.router.url;
-          if (url.endsWith('/login-required') || url.endsWith('/register')) {
+          if (this.shouldRedirectHome(url)) {
             this.router.navigateByUrl('/');
           }
           this.modal.hide();
