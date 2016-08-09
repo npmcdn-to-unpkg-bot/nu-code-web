@@ -1,3 +1,7 @@
-<p>
-  competition-list works!
-</p>
+<div class="container">
+  <div class="clearfix">
+    <a class="create-btn pull-right btn btn-warning" [routerLink]="['/create-competition']" *ngIf="canCreateCompetition">
+      <i fa [name]="'plus'"></i> Create
+    </a>
+  </div>
+</div>
