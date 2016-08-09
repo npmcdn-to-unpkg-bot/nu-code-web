@@ -1,3 +1,5 @@
+import { Feedback } from './feedback';
+
 export interface Problem {
   $key?: string;
   creatorUid: string;
@@ -29,5 +31,3 @@ export class Problem implements Problem {
 }
 
 type Difficulty = 'Beginner' | 'Easy' | 'Medium' | 'Hard';
-
-type Feedback = 'Simple' | 'Revealing';
