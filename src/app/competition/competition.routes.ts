@@ -1,25 +1,24 @@
 import { RouterConfig } from '@angular/router';
-import { CompetitionComponent } from './';
 import { SelectProblemComponent } from './select-problem';
 import { CountdownComponent } from './countdown';
-import { LoggedInGuard, VerifiedGuard } from '../shared';
+import { CompetitionStartedGuard, LoggedInGuard, VerifiedGuard } from '../shared';
 
 export const CompetitionRoutes: RouterConfig = [
   {
-    path: 'competition/:id',
-    component: CompetitionComponent,
+    path: 'competitions',
     canActivate: [
       LoggedInGuard,
       VerifiedGuard
     ],
     children: [
+      // What a routing structure
       {
-        path: '',
-        component: SelectProblemComponent
-        // TODO: guard to redirect countdown if the competition has not started
+        path: ':id',
+        component: SelectProblemComponent,
+        canActivate: [CompetitionStartedGuard]
       },
       {
-        path: 'countdown',
+        path: ':id/countdown',
         component: CountdownComponent
       }
     ]

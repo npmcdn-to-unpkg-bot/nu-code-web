@@ -20,7 +20,8 @@ import {
   NotVerifiedGuard,
   IsNeumonterGuard,
   CanEditProblemGuard,
-  IsMyProfileGuard
+  IsMyProfileGuard,
+  CompetitionStartedGuard
 } from './shared';
 
 const routes: RouterConfig = [
@@ -48,5 +49,6 @@ export const AppRouterProviders = [
   IsNeumonterGuard,
   CanEditProblemGuard,
   IsMyProfileGuard,
+  CompetitionStartedGuard,
   provideRouter(routes),
 ];
