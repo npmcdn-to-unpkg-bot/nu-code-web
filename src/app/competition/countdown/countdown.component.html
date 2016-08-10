@@ -1,3 +1,11 @@
-<p>
-  countdown works!
-</p>
+<p>Competition has not started yet.</p>
+<p>You will be automatically redirected in:</p>
+<div class="countdown" *ngIf="remainingTime">
+  <span class="time days">{{remainingTime.days}}</span>
+  <span class="separator">:</span>
+  <span class="time hours">{{remainingTime.hours}}</span>
+  <span class="separator">:</span>
+  <span class="time minutes">{{remainingTime.minutes}}</span>
+  <span class="separator">:</span>
+  <span class="time seconds">{{remainingTime.seconds}}</span>
+</div>
