@@ -2,7 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import { AngularFire } from 'angularfire2';
-import { MySubmission, Problem, SuccessfulSubmission, TestCase, User } from '../';
+import {
+  Competition,
+  CompetitionProblem,
+  MySubmission,
+  Problem,
+  SuccessfulSubmission,
+  TestCase,
+  User
+} from '../';
 
 @Injectable()
 export class RepositoryService {
@@ -34,6 +42,23 @@ export class RepositoryService {
         orderByChild: 'submittedOn'
       }
     }).map(submissions => submissions.reverse());
+  }
+
+  getCompetition(competitionId: string, roundNumber: number): Observable<Competition> {
+    return this.af.database.object(`/competitions/${competitionId}`);
+  }
+
+  getCompetitionStartTime(competitionId: string): Observable<Date> {
+    var yesterday = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+    var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    return Observable.of(tomorrow);
+    // return this.af.database.object(`/competitions/${competitionId}/startTime`)
+    //     .map(isoString => new Date(isoString));
+  }
+
+  getCompetitionEndTime(competitionId: string): Observable<Date> {
+    return this.af.database.object(`/competitions/${competitionId}/endTime`)
+        .map(isoString => new Date(isoString));
   }
 
   updateUser(user: User, picture?: File): Promise<void> {
