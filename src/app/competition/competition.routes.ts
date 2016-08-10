@@ -1,7 +1,12 @@
 import { RouterConfig } from '@angular/router';
 import { SelectProblemComponent } from './select-problem';
 import { CountdownComponent } from './countdown';
-import { CompetitionStartedGuard, LoggedInGuard, VerifiedGuard } from '../shared';
+import {
+  LoggedInGuard,
+  VerifiedGuard,
+  CompetitionStartedGuard,
+  CompetitionNotStartedGuard
+} from '../shared';
 
 export const CompetitionRoutes: RouterConfig = [
   {
@@ -19,7 +24,8 @@ export const CompetitionRoutes: RouterConfig = [
       },
       {
         path: ':id/countdown',
-        component: CountdownComponent
+        component: CountdownComponent,
+        canActivate: [CompetitionNotStartedGuard]
       }
     ]
   }
