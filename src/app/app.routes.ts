@@ -2,9 +2,10 @@ import { provideRouter, RouterConfig } from '@angular/router';
 import { HomeRoutes } from './home';
 import { ProblemRoutes } from './problem';
 import { ProblemListRoutes } from './problem-list';
+import { CompetitionRoutes } from './competition';
+import { CompetitionListRoutes } from './competition-list';
 import { ProfileRoutes } from './profile';
 import { EditProfileRoutes } from './edit-profile';
-import { CompetitionListRoutes } from './competition-list';
 import { RegisterRoutes } from './register';
 import { LoginRoutes } from './login-required';
 import { VerificationRoutes } from './verification-required';
@@ -26,9 +27,10 @@ const routes: RouterConfig = [
   ...HomeRoutes,
   ...ProblemListRoutes,
   ...ProblemRoutes,
+  ...CompetitionListRoutes,
+  ...CompetitionRoutes,
   ...ProfileRoutes,
   ...EditProfileRoutes,
-  ...CompetitionListRoutes,
   ...RegisterRoutes,
   ...LoginRoutes,
   ...VerificationRoutes,
