@@ -1,0 +1,17 @@
+.competition-preview {
+  display: flex;
+  padding: 15px;
+}
+.competition-info {
+  text-align: left;
+  padding: 0;
+}
+.competition-name {
+  margin-top: 10px;
+}
+.competition-start {
+  opacity: 0.8;
+}
+.competition-btn {
+  align-self: center;
+}

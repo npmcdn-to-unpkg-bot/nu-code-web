@@ -86,6 +86,7 @@ const barrels: string[] = [
   'app/competition',
   'app/competition/countdown',
   'app/competition/problem-view',
+  'app/competition-list/competition-preview',
   /** @cli-barrel */
 ];
 

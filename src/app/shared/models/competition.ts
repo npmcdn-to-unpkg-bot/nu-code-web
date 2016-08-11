@@ -23,6 +23,17 @@ export class Competition implements Competition {
     this.endTime = endTime;
     this.creatorUid = creatorUid;
   }
+
+  static fromSnapshot(snapshot: any): Competition {
+    return {
+      $key: snapshot.$key,
+      name: snapshot.name,
+      startTime: new Date(snapshot.startTime),
+      endTime: new Date(snapshot.endTime),
+      creatorUid: snapshot.creatorUid,
+      problems: snapshot.problems
+    };
+  }
 }
 
 export interface CompetitionProblem {

@@ -4,4 +4,9 @@
       <i fa [name]="'plus'"></i> Create
     </a>
   </div>
+  <div class="list-group">
+    <div class="competition-preview" *ngFor="let competition of competitions">
+      <app-competition-preview [competition]="competition"></app-competition-preview>
+    </div>
+  </div>
 </div>

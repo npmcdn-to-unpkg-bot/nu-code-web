@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { FaDirective } from 'angular2-fontawesome/directives';
-import { AuthService, RepositoryService } from '../shared';
+import { CompetitionPreviewComponent } from './competition-preview';
+import { AuthService, RepositoryService, Competition } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -10,10 +11,12 @@ import { AuthService, RepositoryService } from '../shared';
   styleUrls: ['competition-list.component.css'],
   directives: [
     ROUTER_DIRECTIVES,
-    FaDirective
+    FaDirective,
+    CompetitionPreviewComponent
   ]
 })
 export class CompetitionListComponent implements OnInit {
+  competitions: Competition[];
   canCreateCompetition: boolean;
 
   constructor(
@@ -21,6 +24,9 @@ export class CompetitionListComponent implements OnInit {
       private repoService: RepositoryService) {}
 
   ngOnInit() {
+    this.repoService
+        .getCompetitions()
+        .subscribe(competitions => this.competitions = competitions);
     this.authService.isNeumonter
         .subscribe(isNeumonter => this.canCreateCompetition = isNeumonter);
   }

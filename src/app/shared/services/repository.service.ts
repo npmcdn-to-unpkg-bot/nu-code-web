@@ -44,17 +44,16 @@ export class RepositoryService {
     }).map(submissions => submissions.reverse());
   }
 
+  getCompetitions(): Observable<Competition[]> {
+    return this.af.database.list(`/competitions`)
+        .map(competitionsSnapshot => competitionsSnapshot
+            .map(competitionSnapshot => Competition.fromSnapshot(competitionSnapshot)));
+  }
+
   getCompetition(competitionId: string): Observable<Competition> {
     return this.af.database.object(`/competitions/${competitionId}`)
         .map(snapshot => snapshot.$value !== null
-            ? {
-                $key: snapshot.$key,
-                name: snapshot.name,
-                startTime: new Date(snapshot.startTime),
-                endTime: new Date(snapshot.endTime),
-                creatorUid: snapshot.creatorUid,
-                problems: snapshot.problems
-              }
+            ? Competition.fromSnapshot(snapshot)
             : null);
   }
 
