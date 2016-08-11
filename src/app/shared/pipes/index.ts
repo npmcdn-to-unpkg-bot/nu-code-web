@@ -4,3 +4,4 @@ export * from './lang.pipe';
 export * from './markdown.pipe';
 export * from './precision.pipe';
 export * from './spacify.pipe';
+export * from './zero-pad.pipe';
