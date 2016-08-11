@@ -11,6 +11,7 @@ import { RepositoryService, ZeroPadPipe } from '../../shared';
   pipes: [ZeroPadPipe]
 })
 export class CountdownComponent implements OnInit {
+  competitionName: string;
   startTime: Date;
   remainingTime: Time;
 
@@ -21,11 +22,10 @@ export class CountdownComponent implements OnInit {
 
   ngOnInit() {
     let competitionId = this.route.snapshot.params['id'];
-    this.repoService.getCompetition(competitionId)
-        .map(competition => competition.startTime)
-        .subscribe(time => {
-          this.startTime = time;
-        });
+    this.repoService.getCompetition(competitionId).subscribe(competition => {
+      this.competitionName = competition.name;
+      this.startTime = competition.startTime;
+    });
 
     // Start the timer
     let subscription = Observable.interval(1000).subscribe(() => {
