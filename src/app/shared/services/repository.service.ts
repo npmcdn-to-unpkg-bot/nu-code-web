@@ -44,18 +44,18 @@ export class RepositoryService {
     }).map(submissions => submissions.reverse());
   }
 
-  getCompetition(competitionId: string, roundNumber: number): Observable<Competition> {
-    return this.af.database.object(`/competitions/${competitionId}`);
-  }
-
-  getCompetitionStartTime(competitionId: string): Observable<Date> {
-    return this.af.database.object(`/competitions/${competitionId}/startTime`)
-        .map(unixTimestamp => new Date(unixTimestamp));
-  }
-
-  getCompetitionEndTime(competitionId: string): Observable<Date> {
-    return this.af.database.object(`/competitions/${competitionId}/endTime`)
-        .map(unixTimestamp => new Date(unixTimestamp));
+  getCompetition(competitionId: string): Observable<Competition> {
+    return this.af.database.object(`/competitions/${competitionId}`)
+        .map(snapshot => snapshot.$value !== null
+            ? {
+                $key: snapshot.$key,
+                name: snapshot.name,
+                startTime: new Date(snapshot.startTime),
+                endTime: new Date(snapshot.endTime),
+                creatorUid: snapshot.creatorUid,
+                problems: snapshot.problems
+              }
+            : null);
   }
 
   updateUser(user: User, picture?: File): Promise<void> {

@@ -3,7 +3,8 @@ import { Feedback } from './feedback';
 export interface Competition {
   $key?: string;
   name: string;
-  problems: CompetitionProblem[];
+  // Array of problem ids
+  problems: string[];
   startTime: Date;
   endTime: Date;
   creatorUid: string;
@@ -12,7 +13,7 @@ export interface Competition {
 export class Competition implements Competition {
   constructor(
       name = '',
-      problems = [new CompetitionProblem()],
+      problems = [],
       startTime = new Date(),
       endTime = new Date(),
       creatorUid: string = null) {

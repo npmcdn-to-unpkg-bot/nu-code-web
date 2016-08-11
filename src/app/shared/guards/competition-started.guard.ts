@@ -17,12 +17,15 @@ export class CompetitionStartedGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     let currentTime = new Date();
     let competitionId = route.params['id'];
-    return this.repoService.getCompetitionStartTime(competitionId).map(startTime => {
-      let hasStarted = currentTime > startTime;
-      if (!hasStarted) {
-        this.router.navigate(['competitions', competitionId, 'countdown']);
-      }
-      return hasStarted;
-    }).take(1); // Observable needs to complete
+    return this.repoService.getCompetition(competitionId)
+        .map(competition => competition.startTime)
+        .map(startTime => {
+          let hasStarted = currentTime > startTime;
+          if (!hasStarted) {
+            this.router.navigate(['competitions', competitionId, 'countdown']);
+          }
+          return hasStarted;
+        })
+        .take(1); // Observable needs to complete
   }
 }

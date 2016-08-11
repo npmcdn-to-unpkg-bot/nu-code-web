@@ -20,8 +20,9 @@ export class CountdownComponent implements OnInit {
 
   ngOnInit() {
     let competitionId = this.route.snapshot.params['id'];
-    this.repoService.getCompetitionStartTime(competitionId).subscribe(
-        time => {
+    this.repoService.getCompetition(competitionId)
+        .map(competition => competition.startTime)
+        .subscribe(time => {
           this.startTime = time;
         });
 
@@ -49,7 +50,6 @@ interface Time {
 
 namespace Time {
   export function fromSeconds(seconds: number): Time {
-    console.log(seconds);
     let days = Math.floor(seconds / 86400);
     seconds -= days * 86400;
 
