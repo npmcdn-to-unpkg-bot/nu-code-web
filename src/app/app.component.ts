@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { NavbarComponent } from './navbar';
 import { LoginModalComponent } from './login-modal';
-import { LoginModalService } from './shared';
+import { AuthService, LoginModalService } from './shared';
 
 @Component({
   moduleId: module.id,
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   constructor(
       // viewContainerRef is needed for angular2-bootstrap modals
       private viewContainerRef: ViewContainerRef,
+      private authService: AuthService,
       private loginModalService: LoginModalService) { }
 
   ngOnInit() {
