@@ -17,7 +17,7 @@ export interface Result {
 export interface MySubmission {
   status: Status;
   lang: string;
-  submittedOn: string;
+  submittedOn: number;
   execTime?: number;
 }
 
@@ -28,5 +28,5 @@ export interface SuccessfulSubmission {
   execTime: number;
   lang: string;
   submitterUid: string;
-  submittedOn: string;
+  submittedOn: number;
 }
