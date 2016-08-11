@@ -6,3 +6,4 @@ export * from './submission';
 export * from './supported-languages';
 export * from './test-case';
 export * from './user';
+export * from './zero-pad';
