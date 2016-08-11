@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
+import { CollapseDirective } from 'ng2-bootstrap';
 import { CompetitionProblem, RepositoryService } from '../shared';
 
 @Component({
@@ -7,9 +8,13 @@ import { CompetitionProblem, RepositoryService } from '../shared';
   selector: 'app-competition',
   templateUrl: 'competition.component.html',
   styleUrls: ['competition.component.css'],
-  directives: [ROUTER_DIRECTIVES]
+  directives: [
+    ROUTER_DIRECTIVES,
+    CollapseDirective
+  ]
 })
 export class CompetitionComponent implements OnInit {
+  listCollapsed = false;
   problems: CompetitionProblem[];
 
   constructor(
