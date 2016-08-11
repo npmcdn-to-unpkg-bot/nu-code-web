@@ -1,3 +1,6 @@
-<p>
-  select-problem works!
-</p>
+<div class="container">
+  <div class="problem-list">
+    <!--TODO: checkmark if completed-->
+    <a *ngFor="let problem of problems" [routerLink]="[problem.$key]">{{problem.name}}</a>
+  </div>
+</div>
