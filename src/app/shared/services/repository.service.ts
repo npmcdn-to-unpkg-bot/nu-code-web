@@ -58,6 +58,10 @@ export class RepositoryService {
             : null);
   }
 
+  getCompetitionProblems(competitionId: string): Observable<CompetitionProblem[]> {
+    return this.af.database.list(`/competitionProblems/${competitionId}`);
+  }
+
   updateUser(user: User, picture?: File): Promise<void> {
     let uid = user.$key;
     // Firebase does not allow $key to be present when updating
