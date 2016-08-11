@@ -1,7 +1,7 @@
 import { RouterConfig } from '@angular/router';
 import { CompetitionComponent } from './';
 import { CountdownComponent } from './countdown';
-import { ViewComponent } from '../problem/view';
+import { ProblemViewComponent } from './problem-view';
 import {
   LoggedInGuard,
   VerifiedGuard,
@@ -35,7 +35,7 @@ export const CompetitionRoutes: RouterConfig = [
       {
         // Problem id
         path: ':id',
-        component: ViewComponent
+        component: ProblemViewComponent
       }
     ]
   }
