@@ -1,9 +1,9 @@
 <div class="container">
-  <div class="col-xs-12 col-sm-3 list-group problem-list">
+  <div class="col-xs-12 col-sm-2 list-group problem-list">
     <!--TODO: checkmark if completed-->
     <a *ngFor="let problem of problems" [routerLink]="[problem.$key]" class="list-group-item">{{problem.name}}</a>
   </div>
-  <div class="col-xs-12 col-sm-9">
+  <div class="col-xs-12 col-sm-10">
     <router-outlet></router-outlet>
   </div>
 </div>

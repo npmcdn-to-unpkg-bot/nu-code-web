@@ -58,6 +58,10 @@ export class RepositoryService {
             : null);
   }
 
+  getCompetitionProblem(competitionId: string, problemId: string): Observable<CompetitionProblem> {
+    return this.af.database.object(`/competitionProblems/${competitionId}/${problemId}`);
+  }
+
   getCompetitionProblems(competitionId: string): Observable<CompetitionProblem[]> {
     return this.af.database.list(`/competitionProblems/${competitionId}`);
   }

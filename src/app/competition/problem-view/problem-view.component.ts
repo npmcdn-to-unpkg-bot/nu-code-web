@@ -13,6 +13,12 @@ import {
   User
 } from '../../shared';
 
+const DefaultSubmission: Submission = {
+  lang: 'c',
+  src: '',
+  problem: undefined
+};
+
 @Component({
   moduleId: module.id,
   selector: 'app-problem-view',
@@ -27,8 +33,15 @@ import {
   pipes: [MarkdownPipe]
 })
 export class ProblemViewComponent implements OnInit {
+  competitionId: string;
+
   problem: CompetitionProblem;
-  submission: Submission;
+  // Manipulated by editor. Set as a new object instance so as not to change the const
+  submission: Submission = {
+    lang: DefaultSubmission.lang,
+    src: DefaultSubmission.src,
+    problem: DefaultSubmission.problem
+  };
 
   constructor(
       private router: Router,
@@ -37,8 +50,16 @@ export class ProblemViewComponent implements OnInit {
       private authService: AuthService) { }
 
   ngOnInit() {
-    let problemId = this.route.snapshot.params['id'];
-    console.log(problemId);
-    // this.repoService.getCompetitionProblem()
+    let parentActivatedRoute = this.router.routerState.parent(this.route);
+    parentActivatedRoute.params.subscribe(params => {
+      this.competitionId = params['id'];
+    });
+    // TODO: there is a definitely potential for a timing issue with this competitionId
+    this.route.params.subscribe(params => {
+      let problemId = params['problemId'];
+      this.repoService
+          .getCompetitionProblem(this.competitionId, problemId)
+          .subscribe(problem => this.problem = problem);
+    });
   }
 }

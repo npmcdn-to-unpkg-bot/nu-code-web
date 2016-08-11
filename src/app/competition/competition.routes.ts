@@ -34,7 +34,7 @@ export const CompetitionRoutes: RouterConfig = [
       },
       {
         // Problem id
-        path: ':id',
+        path: ':problemId',
         component: ProblemViewComponent
       }
     ]
