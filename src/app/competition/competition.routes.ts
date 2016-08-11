@@ -1,6 +1,7 @@
 import { RouterConfig } from '@angular/router';
-import { SelectProblemComponent } from './select-problem';
+import { CompetitionComponent } from './';
 import { CountdownComponent } from './countdown';
+import { ViewComponent } from '../problem/view';
 import {
   LoggedInGuard,
   VerifiedGuard,
@@ -10,22 +11,31 @@ import {
 
 export const CompetitionRoutes: RouterConfig = [
   {
-    path: 'competitions',
+    path: 'competitions/:id/countdown',
+    component: CountdownComponent,
     canActivate: [
       LoggedInGuard,
-      VerifiedGuard
+      VerifiedGuard,
+      CompetitionNotStartedGuard
+    ]
+  },
+  {
+    path: 'competitions/:id',
+    component: CompetitionComponent,
+    canActivate: [
+      LoggedInGuard,
+      VerifiedGuard,
+      CompetitionStartedGuard
     ],
     children: [
-      // What a routing structure
+      // What a routing structure >:{)
       {
-        path: ':id',
-        component: SelectProblemComponent,
-        canActivate: [CompetitionStartedGuard]
+        path: ''
       },
       {
-        path: ':id/countdown',
-        component: CountdownComponent,
-        canActivate: [CompetitionNotStartedGuard]
+        // Problem id
+        path: ':id',
+        component: ViewComponent
       }
     ]
   }
