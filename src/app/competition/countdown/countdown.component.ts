@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { RepositoryService } from '../../shared';
+import { RepositoryService, ZeroPadPipe } from '../../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-countdown',
   templateUrl: 'countdown.component.html',
-  styleUrls: ['countdown.component.css']
+  styleUrls: ['countdown.component.css'],
+  pipes: [ZeroPadPipe]
 })
 export class CountdownComponent implements OnInit {
   startTime: Date;
