@@ -49,16 +49,13 @@ export class RepositoryService {
   }
 
   getCompetitionStartTime(competitionId: string): Observable<Date> {
-    var yesterday = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
-    var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-    return Observable.of(tomorrow);
-    // return this.af.database.object(`/competitions/${competitionId}/startTime`)
-    //     .map(isoString => new Date(isoString));
+    return this.af.database.object(`/competitions/${competitionId}/startTime`)
+        .map(unixTimestamp => new Date(unixTimestamp));
   }
 
   getCompetitionEndTime(competitionId: string): Observable<Date> {
     return this.af.database.object(`/competitions/${competitionId}/endTime`)
-        .map(isoString => new Date(isoString));
+        .map(unixTimestamp => new Date(unixTimestamp));
   }
 
   updateUser(user: User, picture?: File): Promise<void> {
