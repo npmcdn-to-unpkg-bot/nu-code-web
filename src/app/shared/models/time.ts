@@ -39,6 +39,9 @@ export class Time implements Time {
     return `${days}:${hours}:${minutes}:${seconds}:${milliseconds}`;
   }
 
+  /**
+   * TODO: this is not good enough. it truncates months / days / etc.
+   */
   toFormattedString(format: string): string {
     let start = FormatString.indexOf(format);
     let fullString = this.toString();
