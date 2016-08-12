@@ -9,7 +9,7 @@ export class MarkdownPipe implements PipeTransform {
   private converter = new Converter({
       omitExtraWLInCodeBlocks: true,
       ghCodeBlocks: true,
-      headerLevelStart: 3,
+      headerLevelStart: 1,
       literalMidWordUnderscores: true,
       tables: true });
 
