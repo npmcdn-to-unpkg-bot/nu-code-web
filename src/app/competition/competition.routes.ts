@@ -1,6 +1,7 @@
 import { RouterConfig } from '@angular/router';
 import { CompetitionComponent } from './';
 import { CountdownComponent } from './countdown';
+import { ScoreboardComponent } from './scoreboard';
 import { ProblemViewComponent } from './problem-view';
 import {
   LoggedInGuard,
@@ -9,6 +10,7 @@ import {
   CompetitionNotStartedGuard
 } from '../shared';
 
+// TODO: the scoreboard should be viewable by all
 export const CompetitionRoutes: RouterConfig = [
   {
     path: 'competitions/:id/countdown',
@@ -18,6 +20,10 @@ export const CompetitionRoutes: RouterConfig = [
       VerifiedGuard,
       CompetitionNotStartedGuard
     ]
+  },
+  {
+    path: 'competitions/:id/scoreboard',
+    component: ScoreboardComponent
   },
   {
     path: 'competitions/:id',

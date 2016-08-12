@@ -88,6 +88,7 @@ const barrels: string[] = [
   'app/competition/problem-view',
   'app/competition-list/competition-preview',
   'app/competition/scoreboard-preview',
+  'app/competition/scoreboard',
   /** @cli-barrel */
 ];
 
