@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { CollapseDirective } from 'ng2-bootstrap';
+import { ScoreboardPreviewComponent } from './scoreboard-preview';
 import { Competition, CompetitionProblem, RepositoryService, Time } from '../shared';
 
 @Component({
@@ -11,7 +12,8 @@ import { Competition, CompetitionProblem, RepositoryService, Time } from '../sha
   styleUrls: ['competition.component.css'],
   directives: [
     ROUTER_DIRECTIVES,
-    CollapseDirective
+    CollapseDirective,
+    ScoreboardPreviewComponent
   ]
 })
 export class CompetitionComponent implements OnInit {

@@ -1,0 +1,6 @@
+<table *ngIf="scoreboard" class="table">
+  <tr *ngFor="let ranking of scoreboard.rankings; let i = index">
+    <td>{{i+1}}</td>
+    <td>{{ranking.uid}}</td>
+  </tr>
+</table>
