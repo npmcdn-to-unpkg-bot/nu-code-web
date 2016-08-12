@@ -1,6 +1,6 @@
 <div *ngIf="problem">
   <div class="row">
-    <p class="col-xs-12 col-md-9 problem-description" [innerHTML]="problem.description | markdown"></p>
+    <div class="col-xs-12 col-md-9 problem-description markdown-body" [innerHTML]="problem.description | markdown"></div>
     <div class="col-xs-12 col-md-3 pull-right problem-details">
       <div class="clearfix problem-detail">
         <span class="pull-left problem-detail-label">Difficulty:</span>
