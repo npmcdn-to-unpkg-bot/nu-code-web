@@ -5,6 +5,8 @@ import { AngularFire } from 'angularfire2';
 import {
   Competition,
   CompetitionProblem,
+  CompetitionScoreboard,
+  CompetitionScoreboardRanking,
   MySubmission,
   Problem,
   SuccessfulSubmission,
@@ -65,6 +67,69 @@ export class RepositoryService {
     return this.af.database.list(`/competitionProblems/${competitionId}`)
         .map(listSnapshot => listSnapshot
             .map(snapshot => CompetitionProblem.fromSnapshot(snapshot)));
+  }
+
+  // getCompetitionScoreboard(competitionId: string)//: Observable<CompetitionScoreboard> {
+  //   return this.af.database.object(`/competitionScoreboards/${competitionId}`)
+  //       .flatMap(snapshot => {
+  //         let rankings = [];
+  //         for (let uid in snapshot) {
+  //           if (snapshot.hasOwnProperty(uid)) {
+  //             let info = snapshot[uid];
+  //             rankings.push({
+  //               uid: uid,
+  //               problemsSolved: info.problemsSolved,
+  //               timeScore: info.timeScore
+  //             });
+  //           }
+  //         }
+  //         let resolveAllUsers: Promise<CompetitionScoreboardRanking>[] = rankings.map(ranking =>
+  //             this.getUser(ranking.uid)
+  //                 .map(user => {
+  //                   return {
+  //                     user: user,
+  //                     problemsSolved: ranking.problemsSolved,
+  //                     timeScore: ranking.timeScore
+  //                   };
+  //                 }).toPromise());
+  //         return Observable.fromPromise(Promise.all(resolveAllUsers)).map(all => {
+  //           console.log(all);
+  //           return { rankings: all };
+  //         });
+  //                 // .then(rankings => rankings
+  //                 //     .sort((a, b) => {
+  //                 //       let problemsSolvedA = a.problemsSolved;
+  //                 //       return 1;
+  //                 //     })));
+  //       });
+  // }
+
+  getCompetitionScoreboard(competitionId: string): Observable<CompetitionScoreboard> {
+    return this.af.database.object(`/competitionScoreboards/${competitionId}`)
+        .map(snapshot => {
+          if (snapshot.$value === null) {
+            return { rankings: [] };
+          }
+          let rankings: CompetitionScoreboardRanking[] = [];
+          for (let uid in snapshot) {
+            if (uid !== '$key' && snapshot.hasOwnProperty(uid)) {
+              let info = snapshot[uid];
+              rankings.push({
+                uid: uid,
+                problemsSolved: info.problemsSolved,
+                timeScore: info.timeScore
+              });
+            }
+          }
+          // Sort descending by num problems solved, then ascending by timescore in case of tie
+          rankings.sort((a, b) =>
+              a.problemsSolved === b.problemsSolved
+                // timescore ascending in case of tie
+                ? a.timeScore - b.timeScore
+                // primarily problems solved descending
+                : b.problemsSolved - a.problemsSolved);
+          return { rankings };
+        });
   }
 
   updateUser(user: User, picture?: File): Promise<void> {

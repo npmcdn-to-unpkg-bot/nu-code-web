@@ -1,4 +1,5 @@
 import { Feedback } from './feedback';
+import { User } from './user';
 
 export interface Competition {
   $key?: string;
@@ -69,4 +70,20 @@ export class CompetitionProblem implements CompetitionProblem {
       penalty: snapshot.penalty
     };
   }
+}
+
+export interface CompetitionScoreboard {
+  rankings: CompetitionScoreboardRanking[];
+}
+
+export interface CompetitionScoreboardRanking {
+  // user: User;
+  uid: string;
+  problemsSolved: number;
+  timeScore: number;
+}
+
+interface RankingInfo {
+  problemsSolved: number;
+  timeScore: number;
 }
