@@ -1,0 +1,12 @@
+.problem-description {
+  font-size: 1.25em;
+}
+.problem-details {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.problem-detail-label {
+  opacity: 0.75;
+}
