@@ -5,10 +5,11 @@ import { Competition, SpacifyPipe, Time } from '../../shared';
 
 // The time in milliseconds before a competition is considered to start soon
 // 6 hours = 21600000
-const StartingSoonMilliseconds = 21600000;
+const StartingSoonThreshold = 21600000;
 // The period after the end date to say "just ended"
 // 10 minutes = 600000
-const JustEndedMilliseconds = 600000;
+const JustEndedThreshold = 600000;
+const OneDayInMilliseconds = 86400000;
 
 @Component({
   moduleId: module.id,
@@ -30,37 +31,39 @@ export class CompetitionPreviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let currentMilliseconds = new Date().getTime();
     let startMilliseconds = this.competition.startTime.getTime();
-    let endMilliseconds = this.competition.endTime.getTime();
-
     let millisecondsBeforeStart = startMilliseconds - currentMilliseconds;
-    let startingSoonMilliseconds = millisecondsBeforeStart - StartingSoonMilliseconds;
-    let millisecondsBeforeJustEnded = endMilliseconds - currentMilliseconds;
-    let millisecondsBeforeHardEnded = millisecondsBeforeJustEnded + JustEndedMilliseconds;
+    // Schedule more if and only if the competition starts within one day
+    if (millisecondsBeforeStart < OneDayInMilliseconds) {
+      let endMilliseconds = this.competition.endTime.getTime();
+      let startingSoonMilliseconds = millisecondsBeforeStart - StartingSoonThreshold;
+      let millisecondsBeforeJustEnded = endMilliseconds - currentMilliseconds;
+      let millisecondsBeforeHardEnded = millisecondsBeforeJustEnded + JustEndedThreshold;
 
-    this.scheduled = Observable.timer(startingSoonMilliseconds).subscribe(() => {
-      this.state = 'StartingSoon';
-      // Start the countdown timer
-      this.timer = Observable.timer(0, 1000).subscribe(() => {
-        let now = new Date();
-        // TODO: Performance
-        this.untilStart = Time.betweenDates(now, this.competition.startTime);
-      });
+      this.scheduled = Observable.timer(startingSoonMilliseconds).subscribe(() => {
+        this.state = 'StartingSoon';
+        // Start the countdown timer
+        this.timer = Observable.timer(0, 1000).subscribe(() => {
+          let now = new Date();
+          // TODO: Performance?
+          this.untilStart = Time.betweenDates(now, this.competition.startTime);
+        });
 
-      this.scheduled = Observable.timer(millisecondsBeforeStart).subscribe(() => {
-        this.state = 'Started';
-        if (this.timer) {
-          this.timer.unsubscribe();
-        }
+        this.scheduled = Observable.timer(this.competition.startTime).subscribe(() => {
+          this.state = 'Started';
+          if (this.timer) {
+            this.timer.unsubscribe();
+          }
 
-        this.scheduled = Observable.timer(millisecondsBeforeJustEnded).subscribe(() => {
-          this.state = 'JustEnded';
+          this.scheduled = Observable.timer(millisecondsBeforeJustEnded).subscribe(() => {
+            this.state = 'JustEnded';
 
-          this.scheduled = Observable.timer(millisecondsBeforeHardEnded).subscribe(() => {
-            this.state = 'Ended';
+            this.scheduled = Observable.timer(millisecondsBeforeHardEnded).subscribe(() => {
+              this.state = 'Ended';
+            });
           });
         });
       });
-    });
+    }
   }
 
   ngOnDestroy() {
