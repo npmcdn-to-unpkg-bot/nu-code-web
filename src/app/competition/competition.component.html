@@ -1,17 +1,24 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-xs-12 col-sm-2" [collapse]="listCollapsed">
+    <div class="col-xs-12 col-sm-2" *ngIf="competition" [collapse]="collapsed">
+      <!--<div class="col-xs-12">
+        <h3>{{competition.name}}</h3>
+      </div>-->
       <div class="col-xs-12">
         <div class="row clearfix">
-          <h3 class="pull-left">Problems</h3>
-          <!--<span class="pull-right lead" (click)="listCollapsed = ">-</span>-->
+          <h4 class="pull-left">Problems</h4>
+          <!--<span class="pull-right lead" (click)="collapsed = !collapsed">-</span>-->
         </div>
-        <div class="row" *ngIf="problems">
+        <div class="row problem-list" *ngIf="problems">
           <!--TODO: checkmark if completed-->
           <a *ngFor="let problem of problems" [routerLink]="[problem.$key]" [routerLinkActive]="['active']" class="list-group-item">{{problem.name}}</a>
         </div>
       </div>
+      <div class="col-xs-12 competition-info" *ngIf="remainingTime">
+        Remaining: {{remainingTime.toFormattedString('hh:mm:ss')}}
+      </div>
+      <app-scoreboard-preview></app-scoreboard-preview>
     </div>
 
     <div class="col-xs-12 col-sm-10 problem-view">

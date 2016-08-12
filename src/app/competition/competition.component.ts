@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 import { CollapseDirective } from 'ng2-bootstrap';
-import { CompetitionProblem, RepositoryService } from '../shared';
+import { Competition, CompetitionProblem, RepositoryService, Time } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -14,8 +15,10 @@ import { CompetitionProblem, RepositoryService } from '../shared';
   ]
 })
 export class CompetitionComponent implements OnInit {
-  listCollapsed = false;
+  collapsed = false;
+  competition: Competition;
   problems: CompetitionProblem[];
+  remainingTime: Time;
 
   constructor(
       private router: Router,
@@ -24,6 +27,15 @@ export class CompetitionComponent implements OnInit {
 
   ngOnInit() {
     let competitionId = this.route.snapshot.params['id'];
+    this.repoService
+        .getCompetition(competitionId)
+        .subscribe(competition => {
+          this.competition = competition;
+          Observable.interval(1000).subscribe(() => {
+            let now = new Date();
+            this.remainingTime = Time.betweenDates(now, competition.endTime);
+          });
+        });
     this.repoService
         .getCompetitionProblems(competitionId)
         .subscribe(competitionProblems => {
