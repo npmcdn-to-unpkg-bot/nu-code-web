@@ -62,7 +62,9 @@ export class RepositoryService {
   }
 
   getCompetitionProblems(competitionId: string): Observable<CompetitionProblem[]> {
-    return this.af.database.list(`/competitionProblems/${competitionId}`);
+    return this.af.database.list(`/competitionProblems/${competitionId}`)
+        .map(listSnapshot => listSnapshot
+            .map(snapshot => CompetitionProblem.fromSnapshot(snapshot)));
   }
 
   updateUser(user: User, picture?: File): Promise<void> {

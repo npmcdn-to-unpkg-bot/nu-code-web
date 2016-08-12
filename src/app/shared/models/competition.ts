@@ -58,4 +58,15 @@ export class CompetitionProblem implements CompetitionProblem {
     this.timeout = timeout;
     this.penalty = penalty;
   }
+
+  static fromSnapshot(snapshot: any): CompetitionProblem {
+    return {
+      $key: snapshot.$key,
+      name: snapshot.name,
+      description: snapshot.description,
+      feedback: snapshot.feedback,
+      timeout: snapshot.timeout,
+      penalty: snapshot.penalty
+    };
+  }
 }

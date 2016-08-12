@@ -28,7 +28,10 @@ export class CompetitionComponent implements OnInit {
         .getCompetitionProblems(competitionId)
         .subscribe(competitionProblems => {
           this.problems = competitionProblems;
-          this.router.navigate([competitionProblems[0].$key], { relativeTo: this.route });
+          // Weird bug where the repoService (angularfire2) call returns an empty array
+          if (this.problems[0]) {
+            this.router.navigate([competitionProblems[0].$key], { relativeTo: this.route });
+          }
         });
   }
 }
