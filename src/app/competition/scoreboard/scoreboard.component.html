@@ -11,7 +11,7 @@
     <tbody>
       <tr *ngFor="let ranking of rankings; let i = index">
         <th scope="row">{{i+1}}</th>
-        <td *ngIf="ranking.user">{{ranking.user.name}}</td>
+        <td *ngIf="ranking.user"><a [routerLink]="['/profiles', ranking.user.$key]">{{ranking.user.name}}</a></td>
         <td>{{ranking.problemsSolved}}</td>
         <td>{{ranking.timeScore}}</td>
       </tr>
