@@ -40,9 +40,7 @@ export class RepositoryService {
 
   getSubmissions(userId: string, problemId: string): Observable<MySubmission[]> {
     return this.af.database.list(`/submissions/${userId}/${problemId}`, {
-      query: {
-        orderByChild: 'submittedOn'
-      }
+      query: { orderByChild: 'submittedOn' }
     }).map(submissions => submissions.reverse());
   }
 
@@ -69,67 +67,28 @@ export class RepositoryService {
             .map(snapshot => CompetitionProblem.fromSnapshot(snapshot)));
   }
 
-  // getCompetitionScoreboard(competitionId: string)//: Observable<CompetitionScoreboard> {
-  //   return this.af.database.object(`/competitionScoreboards/${competitionId}`)
-  //       .flatMap(snapshot => {
-  //         let rankings = [];
-  //         for (let uid in snapshot) {
-  //           if (snapshot.hasOwnProperty(uid)) {
-  //             let info = snapshot[uid];
-  //             rankings.push({
-  //               uid: uid,
-  //               problemsSolved: info.problemsSolved,
-  //               timeScore: info.timeScore
-  //             });
-  //           }
-  //         }
-  //         let resolveAllUsers: Promise<CompetitionScoreboardRanking>[] = rankings.map(ranking =>
-  //             this.getUser(ranking.uid)
-  //                 .map(user => {
-  //                   return {
-  //                     user: user,
-  //                     problemsSolved: ranking.problemsSolved,
-  //                     timeScore: ranking.timeScore
-  //                   };
-  //                 }).toPromise());
-  //         return Observable.fromPromise(Promise.all(resolveAllUsers)).map(all => {
-  //           console.log(all);
-  //           return { rankings: all };
-  //         });
-  //                 // .then(rankings => rankings
-  //                 //     .sort((a, b) => {
-  //                 //       let problemsSolvedA = a.problemsSolved;
-  //                 //       return 1;
-  //                 //     })));
-  //       });
-  // }
-
-  getCompetitionScoreboard(competitionId: string): Observable<CompetitionScoreboard> {
-    return this.af.database.object(`/competitionScoreboards/${competitionId}`)
-        .map(snapshot => {
-          if (snapshot.$value === null) {
-            return { rankings: [] };
-          }
-          let rankings: CompetitionScoreboardRanking[] = [];
-          for (let uid in snapshot) {
-            if (uid !== '$key' && snapshot.hasOwnProperty(uid)) {
-              let info = snapshot[uid];
-              rankings.push({
-                uid: uid,
-                problemsSolved: info.problemsSolved,
-                timeScore: info.timeScore
-              });
-            }
-          }
-          // Sort descending by num problems solved, then ascending by timescore in case of tie
-          rankings.sort((a, b) =>
-              a.problemsSolved === b.problemsSolved
-                // timescore ascending in case of tie
-                ? a.timeScore - b.timeScore
-                // primarily problems solved descending
-                : b.problemsSolved - a.problemsSolved);
-          return { rankings };
-        });
+  getCompetitionScoreboard(competitionId: string): Observable<CompetitionScoreboardRanking[]> {
+    // Get the simple any[] from firebase
+    return this.af.database
+        .list(
+            `/competitionScoreboards/${competitionId}`,
+            { query: { orderByChild: 'index' } })
+        .flatMap(rankingsSnapshot =>
+            // Combine each Observable<T>[] to Observable<T[]>
+            Observable.forkJoin<CompetitionScoreboardRanking[]>(
+                // Map any[] to Observable<CompetitionScoreboardRanking>[]
+                rankingsSnapshot
+                    .map(ranking =>
+                        // Get the user associated with the ranking
+                        this.getUser(ranking.$key)
+                        // Map to a CompetitionScoreboardRanking instance
+                            .map(user => ({
+                              user: user,
+                              problemsSolved: ranking.problemsSolved,
+                              timeScore: ranking.timeScore
+                            }))
+                        // Ensure the observable completes on first
+                            .take(1))));
   }
 
   updateUser(user: User, picture?: File): Promise<void> {

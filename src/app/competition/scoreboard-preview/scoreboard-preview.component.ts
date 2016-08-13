@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RepositoryService, CompetitionScoreboard } from '../../shared';
+import { RepositoryService, CompetitionScoreboardRanking } from '../../shared';
 
 @Component({
   moduleId: module.id,
@@ -9,13 +9,13 @@ import { RepositoryService, CompetitionScoreboard } from '../../shared';
 })
 export class ScoreboardPreviewComponent implements OnInit {
   @Input() competitionId: string;
-  scoreboard: CompetitionScoreboard;
+  rankings: CompetitionScoreboardRanking[];
 
   constructor(private repoService: RepositoryService) { }
 
   ngOnInit() {
     this.repoService.getCompetitionScoreboard(this.competitionId)
-        .subscribe(scoreboard => this.scoreboard = scoreboard);
+        .subscribe(rankings => this.rankings = rankings);
   }
 
 }

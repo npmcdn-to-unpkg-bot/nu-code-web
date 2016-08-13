@@ -77,8 +77,7 @@ export interface CompetitionScoreboard {
 }
 
 export interface CompetitionScoreboardRanking {
-  // user: User;
-  uid: string;
+  user: User;
   problemsSolved: number;
   timeScore: number;
 }
