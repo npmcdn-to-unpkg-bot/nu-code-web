@@ -2,13 +2,17 @@
   font-size: 1.25em;
 }
 .problem-details {
+  margin-top: 15px;
   margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  /*padding: 15px;*/
+  /*border: 1px solid #ddd;*/
+  /*border-radius: 5px;*/
 }
 .problem-detail-label {
   opacity: 0.75;
+}
+.problem-detail-value {
+  font-weight: 550;
 }
 
 /* https://gist.githubusercontent.com/tuzz/3331384/raw/d1771755a3e26b039bff217d510ee558a8a1e47d/github.css */

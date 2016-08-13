@@ -1,17 +1,15 @@
 <div *ngIf="problem">
   <h2>{{problem.name}}</h2>
-  <div class="row">
-    <div class="col-xs-12 col-md-9 problem-description markdown-body" [innerHTML]="problem.description | markdown"></div>
-    <div class="col-xs-12 col-md-3 pull-right problem-details">
-      <div class="clearfix problem-detail">
-        <span class="pull-left problem-detail-label">Time Limit:</span>
-        <span class="pull-right">{{problem.timeout}} second{{problem.timeout == 1 ? '' : 's'}}</span>
-      </div>
-      <div class="clearfix problem-detail">
-        <span class="pull-left problem-detail-label">Penalty:</span>
-        <span class="pull-right">{{problem.penalty}} second{{problem.penalty == 1 ? '' : 's'}}</span>
-      </div>
-    </div>
+  <div class="problem-description markdown-body" [innerHTML]="problem.description | markdown"></div>
+  <div class="problem-details">
+    <p class="problem-detail">
+      <span class="problem-detail-label">Time Limit: </span>
+      <span class="problem-detail-value">{{problem.timeout}} second{{problem.timeout == 1 ? '' : 's'}}</span>
+    </p>
+    <p class="problem-detail">
+      <span class="problem-detail-label">Penalty: </span>
+      <span class="problem-detail-value">{{problem.penalty}} second{{problem.penalty == 1 ? '' : 's'}}</span>
+    </p>
   </div>
   <app-code-editor #editor [(ngModel)]="submission"></app-code-editor>
   <div class="clearfix">
