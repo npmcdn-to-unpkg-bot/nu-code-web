@@ -15,6 +15,27 @@ int main ()
 }
 ```
 
+##################################################COPY ME!!!
+
+```java
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        long n = scanner.nextLong();
+        long nFactorial = factorial(n);
+        System.out.println(nFactorial);
+    }
+
+    public static long factorial(long n) {
+        return (n == 0 || n == 1)
+            ? 1
+            : n * factorial(n - 1);
+    }
+}
+```
+
 ```java
 import java.util.Scanner;
 
