@@ -5,7 +5,7 @@
         {{user.name}} <span class="caret"></span>
       </a>
       <ul class="dropdown-menu">
-        <li><a [routerLink]="['/profile', user.$key]">My Profile</a></li>
+        <li><a [routerLink]="['/profiles', user.$key]">My Profile</a></li>
         <li role="separator" class="divider"></li>
         <li><a (click)="logOut()">Log Out</a></li>
       </ul>

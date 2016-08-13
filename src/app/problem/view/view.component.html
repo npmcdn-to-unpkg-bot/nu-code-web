@@ -12,7 +12,7 @@
       </div>
       <div class="clearfix problem-detail" *ngIf="creator">
         <span class="pull-left problem-detail-label">Created by:</span>
-        <a class="pull-right" [routerLink]="['/profile', creator.$key]">{{creator.name}}</a>
+        <a class="pull-right" [routerLink]="['/profiles', creator.$key]">{{creator.name}}</a>
       </div>
     </div>
   </div>
