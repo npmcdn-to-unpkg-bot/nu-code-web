@@ -10,38 +10,37 @@ import {
   CompetitionNotStartedGuard
 } from '../shared';
 
-// TODO: the scoreboard should be viewable by all
 export const CompetitionRoutes: RouterConfig = [
   {
-    path: 'competitions/:id/countdown',
-    component: CountdownComponent,
-    canActivate: [
-      LoggedInGuard,
-      VerifiedGuard,
-      CompetitionNotStartedGuard
-    ]
-  },
-  {
-    path: 'competitions/:id/scoreboard',
-    component: ScoreboardComponent
-  },
-  {
     path: 'competitions/:id',
-    component: CompetitionComponent,
-    canActivate: [
-      LoggedInGuard,
-      VerifiedGuard,
-      CompetitionStartedGuard
-    ],
     children: [
-      // What a routing structure >:{)
       {
-        path: ''
+        path: 'countdown',
+        component: CountdownComponent,
+        canActivate: [CompetitionNotStartedGuard]
       },
       {
-        // Problem id
-        path: ':problemId',
-        component: ProblemViewComponent
+        path: 'scoreboard',
+        component: ScoreboardComponent,
+        canActivate: [CompetitionStartedGuard]
+      },
+      {
+        path: '',
+        component: CompetitionComponent,
+        canActivate: [
+          LoggedInGuard,
+          VerifiedGuard,
+          CompetitionStartedGuard
+        ],
+        children: [
+          {
+            path: ''
+          },
+          {
+            path: ':problemId',
+            component: ProblemViewComponent
+          }
+        ]
       }
     ]
   }
