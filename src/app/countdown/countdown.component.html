@@ -11,7 +11,7 @@
     <span *ngIf="labels">h</span>
     <span *ngIf="!labels">:</span>
   </span>
-  <span>
+  <span *ngIf="timeSpan.minutes || !hide">
     {{timeSpan.minutes | zeroPad:2}}
     <span *ngIf="labels">m</span>
     <span *ngIf="!labels">:</span>
