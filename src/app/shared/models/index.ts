@@ -6,5 +6,6 @@ export * from './submission';
 export * from './supported-languages';
 export * from './test-case';
 export * from './time';
+export * from './time-span';
 export * from './user';
 export * from './zero-pad';
