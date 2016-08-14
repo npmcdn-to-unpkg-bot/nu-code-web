@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import * as moment from 'moment';
 import { CountdownComponent } from '../../countdown';
-import { Competition, RepositoryService, TimeSpan } from '../../shared';
+import { Competition, RepositoryService } from '../../shared';
 
 @Component({
   moduleId: module.id,

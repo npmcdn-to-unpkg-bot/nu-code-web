@@ -6,8 +6,6 @@ import {
   Competition,
   CompetitionScoreboardRanking,
   RepositoryService,
-  TimeSpan,
-  ZeroPadPipe
 } from '../../shared';
 
 @Component({
