@@ -1,15 +1,20 @@
 <div class="container">
-  <div class="scoreboard-header" *ngIf="competition">
-    <h2><span class="competition-name">{{competition.name}}</span> Scoreboard</h2>
-    <div *ngIf="remainingTime" class="countdown lead text-warning">
-      <span class="days" *ngIf="remainingTime.days">{{remainingTime.days | zeroPad:2}}d</span>
-      <span class="hours" *ngIf="remainingTime.hours">{{remainingTime.hours | zeroPad:2}}h</span>
-      <span class="minutes">{{remainingTime.minutes | zeroPad:2}}m</span>
-      <span class="seconds">{{remainingTime.seconds | zeroPad:2}}s</span>
+  <div class="top">
+    <div class="row" *ngIf="competition">
+      <div class="col-xs-12 col-sm-10 scoreboard-header">
+        <h2><span class="competition-name">{{competition.name}}</span> Scoreboard</h2>
+        <div class="countdown lead" *ngIf="remainingTime">
+          <span class="days" *ngIf="remainingTime.days">{{remainingTime.days | zeroPad:2}}d</span>
+          <span class="hours" *ngIf="remainingTime.hours">{{remainingTime.hours | zeroPad:2}}h</span>
+          <span class="minutes">{{remainingTime.minutes | zeroPad:2}}m</span>
+          <span class="seconds">{{remainingTime.seconds | zeroPad:2}}s</span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <a [routerLink]="['../']" id="view-problems-btn" class="btn btn-primary">View Problems</a>
+      </div>
     </div>
-    <a [routerLink]="['../']" class="btn btn-primary">View Problems</a>
   </div>
-  <!-- Problem List link-->
   <table class="table table-hover">
     <thead>
       <tr>
