@@ -30,37 +30,72 @@ export class CompetitionPreviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     let currentMilliseconds = new Date().getTime();
+
     let millisecondsUntilStart = this.competition.startTime.getTime() - currentMilliseconds;
     let millisecondsUntilStartingSoon = millisecondsUntilStart - startingSoonThreshold;
+    let millisecondsUntilEnd = this.competition.endTime.getTime() - currentMilliseconds;
+    let millisecondsUntilHardEnd = millisecondsUntilEnd + hardEndThreshold;
 
-    // Schedule more if next is within one day
+    if (millisecondsUntilStartingSoon > 0) {
+      this.scheduleStartingSoon(
+          millisecondsUntilStartingSoon,
+          millisecondsUntilStart,
+          millisecondsUntilEnd,
+          millisecondsUntilHardEnd);
+    } else if (millisecondsUntilStart > 0) {
+      this.scheduleStart(millisecondsUntilStart, millisecondsUntilEnd, millisecondsUntilHardEnd);
+    } else if (millisecondsUntilEnd > 0) {
+      this.scheduleEnd(millisecondsUntilEnd, millisecondsUntilHardEnd);
+    } else if (millisecondsUntilHardEnd > 0) {
+      this.scheduleHardEnd(millisecondsUntilHardEnd);
+    } else {
+      this.state = 'Ended';
+    }
+  }
+
+  scheduleStartingSoon(
+      millisecondsUntilStartingSoon: number,
+      millisecondsUntilStart: number,
+      millisecondsUntilEnd: number,
+      millisecondsUntilHardEnd: number) {
+    this.state = 'Distanced';
+    // Schedule only if within one day
     if (millisecondsUntilStartingSoon < oneDayInMilliseconds) {
-      let millisecondsUntilEnd = this.competition.endTime.getTime() - currentMilliseconds;
-      let millisecondsUntilHardEnd = millisecondsUntilEnd + hardEndThreshold;
-
       this.scheduled = Observable.timer(millisecondsUntilStartingSoon).subscribe(() => {
-        this.state = 'StartingSoon';
+        this.scheduleStart(millisecondsUntilStart, millisecondsUntilEnd, millisecondsUntilHardEnd);
+      });
+    }
+  }
 
-        // Schedule more if next is within one day
-        if (millisecondsUntilStart < oneDayInMilliseconds) {
-          this.scheduled = Observable.timer(this.competition.startTime).subscribe(() => {
-            this.state = 'Started';
+  scheduleStart(
+      millisecondsUntilStart: number,
+      millisecondsUntilEnd: number,
+      millisecondsUntilHardEnd: number) {
+    this.state = 'StartingSoon';
+    // Schedule only if within one day
+    if (millisecondsUntilStart < oneDayInMilliseconds) {
+      this.scheduled = Observable.timer(this.competition.startTime).subscribe(() => {
+        this.scheduleEnd(millisecondsUntilEnd, millisecondsUntilHardEnd);
+      });
+    }
+  }
 
-            // Schedule more if next is within one day
-            if (millisecondsUntilEnd < oneDayInMilliseconds) {
-              this.scheduled = Observable.timer(millisecondsUntilEnd).subscribe(() => {
-                this.state = 'JustEnded';
+  scheduleEnd(millisecondsUntilEnd: number, millisecondsUntilHardEnd: number) {
+    this.state = 'Started';
+    // Schedule only if within one day
+    if (millisecondsUntilEnd < oneDayInMilliseconds) {
+      this.scheduled = Observable.timer(millisecondsUntilEnd).subscribe(() => {
+        this.scheduleHardEnd(millisecondsUntilHardEnd);
+      });
+    }
+  }
 
-                // Schedule more if next is within one day
-                if (millisecondsUntilHardEnd < oneDayInMilliseconds) {
-                  this.scheduled = Observable.timer(millisecondsUntilHardEnd).subscribe(() => {
-                    this.state = 'Ended';
-                  });
-                }
-              });
-            }
-          });
-        }
+  scheduleHardEnd(millisecondsUntilHardEnd: number) {
+    this.state = 'JustEnded';
+    // Schedule only if within one day
+    if (millisecondsUntilHardEnd < oneDayInMilliseconds) {
+      this.scheduled = Observable.timer(millisecondsUntilHardEnd).subscribe(() => {
+        this.state = 'Ended';
       });
     }
   }
