@@ -16,43 +16,15 @@
   align-self: center;
 }
 
-/* Starting Soon */
-/*.starting-soon {
-  background: #FFEE58;
-}*/
-/*.starting-soon .competition-btn {
-  background: #FBC02D;
-}*/
-.starting-soon .badge {
-  background: #FBC02D;
+.starting-soon {
+  background: #FFFDE7;
 }
-
-/* Started / Active */
-/*.started {
-  background: lightgreen;
-}*/
-/*.started .competition-btn {
-  background: green;
-}*/
-.started .badge {
-  background: green;
+.started {
+  background: #DCEDC8;
 }
-
-/* Just Ended */
-/*.just-ended {
-  background: #ff5252;
-}*/
-/*.just-ended .competition-btn {
-  background: #d50000;
-}*/
-.just-ended .badge {
-  background: #d50000;
+.just-ended {
+  background: #ffebee;
 }
-
-/* Ended */
 .ended {
-  background: #EEEEEE;
-}
-.ended .badge {
-  background: #757575;
+  background: #FAFAFA;
 }

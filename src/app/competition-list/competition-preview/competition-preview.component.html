@@ -5,7 +5,6 @@
    [class.just-ended]="state === 'JustEnded'"
    [class.ended]="state === 'Ended'">
   <div class="competition-info col-xs-12">
-    <div class="badge" *ngIf="state !== 'Distanced'">{{state | spacify}}</div>
     <h3 class="competition-name">{{competition.name}}</h3>
     <div class="competition-time">
       <span *ngIf="state === 'Distanced'">Starts {{competition.startTime | date:'medium'}}</span>
@@ -14,7 +13,7 @@
         <app-countdown [date]="competition.startTime" [colors]="false"></app-countdown>
       </span>
       <span *ngIf="state === 'Started'">Started {{abbreviateAgo(competition.startTime)}} ago</span>
-      <span *ngIf="state === 'JustEnded'">Closed {{abbreviateAgo(competition.endTime)}} ago</span>
+      <span *ngIf="state === 'JustEnded'">Ended {{abbreviateAgo(competition.endTime)}} ago</span>
       <span *ngIf="state === 'Ended'">Closed {{competition.endTime | date:'medium'}}</span>
     </div>
   </div>
