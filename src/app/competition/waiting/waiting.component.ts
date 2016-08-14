@@ -25,9 +25,10 @@ export class WaitingComponent implements OnInit {
     this.repoService.getCompetition(competitionId).subscribe(competition => {
       this.competitionName = competition.name;
       this.startTime = competition.startTime;
-      // if (this.untilStart.totalMilliseconds <= 0) {
-      //   this.router.navigate(['competitions', competitionId]);
-      // }
+      // Schedule navigation
+      Observable.timer(competition.startTime).subscribe(() => {
+        this.router.navigate(['competitions', competitionId]);
+      });
     });
   }
 }
