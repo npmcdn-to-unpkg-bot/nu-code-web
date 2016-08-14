@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
-import { CompetitionScoreboardRanking, RepositoryService } from '../../shared';
+import { Competition, CompetitionScoreboardRanking, RepositoryService } from '../../shared';
 
 @Component({
   moduleId: module.id,
@@ -10,6 +10,7 @@ import { CompetitionScoreboardRanking, RepositoryService } from '../../shared';
   directives: [ROUTER_DIRECTIVES]
 })
 export class ScoreboardComponent implements OnInit {
+  competition: Competition;
   rankings: CompetitionScoreboardRanking[];
 
   constructor(
@@ -19,6 +20,8 @@ export class ScoreboardComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       let competitionId = params['id'];
+      this.repoService.getCompetition(competitionId)
+          .subscribe(competition => this.competition = competition);
       this.repoService.getCompetitionScoreboard(competitionId)
           .subscribe(rankings => this.rankings = rankings);
     });
