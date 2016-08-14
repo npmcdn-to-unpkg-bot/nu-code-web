@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/Rx';
 import * as moment from 'moment';
 import { CountdownComponent } from '../../countdown';
@@ -18,16 +18,15 @@ const oneDayInMilliseconds = 86400000;
   selector: 'app-competition-preview',
   templateUrl: 'competition-preview.component.html',
   styleUrls: ['competition-preview.component.css'],
-  directives: [
-    ROUTER_DIRECTIVES,
-    CountdownComponent
-  ]
+  directives: [CountdownComponent]
 })
 export class CompetitionPreviewComponent implements OnInit, OnDestroy {
   @Input() competition: Competition;
   state: State = 'Distanced';
 
   scheduled: Subscription;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
     let currentMilliseconds = new Date().getTime();
@@ -68,6 +67,14 @@ export class CompetitionPreviewComponent implements OnInit, OnDestroy {
 
   abbreviateAgo(date: Date) {
     return moment.duration(TimeSpan.since(date).totalMilliseconds, 'ms').humanize();
+  }
+
+  viewCompetition() {
+    if (new Date() < this.competition.endTime) {
+      this.router.navigate(['/competitions', this.competition.$key]);
+    } else {
+      this.router.navigate(['/competitions', this.competition.$key, 'scoreboard']);
+    }
   }
 
   ngOnDestroy() {

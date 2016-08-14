@@ -1,9 +1,10 @@
-<a [routerLink]="['/competitions', competition.$key]" class="competition-preview btn btn-default list-group-item"
+<a class="competition-preview btn btn-default list-group-item"
    [class.distanced]="state === 'Distanced'"
    [class.starting-soon]="state === 'StartingSoon'"
    [class.started]="state === 'Started'"
    [class.just-ended]="state === 'JustEnded'"
-   [class.ended]="state === 'Ended'">
+   [class.ended]="state === 'Ended'"
+   (click)="viewCompetition()">
   <div class="competition-info col-xs-12">
     <h3 class="competition-name">{{competition.name}}</h3>
     <div class="competition-time">
