@@ -1,13 +1,13 @@
 <div class="container">
   <h3>{{competitionName}} has not started yet.</h3>
-  <div class="countdown lead" *ngIf="remainingTime">
+  <div class="countdown lead" *ngIf="untilStart">
     <p>You will be automatically redirected in:</p>
-    <span class="time days">{{remainingTime.days | zeroPad:2}}</span>
+    <span class="time days">{{untilStart.days | zeroPad:2}}</span>
     <span class="separator">:</span>
-    <span class="time hours">{{remainingTime.hours | zeroPad:2}}</span>
+    <span class="time hours">{{untilStart.hours | zeroPad:2}}</span>
     <span class="separator">:</span>
-    <span class="time minutes">{{remainingTime.minutes | zeroPad:2}}</span>
+    <span class="time minutes">{{untilStart.minutes | zeroPad:2}}</span>
     <span class="separator">:</span>
-    <span class="time seconds">{{remainingTime.seconds | zeroPad:2}}</span>
+    <span class="time seconds">{{untilStart.seconds | zeroPad:2}}</span>
   </div>
 </div>

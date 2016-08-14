@@ -17,7 +17,14 @@
       </div>
       <div class="col-xs-12 competition-info">
         <hr>
-        <span>Remaining: <span *ngIf="remainingTime">{{remainingTime.toFormattedString('hh:mm:ss')}}</span></span>
+        <span>Remaining:
+          <span *ngIf="remainingTime">
+            <span class="days" *ngIf="remainingTime.days">{{remainingTime.days | zeroPad:2}}d</span>
+            <span class="hours" *ngIf="remainingTime.hours">{{remainingTime.hours | zeroPad:2}}h</span>
+            <span class="minutes">{{remainingTime.minutes | zeroPad:2}}m</span>
+            <span class="seconds">{{remainingTime.seconds | zeroPad:2}}s</span>
+          </span>
+        </span>
       </div>
       <div class="col-xs-12 scoreboard-preview">
         <hr>

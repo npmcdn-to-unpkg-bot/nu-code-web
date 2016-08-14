@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/Rx';
-import { Competition, SpacifyPipe, Time } from '../../shared';
+import { Competition, SpacifyPipe, TimeSpan, ZeroPadPipe } from '../../shared';
 
 // The time in milliseconds before a competition is considered to start soon
 // 6 hours = 21600000
@@ -17,7 +17,10 @@ const OneDayInMilliseconds = 86400000;
   templateUrl: 'competition-preview.component.html',
   styleUrls: ['competition-preview.component.css'],
   directives: [ROUTER_DIRECTIVES],
-  pipes: [SpacifyPipe]
+  pipes: [
+    SpacifyPipe,
+    ZeroPadPipe
+  ]
 })
 export class CompetitionPreviewComponent implements OnInit, OnDestroy {
   @Input() competition: Competition;
@@ -26,7 +29,7 @@ export class CompetitionPreviewComponent implements OnInit, OnDestroy {
   scheduled: Subscription;
   timer: Subscription;
 
-  untilStart: Time;
+  untilStart: TimeSpan;
 
   ngOnInit() {
     let currentMilliseconds = new Date().getTime();
@@ -42,10 +45,9 @@ export class CompetitionPreviewComponent implements OnInit, OnDestroy {
       this.scheduled = Observable.timer(startingSoonMilliseconds).subscribe(() => {
         this.state = 'StartingSoon';
         // Start the countdown timer
-        this.timer = Observable.timer(0, 1000).subscribe(() => {
-          let now = new Date();
-          // TODO: Performance?
-          this.untilStart = Time.betweenDates(now, this.competition.startTime);
+        this.untilStart = TimeSpan.until(this.competition.startTime);
+        this.timer = Observable.interval(1000).subscribe(() => {
+          this.untilStart.subtractSeconds(1);
         });
 
         this.scheduled = Observable.timer(this.competition.startTime).subscribe(() => {

@@ -1,3 +1,6 @@
+.scoreboard-header {
+  display: inline-block;
+}
 .competition-name {
   font-weight: bold;
 }
