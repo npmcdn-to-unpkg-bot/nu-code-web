@@ -1,6 +1,14 @@
 <div class="container">
-  <h2 *ngIf="competition"><span class="competition-name">{{competition.name}}</span> Scoreboard</h2>
-  <!-- Countdown -->
+  <div class="scoreboard-header" *ngIf="competition">
+    <h2><span class="competition-name">{{competition.name}}</span> Scoreboard</h2>
+    <div *ngIf="remainingTime" class="countdown lead text-warning">
+      <span class="days" *ngIf="remainingTime.days">{{remainingTime.days | zeroPad:2}}d</span>
+      <span class="hours" *ngIf="remainingTime.hours">{{remainingTime.hours | zeroPad:2}}h</span>
+      <span class="minutes">{{remainingTime.minutes | zeroPad:2}}m</span>
+      <span class="seconds">{{remainingTime.seconds | zeroPad:2}}s</span>
+    </div>
+    <a [routerLink]="['../']" class="btn btn-primary">View Problems</a>
+  </div>
   <!-- Problem List link-->
   <table class="table table-hover">
     <thead>
