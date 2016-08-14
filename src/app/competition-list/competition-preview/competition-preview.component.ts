@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/Rx';
+import * as moment from 'moment';
+import { CountdownComponent } from '../../countdown';
 import { Competition, SpacifyPipe, TimeSpan, ZeroPadPipe } from '../../shared';
 
 // The time in milliseconds before a competition is considered to start soon
@@ -16,20 +18,17 @@ const OneDayInMilliseconds = 86400000;
   selector: 'app-competition-preview',
   templateUrl: 'competition-preview.component.html',
   styleUrls: ['competition-preview.component.css'],
-  directives: [ROUTER_DIRECTIVES],
-  pipes: [
-    SpacifyPipe,
-    ZeroPadPipe
-  ]
+  directives: [
+    ROUTER_DIRECTIVES,
+    CountdownComponent
+  ],
+  pipes: [SpacifyPipe]
 })
 export class CompetitionPreviewComponent implements OnInit, OnDestroy {
   @Input() competition: Competition;
   state: State = 'Distanced';
 
   scheduled: Subscription;
-  timer: Subscription;
-
-  untilStart: TimeSpan;
 
   ngOnInit() {
     let currentMilliseconds = new Date().getTime();
@@ -44,17 +43,9 @@ export class CompetitionPreviewComponent implements OnInit, OnDestroy {
 
       this.scheduled = Observable.timer(startingSoonMilliseconds).subscribe(() => {
         this.state = 'StartingSoon';
-        // Start the countdown timer
-        this.untilStart = TimeSpan.until(this.competition.startTime);
-        this.timer = Observable.interval(1000).subscribe(() => {
-          this.untilStart.subtractSeconds(1);
-        });
 
         this.scheduled = Observable.timer(this.competition.startTime).subscribe(() => {
           this.state = 'Started';
-          if (this.timer) {
-            this.timer.unsubscribe();
-          }
 
           this.scheduled = Observable.timer(millisecondsBeforeJustEnded).subscribe(() => {
             this.state = 'JustEnded';
@@ -68,12 +59,13 @@ export class CompetitionPreviewComponent implements OnInit, OnDestroy {
     }
   }
 
+  abbreviateAgo(date: Date) {
+    return moment.duration(TimeSpan.since(date).totalMilliseconds, 'ms').humanize();
+  }
+
   ngOnDestroy() {
     if (this.scheduled) {
       this.scheduled.unsubscribe();
-    }
-    if (this.timer) {
-      this.timer.unsubscribe();
     }
   }
 }
