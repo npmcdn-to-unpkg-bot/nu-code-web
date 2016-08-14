@@ -44,10 +44,29 @@ export class RepositoryService {
     }).map(submissions => submissions.reverse());
   }
 
-  getCompetitions(): Observable<Competition[]> {
-    return this.af.database.list(`/competitions`)
+  getAllCompetitions(): Observable<Competition[]> {
+    return this.af.database
+        .list(`/competitions`, { query: { orderByChild: 'startTime' } })
         .map(competitionsSnapshot => competitionsSnapshot
             .map(competitionSnapshot => Competition.fromSnapshot(competitionSnapshot)));
+  }
+
+  /**
+   * Excludes competitions whose end dates have passed
+   */
+  getCompetitions(): Observable<Competition[]> {
+    return this.getAllCompetitions()
+        .map(allCompetitions => allCompetitions
+            .filter(competition => new Date() < competition.endTime));
+  }
+
+  /**
+   * Only retrieves competitions that have ended.
+   */
+  getPastCompetitions(): Observable<Competition[]> {
+    return this.getAllCompetitions()
+        .map(allCompetitions => allCompetitions
+            .filter(competition => competition.endTime <= new Date()));
   }
 
   getCompetition(competitionId: string): Observable<Competition> {
