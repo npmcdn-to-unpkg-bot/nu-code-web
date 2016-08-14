@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
-import { Observable, Subscription } from 'rxjs/Rx';
 import { CollapseDirective } from 'ng2-bootstrap';
+import { CountdownComponent } from '../countdown';
 import { ScoreboardPreviewComponent } from './scoreboard-preview';
-import { Competition, CompetitionProblem, RepositoryService, TimeSpan, ZeroPadPipe } from '../shared';
+import { Competition, CompetitionProblem, RepositoryService } from '../shared';
 
 @Component({
   moduleId: module.id,
@@ -13,17 +13,14 @@ import { Competition, CompetitionProblem, RepositoryService, TimeSpan, ZeroPadPi
   directives: [
     ROUTER_DIRECTIVES,
     CollapseDirective,
+    CountdownComponent,
     ScoreboardPreviewComponent
-  ],
-  pipes: [ZeroPadPipe]
+  ]
 })
 export class CompetitionComponent implements OnInit {
   collapsed = false;
   competition: Competition;
   problems: CompetitionProblem[];
-  remainingTime: TimeSpan;
-
-  countdown: Subscription;
 
   constructor(
       private router: Router,
@@ -36,13 +33,6 @@ export class CompetitionComponent implements OnInit {
         .getCompetition(competitionId)
         .subscribe(competition => {
           this.competition = competition;
-          this.remainingTime = TimeSpan.until(competition.endTime);
-          if (this.countdown) {
-            this.countdown.unsubscribe();
-          }
-          this.countdown = Observable.interval(1000).subscribe(() => {
-            this.remainingTime.subtractSeconds(1);
-          });
         });
     this.repoService
         .getCompetitionProblems(competitionId)
