@@ -13,6 +13,7 @@ import { UserManagementRoutes } from './user-management';
 import { CreateProblemRoutes } from './create-problem';
 import { EditProblemRoutes } from './edit-problem';
 import { ResetPasswordRoutes } from './reset-password';
+import { PageNotFoundRoutes } from './page-not-found';
 import {
   LoggedInGuard,
   NotLoggedInGuard,
@@ -39,7 +40,8 @@ const routes: RouterConfig = [
   ...UserManagementRoutes,
   ...CreateProblemRoutes,
   ...EditProblemRoutes,
-  ...ResetPasswordRoutes
+  ...ResetPasswordRoutes,
+  ...PageNotFoundRoutes
 ];
 
 export const AppRouterProviders = [
