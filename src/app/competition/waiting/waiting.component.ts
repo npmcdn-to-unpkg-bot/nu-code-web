@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
+import * as moment from 'moment';
 import { CountdownComponent } from '../../countdown';
-import { RepositoryService, TimeSpan, ZeroPadPipe } from '../../shared';
+import { Competition, RepositoryService, TimeSpan } from '../../shared';
 
 @Component({
   moduleId: module.id,
@@ -12,8 +13,8 @@ import { RepositoryService, TimeSpan, ZeroPadPipe } from '../../shared';
   directives: [CountdownComponent]
 })
 export class WaitingComponent implements OnInit {
-  competitionName: string;
-  startTime: Date;
+  competition: Competition;
+  allottedTime = '';
 
   constructor(
       private router: Router,
@@ -23,8 +24,9 @@ export class WaitingComponent implements OnInit {
   ngOnInit() {
     let competitionId = this.route.snapshot.params['id'];
     this.repoService.getCompetition(competitionId).subscribe(competition => {
-      this.competitionName = competition.name;
-      this.startTime = competition.startTime;
+      this.competition = competition;
+      let competitionLength = competition.endTime.getTime() - competition.startTime.getTime();
+      this.allottedTime = moment.duration(competitionLength, 'ms').humanize();
       // Schedule navigation
       Observable.timer(competition.startTime).subscribe(() => {
         this.router.navigate(['competitions', competitionId]);

@@ -1,7 +1,41 @@
-<div class="container">
-  <h3>{{competitionName}} has not started yet.</h3>
-  <div class="countdown lead" *ngIf="startTime">
-    <p>You will be automatically redirected in:</p>
-    <app-countdown [date]="startTime"></app-countdown>
+<div class="container" *ngIf="competition">
+  <div class="text-center">
+    <h1>{{competition.name}}</h1>
+    <hr>
+    <div class="countdown">
+      <app-countdown class="timer" [date]="competition.startTime"></app-countdown>
+      <p class="text-muted">(This page will automatically redirect when the competition starts)</p>
+    </div>
+    <hr>
   </div>
+
+  <h2>Competition Rules</h2>
+
+  <h3>Scoring</h3>
+
+  <p>
+    When the competition starts, you will have {{allottedTime}} to complete as many problems as you
+    can.
+  </p>
+  <p>
+    Participants are ranked by the most problems solved. Two participants who solve the same number
+    of problems are ranked first by least total time.
+  </p>
+  <p>
+    The total time is the sum of the time consumed for each problem solved.
+    The time consumed for a problem is the time elapsed from the beginning of the competition to the
+    submittal of the first correct submission, plus any necessary penalties (see below). There is no
+    time consumed for an unsolved problem.
+  </p>
+  <h4>Penalties</h4>
+  <p>
+    Some problems may incur a time penalty, meaning that each incorrect submission will decrease the
+    worth of a correct submission by adding the designated penalty to the total time for that
+    problem.
+  </p>
+
+  <p class="text-muted">
+    Rules are based off of the <a href="https://icpc.baylor.edu/worldfinals/rules" target="_blank">
+    ACM International Collegiate Programming Contest</a>.
+  </p>
 </div>
