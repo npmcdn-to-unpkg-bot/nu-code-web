@@ -1,0 +1,7 @@
+<div class="container">
+  <h3>{{competitionName}} has not started yet.</h3>
+  <div class="countdown lead" *ngIf="startTime">
+    <p>You will be automatically redirected in:</p>
+    <app-countdown [date]="startTime"></app-countdown>
+  </div>
+</div>

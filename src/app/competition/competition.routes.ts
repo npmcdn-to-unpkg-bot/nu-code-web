@@ -1,6 +1,6 @@
 import { RouterConfig } from '@angular/router';
 import { CompetitionComponent } from './';
-import { CountdownComponent } from './countdown';
+import { WaitingComponent } from './waiting';
 import { ScoreboardComponent } from './scoreboard';
 import { ProblemViewComponent } from './problem-view';
 import {
@@ -16,7 +16,7 @@ export const CompetitionRoutes: RouterConfig = [
     children: [
       {
         path: 'countdown',
-        component: CountdownComponent,
+        component: WaitingComponent,
         canActivate: [CompetitionNotStartedGuard]
       },
       {

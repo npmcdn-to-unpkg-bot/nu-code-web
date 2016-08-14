@@ -84,7 +84,7 @@ const barrels: string[] = [
   'app/edit-problem-form',
   'app/reset-password',
   'app/competition',
-  'app/competition/countdown',
+  'app/competition/waiting',
   'app/competition/problem-view',
   'app/competition-list/competition-preview',
   'app/competition/scoreboard-preview',
