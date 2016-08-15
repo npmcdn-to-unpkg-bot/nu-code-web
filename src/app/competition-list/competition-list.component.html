@@ -1,11 +1,24 @@
 <div class="container">
   <div class="clearfix">
+    <div class="pull-left">
+      <div class="checkbox">
+        <label><input type="checkbox" [(ngModel)]="showPastCompetitions">Show Past Competitions</label>
+      </div>
+    </div>
     <a class="create-btn pull-right btn btn-warning" [routerLink]="['/create-competition']" *ngIf="canCreateCompetition">
       <i fa [name]="'plus'"></i> Create
     </a>
   </div>
+  <!--<div class="search form-group">
+    <div class="search-input input-group">
+      <span class="input-group-addon">
+        <i fa [name]="'search'" [size]=1></i>
+      </span>
+      <input type="text" class="form-control input-lg" placeholder="Search keywords..." [(ngModel)]="query">
+    </div>
+  </div>-->
   <div class="list-group">
-    <div class="competition-preview" *ngFor="let competition of competitions">
+    <div class="competition-preview" *ngFor="let competition of (competitions | includePast:showPastCompetitions)">
       <app-competition-preview [competition]="competition"></app-competition-preview>
     </div>
   </div>
