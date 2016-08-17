@@ -43,6 +43,9 @@ export class ProblemViewComponent implements OnInit {
     competition: DefaultSubmission.competition
   };
 
+  endedAlready: boolean = false;
+  endedWhileWatching: boolean = false;
+
   constructor(
       private router: Router,
       private route: ActivatedRoute,
@@ -54,6 +57,19 @@ export class ProblemViewComponent implements OnInit {
     parentActivatedRoute.params.subscribe(params => {
       let competitionId = params['id'];
       this.submission.competition = competitionId;
+      this.repoService.getCompetition(competitionId).subscribe(competition => {
+        let now = new Date();
+        // Designate as finished or schedule the finish time.
+        if (now < competition.endTime) {
+          Observable.timer(competition.endTime).subscribe(() => {
+            this.endedWhileWatching = true;
+          });
+        } else {
+          this.endedAlready = true;
+        }
+      });
+      // Make submission button disappear later
+
       this.route.params.subscribe(params => {
         let problemId = params['problemId'];
         this.submission.problem = problemId;

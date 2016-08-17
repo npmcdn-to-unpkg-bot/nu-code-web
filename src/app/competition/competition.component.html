@@ -17,7 +17,7 @@
         </a>
       </div>
       <div class="details" [collapse]="collapsed">
-        <div class="remaining-time">
+        <div class="remaining-time" *ngIf="!ended">
           <hr>
           <span class="text-muted">Remaining:</span>
           <app-countdown class="timer" [date]="competition.endTime" [labels]="true"></app-countdown>

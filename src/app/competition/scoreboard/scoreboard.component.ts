@@ -19,9 +19,9 @@ import {
   ]
 })
 export class ScoreboardComponent implements OnInit {
+  ended = false;
   competition: Competition;
   rankings: CompetitionScoreboardRanking[];
-  endTime: Date;
 
   countdown: Subscription;
 
@@ -35,7 +35,9 @@ export class ScoreboardComponent implements OnInit {
       this.repoService.getCompetition(competitionId)
           .subscribe(competition => {
             this.competition = competition;
-            this.endTime = competition.endTime;
+            Observable.timer(competition.endTime).subscribe(() => {
+              this.ended = true;
+            });
           });
       this.repoService.getCompetitionScoreboard(competitionId)
           .subscribe(rankings => this.rankings = rankings);

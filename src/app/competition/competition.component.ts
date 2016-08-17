@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 import { CollapseDirective } from 'ng2-bootstrap';
 import { CountdownComponent } from '../countdown';
 import { ScoreboardPreviewComponent } from './scoreboard-preview';
@@ -19,6 +20,7 @@ import { Competition, CompetitionProblem, RepositoryService } from '../shared';
 })
 export class CompetitionComponent implements OnInit {
   collapsed = false;
+  ended = false;
   competition: Competition;
   problems: CompetitionProblem[];
 
@@ -33,6 +35,9 @@ export class CompetitionComponent implements OnInit {
         .getCompetition(competitionId)
         .subscribe(competition => {
           this.competition = competition;
+          Observable.timer(this.competition.endTime).subscribe(() => {
+            this.ended = true;
+          });
         });
     this.repoService
         .getCompetitionProblems(competitionId)
