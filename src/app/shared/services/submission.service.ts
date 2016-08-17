@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Result, Submission } from '../';
 
-const Url = 'http://172.17.0.2:8080/api';
+const Url = 'http://code.neumont.edu:3006/api';
 const RequestHeaders = new Headers({
   'Content-Type': 'application/json'
 });
