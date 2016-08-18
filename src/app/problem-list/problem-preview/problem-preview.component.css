@@ -3,7 +3,9 @@
   padding: 15px;
 }
 .problem-info {
+  align-self: flex-start;
   text-align: left;
+  overflow: hidden;
   padding: 0;
 }
 .problem-name {
