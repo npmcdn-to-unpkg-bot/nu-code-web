@@ -2,4 +2,4 @@
 
 FROM nginx:latest
 
-COPY ./dist /var/www/html
+COPY ./dist /usr/share/nginx/html
