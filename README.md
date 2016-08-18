@@ -51,6 +51,21 @@ public class Solution {
 }
 ```
 
+```csharp
+using System;
+
+public class Solution {
+
+    static void Main(string[] args) {
+        var line = Console.ReadLine();
+        var x = Convert.ToInt32(line);
+        var y = x + 2;
+        Console.Write(y);
+    }
+
+}
+```
+
 ```js
 process.stdin.resume();
 process.stdin.setEncoding('ascii');
