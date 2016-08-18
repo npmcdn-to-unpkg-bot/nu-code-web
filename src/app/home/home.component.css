@@ -1,3 +1,7 @@
 .jumbotron {
   text-align: center;
 }
+.jumbotron>img {
+  padding: 15px;
+  max-height: 400px;
+}
