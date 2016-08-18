@@ -1,3 +1,6 @@
+import 'jquery';
+import 'bootstrap';
+
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { NavbarComponent } from './navbar';

@@ -8,6 +8,8 @@
 
 /** Map relative paths to URLs. */
 const map: any = {
+  'jquery': 'vendor/jquery/dist/jquery.min.js',
+  'bootstrap': 'vendor/bootstrap/dist/js/bootstrap.min.js',
   'firebase': 'vendor/firebase/firebase.js',
   'angularfire2': 'vendor/angularfire2',
   'moment': 'vendor/moment/moment.js',
