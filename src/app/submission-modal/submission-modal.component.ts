@@ -68,7 +68,6 @@ export class SubmissionModalComponent implements OnInit, OnDestroy {
       if (token) {
         submission.submitterToken = token;
       }
-      console.log(submission);
 
       // Disallow click away
       this.modal.config = ConfigPreventCloseOnClickOutside;
