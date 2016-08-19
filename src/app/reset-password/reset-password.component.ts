@@ -23,7 +23,7 @@ export class ResetPasswordComponent implements OnInit {
     this.authService.sendPasswordResetEmail(this.email).then(
         () => this.state = 'Sent',
         err => {
-          console.log(err);
+          console.error(err);
           this.state = 'Error';
         });
   }

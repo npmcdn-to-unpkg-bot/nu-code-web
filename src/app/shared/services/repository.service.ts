@@ -133,10 +133,10 @@ export class RepositoryService {
     return new Promise(resolve => {
       let uploadTask = storageRef.put(image);
       // First two nulls are onProgress and onError, respectively. Last one is onComplete.
-      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, x => console.log(x), err => console.log(err),
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, x => console.log(x), err => console.error(err),
           () => storageRef.getDownloadURL().then(
             url => resolve(url),
-            err => console.log(err)));
+            err => console.error(err)));
     });
   }
 

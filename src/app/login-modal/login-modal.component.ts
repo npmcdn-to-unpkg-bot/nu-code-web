@@ -80,7 +80,7 @@ export class LoginModalComponent implements OnInit {
               break;
           }
           this.loginForm.setErrors(error);
-          console.log(err);
+          console.error(err);
         });
       this.password = '';
     }

@@ -92,7 +92,7 @@ export class UserManagementComponent implements OnInit {
           this.state = 'input';
         },
         err => {
-          console.log(err);
+          console.error(err);
           this.state = 'error';
         });
   }
@@ -118,7 +118,7 @@ export class UserManagementComponent implements OnInit {
           this.authService.logInWithEmailPassword(this.email, newPassword).then(
               () =>this.router.navigateByUrl('/'));
         }, err => {
-          console.log(err);
+          console.error(err);
           this.state = 'error';
         });
   }
