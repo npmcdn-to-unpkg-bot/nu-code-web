@@ -86,6 +86,11 @@ process.stdin.on('end', function () {
   'python3': `# Enter your code here.
 # Read input from STDIN. Write output to STDOUT.
 `,
+  'rust': `fn main() {
+  // Enter your code here.
+  // Read input from STDIN. Write output to STDOUT.
+}
+`,
 };
 
 @Injectable()

@@ -55,6 +55,11 @@ export const SupportedLanguages: Language[] = [
     apiCode: 'python3',
     editorMode: 'x-python',
     name: 'Python 3'
+  },
+  {
+    apiCode: 'rust',
+    editorMode: 'x-rustsrc',
+    name: 'Rust'
   }
 ];
 
@@ -67,7 +72,8 @@ export const SupportedLanguagesByDisplay = {
   'Java': 'java',
   'JavaScript': 'js',
   'Python 2': 'python',
-  'Python 3': 'python3'
+  'Python 3': 'python3',
+  'Rust': 'rust'
 };
 
 // Self-called function that produces the inverse of SupportedLanguagesByDisplay
