@@ -1,5 +1,7 @@
-<div class="header">
-  <h3 class="title">Your Solution</h3>
-  <app-language-dropdown class="lang-dropdown" [(ngModel)]="language" (ngModelChange)="onLangChange($event)"></app-language-dropdown>
+<div class="editor-area">
+  <div class="header">
+    <h3 class="title">Your Solution</h3>
+    <app-language-dropdown class="lang-dropdown" [(ngModel)]="language" (ngModelChange)="onLangChange($event)"></app-language-dropdown>
+  </div>
+  <app-code-mirror [(ngModel)]="code" (ngModelChange)="onSrcChange($event)" #editor></app-code-mirror>
 </div>
-<app-code-mirror [(ngModel)]="code" (ngModelChange)="onSrcChange($event)" #editor></app-code-mirror>
