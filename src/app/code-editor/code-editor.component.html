@@ -1,9 +1,5 @@
-<div class="clearfix header">
-  <div class="pull-left">
-    <h3>Your Solution</h3>
-  </div>
-  <div class="pull-right">
-    <app-language-dropdown [(ngModel)]="language" (ngModelChange)="onLangChange($event)"></app-language-dropdown>
-  </div>
+<div class="header">
+  <h3 class="title">Your Solution</h3>
+  <app-language-dropdown class="lang-dropdown" [(ngModel)]="language" (ngModelChange)="onLangChange($event)"></app-language-dropdown>
 </div>
 <app-code-mirror [(ngModel)]="code" (ngModelChange)="onSrcChange($event)" #editor></app-code-mirror>
