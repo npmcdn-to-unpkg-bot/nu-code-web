@@ -13,10 +13,10 @@ const Templates = {
 
 int main()
 {
-    // Enter your code here.
-    // Read input from STDIN. Write output to STDOUT.
+  // Enter your code here.
+  // Read input from STDIN. Write output to STDOUT.
 
-    return 0;
+  return 0;
 }
 `,
   'cpp': `#include <cmath>
@@ -28,10 +28,10 @@ using namespace std;
 
 int main()
 {
-    // Enter your code here.
-    // Read input from STDIN. Write output to STDOUT.
+  // Enter your code here.
+  // Read input from STDIN. Write output to STDOUT.
 
-    return 0;
+  return 0;
 }
 `,
   'csharp': `using System;
@@ -39,37 +39,37 @@ using System.Collections.Generic;
 using System.IO;
 
 class Solution {
-    static void Main(String[] args) {
-        // Enter your code here.
-        // Read input from STDIN. Write output to STDOUT.
-    }
+  static void Main(String[] args) {
+    // Enter your code here.
+    // Read input from STDIN. Write output to STDOUT.
+  }
 }
 `,
   'java': `import java.io.*;
 import java.util.*;
 
 public class Solution {
-    public static void main(String[] args) {
-        // Enter your code here.
-        // Read input from STDIN. Write output to STDOUT.
-        // Your class MUST be named \`Solution\`.
-    }
+  public static void main(String[] args) {
+    // Enter your code here.
+    // Read input from STDIN. Write output to STDOUT.
+    // Your class MUST be named \`Solution\`.
+  }
 }
 `,
   'js': `function main(input) {
-    // Enter your code here.
-    // Read input from the input variable. Write output to STDOUT.
+  // Enter your code here.
+  // Read input from the input variable. Write output to STDOUT.
 }
 
 process.stdin.resume();
-process.stdin.setEncoding("ascii");
-_input = "";
-process.stdin.on("data", function (input) {
-    _input += input;
+process.stdin.setEncoding('ascii');
+_input = '';
+process.stdin.on('data', function (input) {
+  _input += input;
 });
 
-process.stdin.on("end", function () {
-   main(_input);
+process.stdin.on('end', function () {
+  main(_input);
 });
 `,
   'python': `# Enter your code here.
@@ -97,11 +97,11 @@ export class SubmissionTemplateService {
 
   getDefaultSubmission(): Observable<Submission> {
     return this.getPreferredLanguage()
-        .flatMap(preferredLanguage =>
-            this.getTemplate(preferredLanguage)
-                .map(template => ({
-                  lang: preferredLanguage,
-                  src: template
-                })));
+      .flatMap(preferredLanguage =>
+        this.getTemplate(preferredLanguage)
+          .map(template => ({
+            lang: preferredLanguage,
+            src: template
+          })));
   }
 }

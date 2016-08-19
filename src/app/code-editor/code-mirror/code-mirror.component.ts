@@ -46,7 +46,7 @@ export class CodeMirrorComponent implements OnInit, ControlValueAccessor {
     let config: EditorConfiguration = {
       autofocus: this.autofocus,
       indentWithTabs: false,
-      tabSize: 4,
+      tabSize: 2,
       lineNumbers: true,
       lineWrapping: true
     };
