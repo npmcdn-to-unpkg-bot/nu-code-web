@@ -32,6 +32,11 @@ export const SupportedLanguages: Language[] = [
     name: 'C#'
   },
   {
+    apiCode: 'go',
+    editorMode: 'x-go',
+    name: 'Go'
+  },
+  {
     apiCode: 'java',
     editorMode: 'x-java',
     name: 'Java'
@@ -58,6 +63,7 @@ export const SupportedLanguagesByDisplay = {
   'C': 'c',
   'C++': 'cpp',
   'C#': 'csharp',
+  'Go': 'go',
   'Java': 'java',
   'JavaScript': 'js',
   'Python 2': 'python',

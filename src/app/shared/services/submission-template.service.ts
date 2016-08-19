@@ -45,6 +45,14 @@ class Solution {
   }
 }
 `,
+  'go': `package main
+import "fmt"
+
+func main() {
+  // Enter your code here.
+  // Read input from STDIN. Write output to STDOUT.
+}
+`,
   'java': `import java.io.*;
 import java.util.*;
 
