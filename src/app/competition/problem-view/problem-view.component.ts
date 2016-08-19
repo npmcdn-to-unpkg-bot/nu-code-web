@@ -10,15 +10,9 @@ import {
   MarkdownPipe,
   RepositoryService,
   Submission,
+  SubmissionTemplateService,
   User
 } from '../../shared';
-
-const DefaultSubmission: Submission = {
-  lang: 'c',
-  src: '',
-  problem: undefined,
-  competition: undefined
-};
 
 @Component({
   moduleId: module.id,
@@ -31,17 +25,12 @@ const DefaultSubmission: Submission = {
     CodeEditorComponent,
     SubmissionModalComponent
   ],
-  pipes: [MarkdownPipe]
+  pipes: [MarkdownPipe],
+  providers: [SubmissionTemplateService]
 })
 export class ProblemViewComponent implements OnInit {
   problem: CompetitionProblem;
-  // Manipulated by editor. Set as a new object instance so as not to change the const
-  submission: Submission = {
-    lang: DefaultSubmission.lang,
-    src: DefaultSubmission.src,
-    problem: DefaultSubmission.problem,
-    competition: DefaultSubmission.competition
-  };
+  submission: any = {};
 
   endedAlready: boolean = false;
   endedWhileWatching: boolean = false;
@@ -50,9 +39,19 @@ export class ProblemViewComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private repoService: RepositoryService,
-      private authService: AuthService) { }
+      private authService: AuthService,
+      private templateService: SubmissionTemplateService) { }
 
   ngOnInit() {
+    // Load in the template
+    this.templateService
+        .getDefaultSubmission()
+        .take(1)
+        .subscribe(defaultSubmission => {
+          this.submission.lang = defaultSubmission.lang;
+          this.submission.src = defaultSubmission.src;
+        });
+
     let parentActivatedRoute = this.router.routerState.parent(this.route);
     parentActivatedRoute.params.subscribe(params => {
       let competitionId = params['id'];
@@ -68,8 +67,6 @@ export class ProblemViewComponent implements OnInit {
           this.endedAlready = true;
         }
       });
-      // Make submission button disappear later
-
       this.route.params.subscribe(params => {
         let problemId = params['problemId'];
         this.submission.problem = problemId;
