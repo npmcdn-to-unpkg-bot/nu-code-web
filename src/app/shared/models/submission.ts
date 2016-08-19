@@ -1,7 +1,7 @@
 export interface Submission {
   lang: string;
   src: string;
-  problem: string;
+  problem?: string;
   competition?: string;
   submitterToken?: string;
 }

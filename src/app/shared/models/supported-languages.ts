@@ -1,3 +1,58 @@
+export interface Language {
+  /**
+   * The code to be sent to the Compilation API
+   */
+  apiCode: string;
+
+  /**
+   * The code used for Codemirror MIME styling (text/`cmCode`)
+   */
+  editorMode: string;
+
+  /**
+   * The name to be displayed in the language dropdown
+   */
+  name: string;
+}
+
+export const SupportedLanguages: Language[] = [
+  {
+    apiCode: 'c',
+    editorMode: 'x-csrc',
+    name: 'C'
+  },
+  {
+    apiCode: 'cpp',
+    editorMode: 'x-c++src',
+    name: 'C++'
+  },
+  {
+    apiCode: 'csharp',
+    editorMode: 'x-csharp',
+    name: 'C#'
+  },
+  {
+    apiCode: 'java',
+    editorMode: 'x-java',
+    name: 'Java'
+  },
+  {
+    apiCode: 'js',
+    editorMode: 'javascript',
+    name: 'JavaScript'
+  },
+  {
+    apiCode: 'python',
+    editorMode: 'x-python',
+    name: 'Python 2'
+  },
+  {
+    apiCode: 'python3',
+    editorMode: 'x-python',
+    name: 'Python 3'
+  }
+];
+
 // A mapping between user-friendly display and the lang-id sent to the server for compilation.
 export const SupportedLanguagesByDisplay = {
   'C': 'c',
@@ -19,54 +74,3 @@ export const SupportedLanguagesByCode = (function () {
   }
   return supportedLanguagesByCode;
 })();
-
-// export const SupportedLanguages = {
-//   'C': {
-//     apiCode: 'c',
-//     editorMode: 'text/x-csrc'
-//   },
-//   'C++': {
-//     apiCode: 'cpp',
-//     editorMode: 'text/x-c++src'
-//   },
-//   'C#': {
-//     apiCode: 'csharp',
-//     editorMode: 'text/x-csharp'
-//   },,
-//   'Java 8': {
-//     apiCode: 'java',
-//     editorMode: 'text/x-java'
-//   },,
-//   'JavaScript': {
-//     apiCode: 'js',
-//     editorMode: 'text/javascript'
-//   },
-//   'Python 2': {
-//     apiCode: 'python',
-//     editorMode: 'python'
-//   } 'python',
-//   'Python 3': 'python3'
-// }
-
-// [ {
-//     name: 'C',
-//     code: 'c'
-//   }, {
-//     name: 'C++',
-//     code: 'cpp'
-//   }, {
-//     name: 'C#',
-//     code: 'csharp'
-//   }, {
-//     name: 'Java 8',
-//     code: 'java'
-//   }, {
-//     name: 'JavaScript',
-//     code: 'js'
-//   }, {
-//     name: 'Python 2',
-//     code: 'python'
-//   }, {
-//     name: 'Python 3',
-//     code: 'python3'
-//   } ];

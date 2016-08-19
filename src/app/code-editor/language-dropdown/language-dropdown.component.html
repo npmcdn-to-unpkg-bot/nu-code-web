@@ -6,11 +6,11 @@
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="true">
-    {{langDisplay}} <span class="caret"></span>
+    <span *ngIf="currentLanguage">{{currentLanguage.name}}</span> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown">
-    <li *ngFor="let langChoice of langChoices">
-      <a (click)="selected(langChoice)">{{langChoice}}</a>
+    <li *ngFor="let language of supportedLanguages">
+      <a (click)="selected(language)">{{language.name}}</a>
     </li>
   </ul>
 </div>

@@ -3,12 +3,7 @@
     <h3>Your Solution</h3>
   </div>
   <div class="pull-right">
-    <app-language-dropdown [(ngModel)]="submission.lang" (ngModelChange)="onLangChange($event)"></app-language-dropdown>
+    <app-language-dropdown [(ngModel)]="language" (ngModelChange)="onLangChange($event)"></app-language-dropdown>
   </div>
 </div>
-<div class="editor">
-  <textarea class="hidden" #textarea></textarea>
-</div>
-<!--<div class="row clearfix status-bar">
-  <p class="pull-right">{{charCountDisplay()}}</p>
-</div>-->
+<app-code-mirror [(ngModel)]="code" (ngModelChange)="onSrcChange($event)" #editor></app-code-mirror>
