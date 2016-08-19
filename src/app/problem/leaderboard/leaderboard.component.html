@@ -1,4 +1,7 @@
 <div *ngIf="topSubmissions">
+  <div *ngIf="!(authService.verified | async)">
+    <p class="text-center text-danger">You must verify your email before you can appear on the leaderboard.</p>
+  </div>
   <div *ngIf="topSubmissions.length">
     <!-- Ranking table -->
     <div class="list-group">
