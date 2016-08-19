@@ -49,6 +49,6 @@ export class EditProfileComponent implements OnInit {
     // TODO: profile pictures cannot be deleted
     let uid = this.user.$key;
     this.repoService.updateUser(this.user, this.picture);
-    this.router.navigate(['/profile', uid]);
+    this.router.navigate(['/profiles', uid]);
   }
 }
