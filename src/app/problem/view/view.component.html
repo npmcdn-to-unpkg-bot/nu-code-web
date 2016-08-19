@@ -18,7 +18,7 @@
   </div>
   <app-code-editor *ngIf="submission" [(ngModel)]="submission" #editor></app-code-editor>
   <div class="clearfix">
-    <p *ngIf="!(authService.loggedIn | async)" class="pull-right">Your submissions will not be counted if you are not logged in!</p>
+    <p *ngIf="!(authService.loggedIn | async)" class="pull-right text-danger">Your submissions will not be counted if you are not logged in!</p>
   </div>
   <div class="clearfix">
     <div *ngIf="(isMyProblem() | async) || (authService.isFaculty | async)" class="pull-left">
