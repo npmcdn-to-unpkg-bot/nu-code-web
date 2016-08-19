@@ -91,6 +91,22 @@ process.stdin.on('end', function () {
   // Read input from STDIN. Write output to STDOUT.
 }
 `,
+  'ts': `function main(input: string) {
+  // Enter your code here.
+  // Read input from the input variable. Write output to STDOUT.
+}
+
+process.stdin.resume();
+process.stdin.setEncoding('ascii');
+_input = '';
+process.stdin.on('data', function (input) {
+  _input += input;
+});
+
+process.stdin.on('end', function () {
+  main(_input);
+});
+`
 };
 
 @Injectable()
