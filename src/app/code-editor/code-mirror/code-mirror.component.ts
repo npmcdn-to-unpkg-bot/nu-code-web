@@ -5,8 +5,10 @@ import { Language } from '../../shared';
 import { fromTextArea, Editor, EditorConfiguration } from 'codemirror';
 // TODO: lazy load
 import 'codemirror/mode/clike/clike';
+import 'codemirror/mode/go/go';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/python/python';
+import 'codemirror/mode/rust/rust';
 
 const noop = () => {};
 
