@@ -16,7 +16,7 @@ const map: any = {
   'ng2-bootstrap': 'vendor/ng2-bootstrap',
   'angular2-fontawesome': 'vendor/angular2-fontawesome',
   'showdown': 'vendor/showdown/dist/showdown.js',
-  'codemirror': 'vendor/codemirror/lib/codemirror.js'
+  'codemirror': 'vendor/codemirror'
 };
 
 /** User packages configuration. */
@@ -29,8 +29,12 @@ const packages: any = {
     defaultExtension: 'js',
     main: 'ng2-bootstrap.js'
   },
-  'angular2-fontawesome':{
+  'angular2-fontawesome': {
     defaultExtension: 'js'
+  },
+  'codemirror': {
+    defaultExtension: 'js',
+    main: 'lib/codemirror.js'
   }
 };
 
@@ -93,6 +97,7 @@ const barrels: string[] = [
   'app/competition/scoreboard',
   'app/page-not-found',
   'app/countdown',
+  'app/code-editor/code-mirror',
   /** @cli-barrel */
 ];
 
