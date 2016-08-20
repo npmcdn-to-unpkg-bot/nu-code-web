@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { CollapseDirective } from 'ng2-bootstrap';
 import { CountdownComponent } from '../countdown';
+import { ProblemPreviewComponent } from './problem-preview';
 import { ScoreboardPreviewComponent } from './scoreboard-preview';
 import { Competition, CompetitionProblem, RepositoryService } from '../shared';
 
@@ -15,6 +16,7 @@ import { Competition, CompetitionProblem, RepositoryService } from '../shared';
     ROUTER_DIRECTIVES,
     CollapseDirective,
     CountdownComponent,
+    ProblemPreviewComponent,
     ScoreboardPreviewComponent
   ]
 })

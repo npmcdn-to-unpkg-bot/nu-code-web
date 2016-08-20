@@ -98,6 +98,7 @@ const barrels: string[] = [
   'app/page-not-found',
   'app/countdown',
   'app/code-editor/code-mirror',
+  'app/competition/problem-preview',
   /** @cli-barrel */
 ];
 

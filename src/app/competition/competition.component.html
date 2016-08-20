@@ -6,9 +6,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-3" *ngIf="competition">
       <h3>Problems</h3>
-      <div class="problem-list" *ngIf="problems">
-        <!--TODO: checkmark if completed-->
-        <a *ngFor="let problem of problems" [routerLink]="[problem.$key]" [routerLinkActive]="['active']" class="list-group-item">{{problem.name}}</a>
+      <div class="problem-list list-group" *ngIf="problems">
+        <a *ngFor="let problem of problems" [routerLink]="[problem.$key]" [routerLinkActive]="['active']" class="list-group-item">
+          <app-problem-preview [problem]="problem"></app-problem-preview>
+        </a>
       </div>
       <div class="clearfix">
         <h3 class="pull-left" id="scoreboard-header">Details</h3>
