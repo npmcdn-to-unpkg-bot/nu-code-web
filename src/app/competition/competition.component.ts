@@ -66,19 +66,18 @@ export class CompetitionComponent implements OnInit {
     });
   }
 
-  hasSolved(problemId: string) {
-    if (this.myRanking) {
-      // null if no submissions have been made to this problem
-      let submissionInfo = this.myRanking.problems[problemId];
-      return submissionInfo && submissionInfo.solutionSubmittedAfter !== undefined;
-    }
+  hasSolved(problemId: string): boolean {
+    let submissionInfo = this.myRanking && this.myRanking.problems
+        ? this.myRanking.problems[problemId]
+        : null;
+    return submissionInfo && submissionInfo.solutionSubmittedAfter !== undefined;
   }
 
   numIncorrect(problemId: string): number {
-    if (this.myRanking) {
-      // null if no submissions have been made to this problem
-      let submissionInfo = this.myRanking.problems[problemId];
-      return submissionInfo ? submissionInfo.incorrectSubmissions : 0;
-    }
+    // null if no submissions have been made to this problem
+    let submissionInfo = this.myRanking && this.myRanking.problems
+        ? this.myRanking.problems[problemId]
+        : null;
+    return submissionInfo ? submissionInfo.incorrectSubmissions : 0;
   }
 }
