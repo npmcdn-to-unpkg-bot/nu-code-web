@@ -6,7 +6,8 @@ import {
   Competition,
   CompetitionScoreboardRanking,
   RepositoryService,
-  TimeSpan
+  TimeSpan,
+  ZeroPadPipe
 } from '../../shared';
 
 @Component({
@@ -17,7 +18,8 @@ import {
   directives: [
     ROUTER_DIRECTIVES,
     CountdownComponent
-  ]
+  ],
+  pipes: [ZeroPadPipe]
 })
 export class ScoreboardComponent implements OnInit {
   ended = false;

@@ -30,7 +30,24 @@
         <th scope="row">{{i+1}}</th>
         <td *ngIf="ranking.user"><a [routerLink]="['/profiles', ranking.user.$key]">{{ranking.user.name}}</a></td>
         <td>{{ranking.problemsSolved}}</td>
-        <td>{{ranking.timeScore}}</td>
+        <td>
+          <span *ngIf="ranking.timeScore.days">
+            {{ranking.timeScore.days | zeroPad:2}}
+            <span>d</span>
+          </span>
+          <span *ngIf="ranking.timeScore.hours">
+            {{ranking.timeScore.hours | zeroPad:2}}
+            <span>h</span>
+          </span>
+          <span *ngIf="ranking.timeScore.minutes">
+            {{ranking.timeScore.minutes | zeroPad:2}}
+            <span>m</span>
+          </span>
+          <span>
+            {{ranking.timeScore.seconds | zeroPad:2}}
+            <span>s</span>
+          </span>
+        </td>
       </tr>
     </tbody>
   </table>
