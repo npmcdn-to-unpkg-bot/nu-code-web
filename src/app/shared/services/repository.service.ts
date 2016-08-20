@@ -87,11 +87,20 @@ export class RepositoryService {
   }
 
   getCompetitionScoreboard(competitionId: string): Observable<CompetitionScoreboardRanking[]> {
-    // Get the simple any[] from firebase
     return this.af.database
+        // Get the simple any[] from firebase
         .list(
             `/competitionScoreboards/${competitionId}`,
-            { query: { orderByChild: 'index' } })
+            { query: { orderByChild: 'problemsSolved' } })
+        // Sort by most problemsSolved, least time
+        .map(rankingsSnapshot => rankingsSnapshot.sort((a, b) => {
+          let sort = b.problemsSolved - a.problemsSolved;
+          if (sort === 0) {
+            sort = a.timeScore - b.timeScore;
+          }
+          return sort;
+        }))
+        // Get the user data per uid
         .flatMap(rankingsSnapshot =>
             // Combine each Observable<T>[] to Observable<T[]>
             Observable.forkJoin<CompetitionScoreboardRanking[]>(
