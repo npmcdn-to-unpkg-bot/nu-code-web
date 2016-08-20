@@ -1,4 +1,5 @@
 import { Feedback } from './feedback';
+import { TimeSpan } from './time-span';
 import { User } from './user';
 
 export interface Competition {
@@ -79,10 +80,5 @@ export interface CompetitionScoreboard {
 export interface CompetitionScoreboardRanking {
   user: User;
   problemsSolved: number;
-  timeScore: number;
-}
-
-interface RankingInfo {
-  problemsSolved: number;
-  timeScore: number;
+  timeScore: TimeSpan;
 }

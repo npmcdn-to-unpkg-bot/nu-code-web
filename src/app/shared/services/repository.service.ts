@@ -11,6 +11,7 @@ import {
   Problem,
   SuccessfulSubmission,
   TestCase,
+  TimeSpan,
   User
 } from '../';
 
@@ -103,6 +104,11 @@ export class RepositoryService {
                     sort = a.timeScore - b.timeScore;
                   }
                   return sort;
+                })
+                // Turn milliseconds to timespan
+                .map(ranking => {
+                  ranking.timeScore = new TimeSpan(ranking.timeScore);
+                  return ranking;
                 }))
         // Get the user data per uid
         .flatMap(rankingsSnapshot =>

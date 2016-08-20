@@ -6,6 +6,7 @@ import {
   Competition,
   CompetitionScoreboardRanking,
   RepositoryService,
+  TimeSpan
 } from '../../shared';
 
 @Component({
