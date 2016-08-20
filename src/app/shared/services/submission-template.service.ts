@@ -35,11 +35,11 @@ int main()
 }
 `,
   'csharp': `using System;
-using System.Collections.Generic;
-using System.IO;
 
-class Solution {
-  static void Main(String[] args) {
+class Solution
+{
+  static void Main()
+  {
     // Enter your code here.
     // Read input from STDIN. Write output to STDOUT.
   }
