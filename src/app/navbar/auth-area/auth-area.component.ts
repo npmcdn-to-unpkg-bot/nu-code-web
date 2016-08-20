@@ -28,6 +28,5 @@ export class AuthAreaComponent implements OnInit {
 
   logOut(): void {
     this.authService.logOut();
-    this.router.navigateByUrl('/');
   }
 }

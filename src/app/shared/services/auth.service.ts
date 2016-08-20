@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
@@ -72,6 +73,7 @@ export class AuthService {
   }
 
   constructor(
+      private router: Router,
       private http: Http,
       private af: AngularFire,
       private repoService: RepositoryService) { }
@@ -159,5 +161,6 @@ export class AuthService {
 
   logOut(): void {
     this.af.auth.logout();
+    this.router.navigateByUrl('/');
   }
 }
