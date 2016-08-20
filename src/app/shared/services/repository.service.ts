@@ -92,14 +92,18 @@ export class RepositoryService {
         .list(
             `/competitionScoreboards/${competitionId}`,
             { query: { orderByChild: 'problemsSolved' } })
-        // Sort by most problemsSolved, least time
-        .map(rankingsSnapshot => rankingsSnapshot.sort((a, b) => {
-          let sort = b.problemsSolved - a.problemsSolved;
-          if (sort === 0) {
-            sort = a.timeScore - b.timeScore;
-          }
-          return sort;
-        }))
+        .map(rankingsSnapshot =>
+            rankingsSnapshot
+                // We only care if they have solved any problems
+                .filter(ranking => !!ranking.problemsSolved)
+                // Sort by most problemsSolved, least time
+                .sort((a, b) => {
+                  let sort = b.problemsSolved - a.problemsSolved;
+                  if (sort === 0) {
+                    sort = a.timeScore - b.timeScore;
+                  }
+                  return sort;
+                }))
         // Get the user data per uid
         .flatMap(rankingsSnapshot =>
             // Combine each Observable<T>[] to Observable<T[]>
