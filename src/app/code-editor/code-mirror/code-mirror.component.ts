@@ -4,6 +4,7 @@ import { Language } from '../../shared';
 
 import { fromTextArea, Editor, EditorConfiguration } from 'codemirror';
 // TODO: lazy load
+import 'codemirror/addon/mode/simple';
 import 'codemirror/mode/clike/clike';
 import 'codemirror/mode/go/go';
 import 'codemirror/mode/javascript/javascript';

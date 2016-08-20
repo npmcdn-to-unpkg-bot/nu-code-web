@@ -36,8 +36,7 @@ module.exports = function(defaults) {
       // Showdown
       'showdown/dist/*.js',
       // CodeMirror
-      'codemirror/lib/**',
-      'codemirror/mode/**'
+      'codemirror/**'
     ]
   });
 };
