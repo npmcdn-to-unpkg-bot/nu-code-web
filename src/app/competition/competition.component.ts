@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { CollapseDirective } from 'ng2-bootstrap';
@@ -24,7 +24,8 @@ import {
     CountdownComponent,
     ProblemPreviewComponent,
     ScoreboardPreviewComponent
-  ]
+  ],
+  // encapsulation: ViewEncapsulation.None
 })
 export class CompetitionComponent implements OnInit {
   collapsed = false;

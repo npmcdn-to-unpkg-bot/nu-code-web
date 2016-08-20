@@ -10,3 +10,9 @@ hr:first-child {
 #scoreboard-header {
   margin-top: 0;
 }
+:host >>> .active i {
+  color: white;
+}
+:host >>> .active i {
+  color: white;
+}
