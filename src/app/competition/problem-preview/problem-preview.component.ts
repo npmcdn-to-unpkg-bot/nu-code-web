@@ -8,9 +8,11 @@ import { CompetitionProblem, RepositoryService } from '../../shared';
   styleUrls: ['problem-preview.component.css']
 })
 export class ProblemPreviewComponent implements OnInit {
-  @Input() problem: CompetitionProblem;
+  @Input() problemName: string;
+  @Input() solved: boolean;
+  @Input() numIncorrect: number;
 
-  constructor(private repoService: RepositoryService) { }
+  constructor() { }
 
   ngOnInit() {
   }

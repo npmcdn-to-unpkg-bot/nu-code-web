@@ -8,7 +8,7 @@
       <h3>Problems</h3>
       <div class="problem-list list-group" *ngIf="problems">
         <a *ngFor="let problem of problems" [routerLink]="[problem.$key]" [routerLinkActive]="['active']" class="list-group-item">
-          <app-problem-preview [problem]="problem"></app-problem-preview>
+          <app-problem-preview [problemName]="problem.name" [solved]="hasSolved(problem.$key)" [numIncorrect]="numIncorrect(problem.$key)"></app-problem-preview>
         </a>
       </div>
       <div class="clearfix">
