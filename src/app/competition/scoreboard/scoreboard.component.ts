@@ -22,7 +22,7 @@ import {
   pipes: [ZeroPadPipe]
 })
 export class ScoreboardComponent implements OnInit {
-  ended = false;
+  ended: boolean;
   competition: Competition;
   rankings: CompetitionScoreboardRanking[];
 
@@ -35,14 +35,21 @@ export class ScoreboardComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       let competitionId = params['id'];
-      this.repoService.getCompetition(competitionId)
+      this.repoService
+          .getCompetition(competitionId)
           .subscribe(competition => {
             this.competition = competition;
-            Observable.timer(competition.endTime).subscribe(() => {
+            if (new Date() < competition.endTime) {
+              this.ended = false;
+              Observable.timer(competition.endTime).subscribe(() => {
+                this.ended = true;
+              });
+            } else {
               this.ended = true;
-            });
+            }
           });
-      this.repoService.getCompetitionScoreboard(competitionId)
+      this.repoService
+          .getCompetitionScoreboard(competitionId)
           .subscribe(rankings => this.rankings = rankings);
     });
   }

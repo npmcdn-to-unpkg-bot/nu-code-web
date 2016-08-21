@@ -1,6 +1,6 @@
 <div class="container">
   <div class="top">
-    <div class="row" *ngIf="competition">
+    <div class="row" *ngIf="competition && ended !== undefined">
       <div class="col-xs-12 col-sm-10 scoreboard-header">
         <h2>
           <span class="competition-name">{{competition.name}}</span>
