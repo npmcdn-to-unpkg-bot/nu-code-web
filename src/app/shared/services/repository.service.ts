@@ -87,6 +87,16 @@ export class RepositoryService {
             .map(snapshot => CompetitionProblem.fromSnapshot(snapshot)));
   }
 
+  hasSolvedCompetitionProblem(competitionId: string, problemId: string): Observable<boolean> {
+    return this.af.auth
+        .flatMap(auth => this.af.database
+            .object(``
+                + `/competitionScoreboards/${competitionId}`
+                + `/${auth.uid}/problems/${problemId}/solutionSubmittedAfter`)
+            // If this field exists, then the user has solved the problem
+            .map(snapshot => snapshot.$value != undefined));
+  }
+
   getCompetitionScoreboard(competitionId: string): Observable<CompetitionScoreboardRanking[]> {
     return this.af.database
         // Get the simple any[] from firebase

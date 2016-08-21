@@ -31,6 +31,8 @@ export class ProblemViewComponent implements OnInit {
   problem: CompetitionProblem;
   submission: any = {};
 
+  solved: boolean;
+
   endedAlready: boolean;
   endedWhileWatching = false;
 
@@ -74,6 +76,9 @@ export class ProblemViewComponent implements OnInit {
         this.repoService
             .getCompetitionProblem(competitionId, problemId)
             .subscribe(problem => this.problem = problem);
+        this.repoService
+            .hasSolvedCompetitionProblem(competitionId, problemId)
+            .subscribe(solved => this.solved = solved);
       });
     });
   }
