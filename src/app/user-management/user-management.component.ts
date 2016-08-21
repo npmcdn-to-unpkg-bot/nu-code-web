@@ -65,15 +65,10 @@ export class UserManagementComponent implements OnInit {
         break;
       case 'verifyEmail':
         this.action = 'verifyEmail';
-        // Await log in
-        this.authService.loggedIn.take(1).toPromise().then(loggedIn => {
-          if (loggedIn) {
-            this.state = 'loading';
-            this.authService.verifyEmail(this.oobCode).then(
-                () => this.state = 'success',
-                err => this.state = 'error');
-          }
-        });
+        this.state = 'loading';
+        this.authService.verifyEmail(this.oobCode).then(
+            () => this.state = 'success',
+            err => this.state = 'error');
         break;
       default:
         this.redirectHome();

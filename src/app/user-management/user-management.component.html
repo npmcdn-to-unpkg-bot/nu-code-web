@@ -38,26 +38,20 @@
 
     <!-- Email Verification -->
     <div *ngSwitchCase="'verifyEmail'">
-      <div *ngIf="(authService.loggedIn | async)">
-        <div [ngSwitch]="state">
-          <div *ngSwitchCase="'success'">
-            <h2 class="green">Email Verified!</h2>
-            <p>The account associated with {{email}} has successfully been verified.</p>
-            <!-- TODO: list the newly granted permissions -->
-            <a (click)="redirectHome()">Return to the homepage</a>
-          </div>
-
-          <div *ngSwitchCase="'error'">
-            <h2 class="red">Uh oh!</h2>
-            <p>There was an error verifying your email.</p>
-            <p>Try verifying again.</p>
-            <a class="btn btn-default" (click)="authService.sendVerificationEmail()">Resend Verification Email</a>
-          </div>
+      <div [ngSwitch]="state">
+        <div *ngSwitchCase="'success'">
+          <h2 class="green">Email Verified!</h2>
+          <p>The account associated with {{email}} has successfully been verified.</p>
+          <!-- TODO: list the newly granted permissions -->
+          <a (click)="redirectHome()">Return to the homepage</a>
         </div>
-      </div>
-      <div *ngIf="!(authService.loggedIn | async)">
-        <p>You need to log in before action can proceed.</p>
-        <a class="btn btn-primary" (click)="loginModalService.show()">Log In</a>
+
+        <div *ngSwitchCase="'error'">
+          <h2 class="red">Uh oh!</h2>
+          <p>There was an error verifying your email.</p>
+          <p>Try verifying again.</p>
+          <a class="btn btn-default" (click)="authService.sendVerificationEmail()">Resend Verification Email</a>
+        </div>
       </div>
     </div>
   </div>

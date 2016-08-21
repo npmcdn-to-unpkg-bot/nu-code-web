@@ -117,12 +117,16 @@ export class AuthService {
         : Promise.reject('User is not logged in!'));
   }
 
-  /**
-   * Requires that a user be logged in.
-   */
   verifyEmail(oobCode: string): Promise<void> {
     return firebase.auth().applyActionCode(oobCode).then(
-        () => this.notifyNewlyVerified());
+      () => Promise.all([
+              this.notifyNewlyVerified(),
+              firebase.auth().currentUser.reload()
+            ]),
+      err => {
+        console.error(err);
+        return Promise.reject(err);
+      });
   }
 
   private notifyNewlyVerified(): Promise<void> {
