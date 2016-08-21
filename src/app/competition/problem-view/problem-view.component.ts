@@ -5,7 +5,6 @@ import { FaDirective } from 'angular2-fontawesome/directives';
 import { CodeEditorComponent } from '../../code-editor';
 import { SubmissionModalComponent } from '../../submission-modal';
 import {
-  AuthService,
   CompetitionProblem,
   MarkdownPipe,
   RepositoryService,
@@ -39,7 +38,6 @@ export class ProblemViewComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private repoService: RepositoryService,
-      private authService: AuthService,
       private templateService: SubmissionTemplateService) { }
 
   ngOnInit() {
