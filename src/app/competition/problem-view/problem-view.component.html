@@ -11,17 +11,19 @@
       <span class="problem-detail-value">{{problem.penalty}} second{{problem.penalty == 1 ? '' : 's'}}</span>
     </p>
   </div>
-  <div *ngIf="endedAlready" class="lead text-danger">
-    This competition has ended
-  </div>
-  <div *ngIf="!endedAlready">
-    <app-code-editor #editor [(ngModel)]="submission"></app-code-editor>
-    <div *ngIf="endedWhileWatching" class="lead text-danger">
-      The submission window has closed
+  <div *ngIf="endedAlready !== undefined">
+    <div *ngIf="endedAlready" class="lead text-danger">
+      This competition has ended
     </div>
-    <div *ngIf="!endedWhileWatching">
-      <div class="clearfix">
-        <button (click)="submissionModal.handleSubmission(submission)" class="problem-submit btn btn-primary pull-right">Submit</button>
+    <div *ngIf="!endedAlready">
+      <app-code-editor #editor [(ngModel)]="submission"></app-code-editor>
+      <div *ngIf="endedWhileWatching" class="lead text-danger">
+        The submission window has closed
+      </div>
+      <div *ngIf="!endedWhileWatching">
+        <div class="clearfix">
+          <button (click)="submissionModal.handleSubmission(submission)" class="problem-submit btn btn-primary pull-right">Submit</button>
+        </div>
       </div>
     </div>
   </div>

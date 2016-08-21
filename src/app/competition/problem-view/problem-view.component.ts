@@ -31,8 +31,8 @@ export class ProblemViewComponent implements OnInit {
   problem: CompetitionProblem;
   submission: any = {};
 
-  endedAlready: boolean = false;
-  endedWhileWatching: boolean = false;
+  endedAlready: boolean;
+  endedWhileWatching = false;
 
   constructor(
       private router: Router,
@@ -60,6 +60,7 @@ export class ProblemViewComponent implements OnInit {
             let now = new Date();
             // Designate as finished or schedule the finish time.
             if (now < competition.endTime) {
+              this.endedAlready = false;
               Observable.timer(competition.endTime).subscribe(() => {
                 this.endedWhileWatching = true;
               });
