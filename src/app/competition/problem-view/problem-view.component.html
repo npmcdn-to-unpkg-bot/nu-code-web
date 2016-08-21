@@ -1,29 +1,26 @@
 <div *ngIf="problem">
   <h2>{{problem.name}}</h2>
   <div class="problem-description markdown-body" [innerHTML]="problem.description | markdown"></div>
-  <div class="problem-details">
-    <p class="problem-detail">
-      <span class="problem-detail-label">Time Limit: </span>
-      <span class="problem-detail-value">{{problem.timeout}} second{{problem.timeout == 1 ? '' : 's'}}</span>
-    </p>
-    <p class="problem-detail">
-      <span class="problem-detail-label">Penalty: </span>
-      <span class="problem-detail-value">{{problem.penalty}} second{{problem.penalty == 1 ? '' : 's'}}</span>
-    </p>
-  </div>
-  <div *ngIf="endedAlready !== undefined">
-    <div *ngIf="endedAlready" class="lead text-danger">
-      This competition has ended
+
+  <div *ngIf="endedAlready === false">
+    <div class="problem-details">
+      <p class="problem-detail">
+        <span class="problem-detail-label">Time Limit: </span>
+        <span class="problem-detail-value">{{problem.timeout}} second{{problem.timeout == 1 ? '' : 's'}}</span>
+      </p>
+      <p class="problem-detail">
+        <span class="problem-detail-label">Penalty: </span>
+        <span class="problem-detail-value">{{problem.penalty}} second{{problem.penalty == 1 ? '' : 's'}}</span>
+      </p>
     </div>
-    <div *ngIf="!endedAlready">
-      <app-code-editor #editor [(ngModel)]="submission"></app-code-editor>
-      <div *ngIf="endedWhileWatching" class="lead text-danger">
-        The submission window has closed
-      </div>
-      <div *ngIf="!endedWhileWatching">
-        <div class="clearfix">
-          <button (click)="submissionModal.handleSubmission(submission)" class="problem-submit btn btn-primary pull-right">Submit</button>
-        </div>
+
+    <app-code-editor #editor [(ngModel)]="submission"></app-code-editor>
+    <div *ngIf="endedWhileWatching" class="lead text-danger">
+      The submission window has closed
+    </div>
+    <div *ngIf="!endedWhileWatching">
+      <div class="clearfix">
+        <button (click)="submissionModal.handleSubmission(submission)" class="problem-submit btn btn-primary pull-right">Submit</button>
       </div>
     </div>
   </div>

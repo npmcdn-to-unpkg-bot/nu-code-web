@@ -24,12 +24,11 @@ import {
     CountdownComponent,
     ProblemPreviewComponent,
     ScoreboardPreviewComponent
-  ],
-  // encapsulation: ViewEncapsulation.None
+  ]
 })
 export class CompetitionComponent implements OnInit {
   collapsed = false;
-  ended = false;
+  ended: boolean;
   competition: Competition;
   problems: CompetitionProblem[];
   myRanking: any;
@@ -46,9 +45,14 @@ export class CompetitionComponent implements OnInit {
         .getCompetition(competitionId)
         .subscribe(competition => {
           this.competition = competition;
-          Observable.timer(this.competition.endTime).subscribe(() => {
+          if (new Date() < competition.endTime) {
+            this.ended = false;
+            Observable.timer(competition.endTime).subscribe(() => {
+              this.ended = true;
+            });
+          } else {
             this.ended = true;
-          });
+          }
         });
     this.repoService
         .getCompetitionProblems(competitionId)

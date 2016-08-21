@@ -11,25 +11,37 @@
           <app-problem-preview [problemName]="problem.name" [solved]="hasSolved(problem.$key)" [numIncorrect]="numIncorrect(problem.$key)"></app-problem-preview>
         </a>
       </div>
-      <div class="clearfix">
-        <h3 class="pull-left" id="scoreboard-header">Details</h3>
-        <a class="pull-right no-select collapse-btn" (click)="collapsed = !collapsed">
-          <span>[ <span *ngIf="collapsed">+</span><span *ngIf="!collapsed">-</span> ]</span>
-        </a>
-      </div>
-      <div class="details" [collapse]="collapsed">
-        <div class="remaining-time" *ngIf="!ended">
-          <hr>
-          <span class="text-muted">Remaining:</span>
-          <app-countdown class="timer" [date]="competition.endTime" [labels]="true"></app-countdown>
-          <hr>
+
+      <div *ngIf="ended !== undefined">
+        <div *ngIf="ended" class="text-center">
+          <p class="lead text-danger">This competition has ended</p>
+          <a [routerLink]="['scoreboard']" class="btn btn-primary center-block">View Results</a>
         </div>
-        <div class="scoreboard-preview">
+
+        <div *ngIf="!ended">
           <div class="clearfix">
-            <h4 class="pull-left" id="scoreboard-header">Scoreboard</h4>
-            <a class="pull-right" [routerLink]="['scoreboard']">View Full</a>
+            <h3 class="pull-left" id="scoreboard-header">Details</h3>
+            <a class="pull-right no-select collapse-btn" (click)="collapsed = !collapsed">
+              <span>[ <span *ngIf="collapsed">+</span><span *ngIf="!collapsed">-</span> ]</span>
+            </a>
           </div>
-          <app-scoreboard-preview [competitionId]="competition.$key"></app-scoreboard-preview>
+
+          <div class="details" [collapse]="collapsed">
+            <div class="remaining-time">
+              <hr>
+              <span class="text-muted">Remaining:</span>
+              <app-countdown class="timer" [date]="competition.endTime" [labels]="true"></app-countdown>
+              <hr>
+            </div>
+
+            <div class="scoreboard-preview">
+              <div class="clearfix">
+                <h4 class="pull-left" id="scoreboard-header">Scoreboard</h4>
+                <a class="pull-right" [routerLink]="['scoreboard']">View Full</a>
+              </div>
+              <app-scoreboard-preview [competitionId]="competition.$key"></app-scoreboard-preview>
+            </div>
+          </div>
         </div>
       </div>
     </div>
