@@ -56,17 +56,19 @@ export class ProblemViewComponent implements OnInit {
     parentActivatedRoute.params.subscribe(params => {
       let competitionId = params['id'];
       this.submission.competition = competitionId;
-      this.repoService.getCompetition(competitionId).subscribe(competition => {
-        let now = new Date();
-        // Designate as finished or schedule the finish time.
-        if (now < competition.endTime) {
-          Observable.timer(competition.endTime).subscribe(() => {
-            this.endedWhileWatching = true;
+      this.repoService
+          .getCompetition(competitionId)
+          .subscribe(competition => {
+            let now = new Date();
+            // Designate as finished or schedule the finish time.
+            if (now < competition.endTime) {
+              Observable.timer(competition.endTime).subscribe(() => {
+                this.endedWhileWatching = true;
+              });
+            } else {
+              this.endedAlready = true;
+            }
           });
-        } else {
-          this.endedAlready = true;
-        }
-      });
       this.route.params.subscribe(params => {
         let problemId = params['problemId'];
         this.submission.problem = problemId;
