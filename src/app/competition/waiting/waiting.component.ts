@@ -23,14 +23,16 @@ export class WaitingComponent implements OnInit {
 
   ngOnInit() {
     let competitionId = this.route.snapshot.params['id'];
-    this.repoService.getCompetition(competitionId).subscribe(competition => {
-      this.competition = competition;
-      let competitionLength = competition.endTime.getTime() - competition.startTime.getTime();
-      this.allottedTime = moment.duration(competitionLength, 'ms').humanize();
-      // Schedule navigation
-      Observable.timer(competition.startTime).subscribe(() => {
-        this.router.navigate(['competitions', competitionId]);
-      });
-    });
+    this.repoService
+        .getCompetition(competitionId)
+        .subscribe(competition => {
+          this.competition = competition;
+          let competitionLength = competition.endTime.getTime() - competition.startTime.getTime();
+          this.allottedTime = moment.duration(competitionLength, 'ms').humanize();
+          // Schedule navigation
+          Observable.timer(competition.startTime).subscribe(() => {
+            this.router.navigate(['competitions', competitionId]);
+          });
+        });
   }
 }
