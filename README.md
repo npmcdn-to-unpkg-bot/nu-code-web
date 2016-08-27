@@ -23,7 +23,6 @@ See more instructions on the Angular CLI on
 
 - [ ] Deleting a test case in problem view can fail
   - Recreate bug by adding a test case, deleting the first then adding again
-- [ ] Delete problem not working
 
 # TODO:
 
