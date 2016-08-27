@@ -18,7 +18,7 @@ export class EditProblemFormComponent implements OnInit {
   @Input() problem: Problem;
   @Input() testCases: TestCase[];
 
-  @Output() submit = new EventEmitter();
+  @Output() finish = new EventEmitter();
 
   constructor() { }
 
@@ -29,15 +29,15 @@ export class EditProblemFormComponent implements OnInit {
     this.testCases.push(new TestCase());
   }
 
-  removeTestCase(index: number): void {
+  removeTestCase(index: number) {
     // TODO: confirm deletion
     // TODO: bug in angular? try adding a test case, deleting the first then adding again
     this.testCases.splice(index, 1);
   }
 
-  send(): void {
+  send() {
     this.removeEmptyHints();
-    this.submit.emit({ problem: this.problem, testCases: this.testCases });
+    this.finish.emit({ problem: this.problem, testCases: this.testCases });
   }
 
   private removeEmptyHints() {
