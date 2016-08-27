@@ -1,4 +1,3 @@
-import { Feedback } from './feedback';
 import { TimeSpan } from './time-span';
 import { User } from './user';
 
@@ -42,7 +41,6 @@ export interface CompetitionProblem {
   $key?: string;
   name: string;
   description: string;
-  feedback: Feedback;
   timeout: number;
   penalty: number;
 }
@@ -51,12 +49,10 @@ export class CompetitionProblem implements CompetitionProblem {
   constructor(
       name = '',
       description = '',
-      feedback: Feedback = 'Simple',
       timeout = 3,
       penalty = 0) {
     this.name = name;
     this.description = description;
-    this.feedback = feedback;
     this.timeout = timeout;
     this.penalty = penalty;
   }
@@ -66,7 +62,6 @@ export class CompetitionProblem implements CompetitionProblem {
       $key: snapshot.$key,
       name: snapshot.name,
       description: snapshot.description,
-      feedback: snapshot.feedback,
       timeout: snapshot.timeout,
       penalty: snapshot.penalty
     };
