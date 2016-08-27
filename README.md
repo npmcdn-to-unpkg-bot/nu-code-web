@@ -22,6 +22,8 @@ See more instructions on the Angular CLI on
 # Known Bugs
 
 - [ ] Create problem called twice
+- [ ] Deleting a test case in problem view can fail
+  - Recreate bug by adding a test case, deleting the first then adding again
 - [ ] Delete problem not working
 
 # TODO:
