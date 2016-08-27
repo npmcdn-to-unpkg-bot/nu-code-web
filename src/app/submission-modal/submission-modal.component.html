@@ -1,5 +1,6 @@
 <div bsModal #modal="bs-modal" class="modal fade"
     [config]="{backdrop: 'static'}" tabindex="-1"
+    (onHide)="onHide()"
     role="dialog" aria-labelledby="modal" aria-hidden="true">
   <div class="vertical-alignment-helper">
     <div class="modal-dialog vertical-align-center">

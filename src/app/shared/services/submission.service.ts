@@ -15,8 +15,6 @@ export class SubmissionService {
   submit(submission: Submission): Observable<Result> {
     return this.http
       .post(Url, submission, {headers: RequestHeaders})
-      .map(res => {
-        return res.json() as Result;
-      });
+      .map(res => res.json() as Result);
   }
 }

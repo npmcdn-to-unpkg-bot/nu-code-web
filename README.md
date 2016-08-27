@@ -29,7 +29,6 @@ See more instructions on the Angular CLI on
 - [ ] Help / FAQ / changelog
   - [ ] Suggestion box - submit bug report, feature request, Lang request
 - [ ] Indication of email sent
-- [ ] Escape to cancel submission
 - [ ] Upgrade to RC.5
 - [ ] Stress test
 - [ ] Change feedback level impl
