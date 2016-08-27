@@ -41,7 +41,7 @@
             <div *ngIf="result.status === 'CompilationError'">
               <i fa class="red" [name]="'exclamation-circle'" [size]=4></i>
               <h3 class="result-status red">Compilation Error</h3>
-              <div class="well">
+              <div class="well" *ngIf="result.message">
                 <p class="result-error-message larger" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
             </div>
@@ -49,7 +49,7 @@
             <div *ngIf="result.status === 'RuntimeError'">
               <i fa class="red" [name]="'exclamation-circle'" [size]=4></i>
               <h3 class="result-status red">Runtime Error</h3>
-              <div class="well">
+              <div class="well" *ngIf="result.message">
                 <p class="result-error-message larger" [innerHTML]="result.message | ansiToHtml"></p>
               </div>
             </div>
