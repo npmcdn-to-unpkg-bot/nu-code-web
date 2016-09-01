@@ -7,7 +7,7 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { User } from '../';
 import { RepositoryService } from './repository.service';
 
-const NewlyVerifiedUrl = 'http://code.neumont.edu:3006/verified';
+const NewlyVerifiedUrl = 'http://code.neumont.edu/verified';
 const RequestHeaders = new Headers({
   'Content-Type': 'application/json'
 });
