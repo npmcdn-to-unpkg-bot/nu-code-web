@@ -1,7 +1,6 @@
 {
   "globalDependencies": {
     "codemirror": "registry:dt/codemirror#0.0.0+20160619021621",
-    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
     "showdown": "registry:dt/showdown#1.4.1+20160608102004"
   },
   "dependencies": {
