@@ -1,9 +1,0 @@
-<div class="row clearfix preview">
-  <div class="pull-left">
-    {{problemName}}
-  </div>
-  <div class="pull-right">
-    <span *ngIf="!solved && numIncorrect">{{numIncorrect}} <i fa [name]="'times-circle'" class="red"></i></span>
-    <span *ngIf="solved"><i fa [name]="'check'" class="green"></i></span>
-  </div>
-</div>
