@@ -6,9 +6,9 @@ import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import { routing, appRoutingProviders } from './app.routing';
-
 import { LoginModalModule } from './login-modal';
 import { NavbarModule } from './navbar';
+import { AuthService, LoginModalService, RepositoryService } from './shared';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBJeW4SZUNUySEHd7GLc1qwBxsNLgN2a8Y',
@@ -22,15 +22,20 @@ export const firebaseConfig = {
     BrowserModule,
     HttpModule,
 
-    AngularFireModule.initializeApp(firebaseConfig),
-
     routing,
+
+    AngularFireModule.initializeApp(firebaseConfig),
 
     NavbarModule,
     LoginModalModule
   ],
   declarations: [AppComponent],
-  providers: [appRoutingProviders],
+  providers: [
+    appRoutingProviders,
+    AuthService,
+    LoginModalService,
+    RepositoryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

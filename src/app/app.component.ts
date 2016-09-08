@@ -3,17 +3,12 @@ import 'bootstrap';
 
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 
-import { AuthService, LoginModalService, RepositoryService } from './shared';
 import { LoginModalComponent } from './login-modal';
+import { AuthService, LoginModalService, RepositoryService } from './shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
-  providers: [
-    AuthService,
-    LoginModalService,
-    RepositoryService
-  ],
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css']
 })
