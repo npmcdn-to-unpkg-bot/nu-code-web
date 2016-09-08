@@ -25,7 +25,14 @@ export class AuthService {
       private router: Router,
       private http: Http,
       private af: AngularFire,
-      private repoService: RepositoryService) { }
+      private repoService: RepositoryService) {
+    // Return the user to the homepage if log out occurs
+    this.af.auth.subscribe(auth => {
+      if (!auth) {
+        this.router.navigateByUrl('/');
+      }
+    });
+  }
 
   /**
    * Listen for changes in auth state, through the `firebase.auth.Auth` interface.
@@ -45,8 +52,8 @@ export class AuthService {
 
   get user(): Observable<User> {
     return this.auth.flatMap<User>(auth => auth
-        ? this.repoService.getUser(auth.uid)
-        : Observable.of(null));
+            ? this.repoService.getUser(auth.uid)
+            : Observable.of(null));
   }
 
   logInWithEmailPassword(email: string, password: string): Promise<void> {
@@ -55,6 +62,5 @@ export class AuthService {
 
   logOut(): void {
     this.af.auth.logout();
-    this.router.navigateByUrl('/');
   }
 }
