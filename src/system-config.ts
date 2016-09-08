@@ -14,14 +14,40 @@ System.config({
     '@angular/forms': 'vendor/@angular/forms/bundles/forms.umd.js',
 
     'rxjs': 'vendor/rxjs',
+
+    'firebase': 'vendor/firebase/firebase.js',
+    'angularfire2': 'vendor/angularfire2'
   },
   packages: {
     'app': {
       main: './main.js',
       defaultExtension: 'js'
     },
+
     'rxjs': {
       defaultExtension: 'js'
+    },
+
+    'angularfire2': {
+      defaultExtension: 'js',
+      main: 'angularfire2.js'
     }
   }
+});
+
+const barrels: string[] = [
+  'app/shared',
+  'app/shared/guards',
+  'app/shared/models',
+  'app/shared/pipes',
+  'app/shared/services'
+];
+
+const cliSystemConfigPackages: any = {};
+barrels.forEach((barrelName: string) => {
+  cliSystemConfigPackages[barrelName] = { main: 'index' };
+});
+
+System.config({
+  packages: cliSystemConfigPackages
 });
