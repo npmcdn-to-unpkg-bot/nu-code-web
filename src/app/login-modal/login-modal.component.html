@@ -1,0 +1,36 @@
+<div bsModal role="dialog" class="modal fade" (onHide)="onHide()" #modal="bs-modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog vertical-align-center">
+      <div class="modal-content">
+        <div class="modal-header lead">
+          Log in to an existing account
+        </div>
+        <div class="modal-body">
+          <div *ngIf="loginForm.hasError('invalidEmailOrPassword')" class="alert alert-danger">Wrong email or password</div>
+          <div *ngIf="loginForm.hasError('serverUnreachable')" class="alert alert-danger">The server is unreachable. Are you connected to the internet?</div>
+          <div *ngIf="loginForm.hasError('tooManyRequests')" class="alert alert-danger">Too many attempts. Try again later.</div>
+          <div *ngIf="loginForm.hasError('unexpectedError')" class="alert alert-danger">An unexpected error occurred. Try again later.</div>
+          <form role="form" [formGroup]="loginForm" (ngSubmit)="logInWithEmailPassword()">
+            <div class="form-group">
+              <div class="input-group email-group">
+                <span class="input-group-addon"><i fa [name]="'envelope'" [fw]=true></i></span>
+                <input type="email" class="form-control input-lg" name="email" placeholder="Email" formControlName="email" [(ngModel)]="email">
+              </div>
+              <div class="input-group password-group">
+                <span class="input-group-addon"><i fa [name]="'lock'" [fw]=true></i></span>
+                <input type="password" class="form-control input-lg" name="password" placeholder="Password" formControlName="password" [(ngModel)]="password">
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-lg btn-block btn-primary">Log In</button>
+            </div>
+          </form>
+            <!--<hr/>-->
+            <!-- TODO: facebook, google, github -->
+          <a class="option" [routerLink]="['/reset-password']" (click)="modal.hide()">Forgot Password?</a>
+          <a class="option" [routerLink]="['/register']" (click)="modal.hide()">Don't have an account? Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

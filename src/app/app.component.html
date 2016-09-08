@@ -3,3 +3,6 @@
 <div class="app-content container-fluid">
   <router-outlet></router-outlet>
 </div>
+
+<!-- Triggered by the login modal service -->
+<app-login-modal #loginModal *ngIf="!(authService.loggedIn | async)"></app-login-modal>

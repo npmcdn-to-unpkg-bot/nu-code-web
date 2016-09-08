@@ -7,7 +7,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AppComponent } from './app.component';
 import { routing, appRoutingProviders } from './app.routing';
 
-import { NavbarModule } from './navbar/navbar.module';
+import { LoginModalModule } from './login-modal';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBJeW4SZUNUySEHd7GLc1qwBxsNLgN2a8Y',
@@ -25,7 +25,8 @@ export const firebaseConfig = {
 
     routing,
 
-    NavbarModule
+    NavbarModule,
+    LoginModalModule
   ],
   declarations: [AppComponent],
   providers: [appRoutingProviders],

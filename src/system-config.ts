@@ -19,7 +19,12 @@ System.config({
     'bootstrap': 'vendor/bootstrap/dist/js/bootstrap.min.js',
 
     'firebase': 'vendor/firebase/firebase.js',
-    'angularfire2': 'vendor/angularfire2'
+    'angularfire2': 'vendor/angularfire2',
+
+    'angular2-fontawesome': 'vendor/angular2-fontawesome',
+
+    'moment': 'vendor/moment/moment.js',
+    'ng2-bootstrap': 'vendor/ng2-bootstrap'
   },
   packages: {
     'app': {
@@ -34,11 +39,19 @@ System.config({
     'angularfire2': {
       defaultExtension: 'js',
       main: 'angularfire2.js'
+    },
+    'ng2-bootstrap': {
+      defaultExtension: 'js',
+      main: 'ng2-bootstrap.js'
+    },
+    'angular2-fontawesome': {
+      defaultExtension: 'js'
     }
   }
 });
 
 const barrels: string[] = [
+  'app/login-modal',
   'app/shared',
   'app/shared/guards',
   'app/shared/models',
