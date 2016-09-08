@@ -15,6 +15,9 @@ System.config({
 
     'rxjs': 'vendor/rxjs',
 
+    'jquery': 'vendor/jquery/dist/jquery.min.js',
+    'bootstrap': 'vendor/bootstrap/dist/js/bootstrap.min.js',
+
     'firebase': 'vendor/firebase/firebase.js',
     'angularfire2': 'vendor/angularfire2'
   },
