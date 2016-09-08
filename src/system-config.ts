@@ -52,6 +52,7 @@ System.config({
 
 const barrels: string[] = [
   'app/login-modal',
+  'app/navbar',
   'app/shared',
   'app/shared/guards',
   'app/shared/models',

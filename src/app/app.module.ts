@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { routing, appRoutingProviders } from './app.routing';
 
 import { LoginModalModule } from './login-modal';
+import { NavbarModule } from './navbar';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBJeW4SZUNUySEHd7GLc1qwBxsNLgN2a8Y',
